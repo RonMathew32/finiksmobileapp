@@ -1,14 +1,10 @@
 import axios from 'axios';
 import store from '../redux/store';
-//  url = "https://dev.j7konnect.com";
-//url= "https://global.j7konnect.com"
-//url="http://192.168.1.25:8000"
-
-const GlobalApi = axios.create({
+const FiniksApi = axios.create({
   baseURL: 'https://finiksbackend-stg-b8ffcd2e360d.herokuapp.com',
 });
 
-GlobalApi.interceptors.request.use(
+FiniksApi.interceptors.request.use(
   async config => {
     const data = store.getState();
     const token = data.userReducer.token;
@@ -22,4 +18,4 @@ GlobalApi.interceptors.request.use(
   },
 );
 
-export default GlobalApi;
+export default FiniksApi;
