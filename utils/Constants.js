@@ -1,5 +1,5 @@
 import {Dimensions, Platform, PixelRatio} from 'react-native';
-import GlobalApi from '../api/api';
+import GlobalApi from '../src/api/api';
 import {
   docxfile,
   gallery,
@@ -30,3 +30,8 @@ export function normalize(size) {
 export const fetcher = (...args) => fetch(...args).then(res => res.json());
 
 export const Axiosfetcher = url => GlobalApi.get(url).then(res => res.data);
+
+export const Montserrat = 'Montserrat';
+export const MontserratBold = 'Montserrat-Bold';
+export const MontserratSemiBold = 'Montserrat-SemiBold';
+export const MontserratMedium = 'Montserrat-Medium';

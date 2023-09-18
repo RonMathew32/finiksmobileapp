@@ -1,3 +1,5 @@
-const loginback = require('../assets/bacxk1.jpg');
+const loginback = require('../assets/back1.jpg');
+const logo = require('../assets/logo.png');
+const logowhite = require('../assets/Logowhite.svg');
 
-export {loginback};
+export {loginback, logo, logowhite};
