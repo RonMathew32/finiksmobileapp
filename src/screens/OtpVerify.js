@@ -9,70 +9,71 @@ import {
   View,
 } from 'react-native';
 import React, {useState} from 'react';
-import {loginback, logo, logowhite} from '../../utils/images';
-import {hp, normalize, wp} from '../../utils/Constants';
+import {chevronleft, loginback, logo, logowhite} from '../../utils/images';
+import {Montserrat, hp, normalize, wp} from '../../utils/Constants';
 import InputText from '../components/InputText';
 import {useNavigation} from '@react-navigation/native';
 
-const Login = () => {
+const OtpVerify = () => {
   const navigation = useNavigation();
   const [data, setData] = useState({
-    email: '',
-    password: '',
+    code: '',
   });
 
   const onChangeValue = (key, value) => {
     setData({...data, [key]: value});
   };
-
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="light-content" />
+      <TouchableOpacity
+        onPress={() => navigation.canGoBack() && navigation.goBack()}
+        style={styles.backiconbox}>
+        <Image source={chevronleft} style={styles.backicon} />
+      </TouchableOpacity>
       <ImageBackground source={loginback} style={styles.backimg}>
         <Image source={logo} style={styles.logo} resizeMode="contain" />
       </ImageBackground>
       <View style={styles.inputmainbox}>
+        <Text style={styles.headtxt}>
+          Enter your unique 6 digit campaign invite code below:
+        </Text>
         <InputText
-          placeholder="Email address"
-          value={data.email}
+          placeholder="Invite Code"
+          value={data.code}
           multiline={false}
-          onChangeText={val => onChangeValue('email', val)}
+          onChangeText={val => onChangeValue('code', val)}
           containerstyle={styles.containerstyle}
           textinputstyle={styles.textinputstyle}
+          type={true}
         />
-        <InputText
-          placeholder="Password"
-          value={data.email}
-          multiline={false}
-          onChangeText={val => onChangeValue('email', val)}
-          containerstyle={styles.containerstyle}
-          textinputstyle={styles.textinputstyle}
-        />
-        <Text style={styles.forgottxt}>Forgot Password?</Text>
+
         <TouchableOpacity
           onPress={() => navigation.navigate('CompaignSelection')}
           style={styles.button}>
-          <Text style={styles.buttontxt}>Sign In</Text>
+          <Text style={styles.buttontxt}>Verify</Text>
         </TouchableOpacity>
-        <Text style={styles.donttxt}>
-          Don’t have an account?{'  '}
-          <Text
-            onPress={() => navigation.navigate('Register')}
-            style={styles.signuptxt}>
-            Sign up
-          </Text>
-        </Text>
       </View>
     </SafeAreaView>
   );
 };
 
-export default Login;
+export default OtpVerify;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#130000',
+  },
+  backiconbox: {
+    marginLeft: wp(5),
+    position: 'absolute',
+    top: hp(7),
+  },
+  backicon: {
+    width: wp(6),
+    height: wp(6),
+    tintColor: 'white',
   },
   backimg: {
     width: '100%',
@@ -85,24 +86,30 @@ const styles = StyleSheet.create({
     width: wp(70),
     height: hp(20),
   },
+
   inputmainbox: {
     marginHorizontal: wp(5),
     marginTop: hp(3),
+  },
+  headtxt: {
+    fontFamily: Montserrat,
+    fontSize: normalize(18),
+    lineHeight: normalize(22),
+    color: '#D2D2D2',
+    textAlign: 'center',
+    marginBottom: hp(2),
   },
   containerstyle: {
     height: hp(6.3),
     marginBottom: hp(2),
     flex: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  textinputstyle: {},
-  forgottxt: {
-    fontSize: normalize(14),
-    fontWeight: '400',
-    color: 'white',
-    alignSelf: 'flex-end',
-    marginTop: -hp(1),
-    marginRight: wp(2),
+  textinputstyle: {
+    flex: 0,
   },
+
   button: {
     height: hp(6),
     width: '50%',
@@ -111,22 +118,12 @@ const styles = StyleSheet.create({
     borderRadius: wp(3),
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: hp(3),
+    marginTop: hp(18),
   },
 
   buttontxt: {
     fontSize: normalize(16),
     fontWeight: '700',
     color: 'white',
-  },
-  donttxt: {
-    fontSize: normalize(14),
-    fontWeight: '400',
-    color: 'white',
-    marginTop: hp(4),
-    alignSelf: 'center',
-  },
-  signuptxt: {
-    color: 'rgba(209, 46, 47, 1)',
   },
 });
