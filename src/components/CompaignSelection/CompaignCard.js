@@ -3,12 +3,9 @@ import React from 'react';
 import {MontserratSemiBold, hp, normalize, wp} from '../../../utils/Constants';
 import {useNavigation} from '@react-navigation/native';
 
-const CompaignCard = ({name, status}) => {
-  const navigation = useNavigation();
+const CompaignCard = ({name, status, onPress}) => {
   return (
-    <TouchableOpacity
-      onPress={() => navigation.navigate('Authenticated')}
-      style={styles.container}>
+    <TouchableOpacity onPress={onPress} style={styles.container}>
       <Text style={styles.name}>{name}</Text>
       <View style={[styles.dot, status && {backgroundColor: '#49C661'}]}></View>
     </TouchableOpacity>
@@ -23,7 +20,8 @@ const styles = StyleSheet.create({
     height: hp(7),
     borderRadius: wp(2),
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
+    paddingHorizontal: wp(7),
     alignItems: 'center',
     marginBottom: hp(1.5),
     //shadow

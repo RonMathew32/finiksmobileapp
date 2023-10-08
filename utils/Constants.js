@@ -35,3 +35,4 @@ export const Montserrat = 'Montserrat';
 export const MontserratBold = 'Montserrat-Bold';
 export const MontserratSemiBold = 'Montserrat-SemiBold';
 export const MontserratMedium = 'Montserrat-Medium';
+export const MontserratExtraBold = 'Montserrat-ExtraBold';

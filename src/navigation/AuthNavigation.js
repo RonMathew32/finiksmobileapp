@@ -1,15 +1,20 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import Home from '../screens/Authenticated/Home';
-import Chat from '../screens/Authenticated/Chat';
-import LeaderBoard from '../screens/Authenticated/LeaderBoard';
-import PhoneBank from '../screens/Authenticated/PhoneBank';
-import Canvass from '../screens/Authenticated/Canvass';
+import Home from '../screens/Authenticated/Home/Home';
+import Chat from '../screens/Authenticated/Chat/Chat';
+import LeaderBoard from '../screens/Authenticated/LeadBoard/LeaderBoard';
+import Canvass from '../screens/Authenticated/Canvass/Canvass';
+import PhoneBanking from './PhoneBanking';
+import {getFocusedRouteNameFromRoute} from '@react-navigation/native';
 
 const Tab = createBottomTabNavigator();
 
 const AuthNavigation = () => {
   return (
-    <Tab.Navigator screenOptions={{headerShown: false}}>
+    <Tab.Navigator
+      screenOptions={({route}) => ({
+        headerShown: false,
+        tabBarStyle: {display: getTabBarVisibility(route)},
+      })}>
       <Tab.Screen
         component={Home}
         name="Home"
@@ -26,8 +31,8 @@ const AuthNavigation = () => {
         options={{tabBarLabel: 'Leader Board'}}
       />
       <Tab.Screen
-        component={PhoneBank}
-        name="PhoneBank"
+        component={PhoneBanking}
+        name="PhoneBanking"
         options={{tabBarLabel: 'Phone Bank'}}
       />
       <Tab.Screen
@@ -38,5 +43,15 @@ const AuthNavigation = () => {
     </Tab.Navigator>
   );
 };
+
+function getTabBarVisibility(route) {
+  const routeName = getFocusedRouteNameFromRoute(route);
+
+  if (routeName === 'VoterCheck' || routeName === 'TotalVoters') {
+    return 'none';
+  }
+
+  return 'flex';
+}
 
 export default AuthNavigation;

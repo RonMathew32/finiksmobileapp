@@ -16,6 +16,10 @@ import {useNavigation} from '@react-navigation/native';
 
 const CompaignSelection = () => {
   const navigation = useNavigation();
+
+  const navigateTo = () => {
+    navigation.navigate('Authenticated');
+  };
   return (
     <SafeAreaView style={styles.container}>
       <CompaignHeader />
@@ -24,8 +28,16 @@ const CompaignSelection = () => {
         <Text style={styles.ongoingtxt}>Ongoing Campaigns</Text>
       </View>
       <View style={styles.compaignBox}>
-        <CompaignCard name="Hannah Jacobs for congress" status={true} />
-        <CompaignCard name="Hannah Jacobs for congress" status={false} />
+        <CompaignCard
+          name="Hannah Jacobs for congress"
+          status={true}
+          onPress={() => navigateTo()}
+        />
+        <CompaignCard
+          name="Hannah Jacobs for congress"
+          status={false}
+          onPress={() => navigateTo()}
+        />
       </View>
       <View style={styles.bottombox}>
         <Text style={styles.jointxt}>Join A New Campaign</Text>

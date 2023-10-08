@@ -1,14 +1,14 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 
-const PhoneBank = () => {
+const AddToTeam = () => {
   return (
     <View>
-      <Text>PhoneBank</Text>
+      <Text>AddToTeam</Text>
     </View>
   );
 };
 
-export default PhoneBank;
+export default AddToTeam;
 
 const styles = StyleSheet.create({});

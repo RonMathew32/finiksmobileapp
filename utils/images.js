@@ -7,6 +7,21 @@ const plusicon = require('../assets/CompaignSelection/plusicon.png');
 const chevronright = require('../assets/Profile/chevronright.png');
 const chevronleft = require('../assets/Profile/chevronleft.png');
 
+const bellicon = require('../assets/Header/bell.png');
+const calendericon = require('../assets/Header/calendericon.png');
+const squareicon = require('../assets/Header/squareicon.png');
+const chevrondown = require('../assets/Header/chevrondown.png');
+
+const homeicon = require('../assets/Header/homeicon.png');
+const messageicon = require('../assets/Header/messageicon.png');
+const phoneicon = require('../assets/Header/phoneicon.png');
+const addusericon = require('../assets/Header/addusericon.png');
+const emailicon = require('../assets/Header/emailicon.png');
+const dotsicon = require('../assets/Header/dotsicon.png');
+
+const chevronback = require('../assets/Header/chevronback.png');
+const filterbtn = require('../assets/Header/filterbtn.png');
+
 export {
   loginback,
   logo,
@@ -16,4 +31,16 @@ export {
   plusicon,
   chevronright,
   chevronleft,
+  bellicon,
+  squareicon,
+  calendericon,
+  chevrondown,
+  homeicon,
+  messageicon,
+  phoneicon,
+  addusericon,
+  emailicon,
+  dotsicon,
+  chevronback,
+  filterbtn,
 };
