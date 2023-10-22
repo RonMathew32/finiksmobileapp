@@ -9,12 +9,23 @@ import {
   View,
 } from 'react-native';
 import React, {useState} from 'react';
-import {chevronleft, loginback, logo, logowhite} from '../../utils/images';
+import {
+  chevronleft,
+  emailicon,
+  loginback,
+  logo,
+  logowhite,
+} from '../../utils/images';
 import {Montserrat, hp, normalize, wp} from '../../utils/Constants';
 import InputText from '../components/InputText';
 import {useNavigation} from '@react-navigation/native';
+import {JoinCampaign, VerifyOTP} from '../api/AuthApi';
+import {
+  ToastMessageDark,
+  ToastMessageLight,
+} from '../components/GlobalComponent/DisplayMessage';
 
-const OtpVerify = () => {
+const OtpVerify = ({route}) => {
   const navigation = useNavigation();
   const [data, setData] = useState({
     code: '',
@@ -23,6 +34,37 @@ const OtpVerify = () => {
   const onChangeValue = (key, value) => {
     setData({...data, [key]: value});
   };
+
+  const onVerifyPress = async () => {
+    try {
+      if (route.params?.type == 'email') {
+        const res = await VerifyOTP({
+          otp: data.code,
+          email: route.params?.data.email,
+        });
+        if (res.data.success) {
+          ToastMessageLight(res.data.message);
+          navigation.navigate('Login');
+        } else {
+          ToastMessageLight(res.data.message);
+        }
+      } else {
+        console.log(route.params?.data.email, data.code ? data.code : 'I02wL!');
+        const res = await JoinCampaign({
+          email: route.params?.data.email,
+          campaignCode: data.code ? data.code : 'I02wL!',
+        });
+        if (res.data) {
+          ToastMessageDark(res.data.message);
+          navigation.goBack();
+        }
+      }
+    } catch (error) {
+      console.log(error.message);
+      ToastMessageLight('Something went wrong kindly try again');
+    }
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="light-content" />
@@ -35,9 +77,16 @@ const OtpVerify = () => {
         <Image source={logo} style={styles.logo} resizeMode="contain" />
       </ImageBackground>
       <View style={styles.inputmainbox}>
-        <Text style={styles.headtxt}>
-          Enter your unique 6 digit campaign invite code below:
-        </Text>
+        {route.params?.type &&
+          (route.params?.type == 'email' ? (
+            <Text style={styles.headtxt}>
+              Enter your unique 6 digit code sent to your email:
+            </Text>
+          ) : (
+            <Text style={styles.headtxt}>
+              Enter unique 6 digit campaign invite code below:
+            </Text>
+          ))}
         <InputText
           placeholder="Invite Code"
           value={data.code}
@@ -47,10 +96,7 @@ const OtpVerify = () => {
           textinputstyle={styles.textinputstyle}
           type={true}
         />
-
-        <TouchableOpacity
-          onPress={() => navigation.navigate('CompaignSelection')}
-          style={styles.button}>
+        <TouchableOpacity onPress={onVerifyPress} style={styles.button}>
           <Text style={styles.buttontxt}>Verify</Text>
         </TouchableOpacity>
       </View>

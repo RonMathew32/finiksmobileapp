@@ -1,4 +1,5 @@
 import userReducer from './userReducer';
+import campaignReducer from './campaignReducer';
 import thunk from 'redux-thunk';
 // import rootReducer from './reducers/index'
 import {combineReducers, configureStore} from '@reduxjs/toolkit';
@@ -8,12 +9,14 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const rootReducer = combineReducers({
   userReducer: userReducer,
+  campaignReducer: campaignReducer,
 });
 
 const persistConfig = {
   key: 'finiksroot',
   storage: AsyncStorage,
   whitelist: ['userReducer'],
+  blacklist: ['campaignReducer'],
   timeout: null,
 };
 

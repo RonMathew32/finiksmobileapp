@@ -13,8 +13,10 @@ import {Montserrat, hp, normalize, wp} from '../../utils/Constants';
 import CompaignCard from '../components/CompaignSelection/CompaignCard';
 import {logo, plusicon} from '../../utils/images';
 import {useNavigation} from '@react-navigation/native';
+import useReduxStore from '../hooks/useReduxStore';
 
 const CompaignSelection = () => {
+  const {user} = useReduxStore();
   const navigation = useNavigation();
 
   const navigateTo = () => {
@@ -42,7 +44,9 @@ const CompaignSelection = () => {
       <View style={styles.bottombox}>
         <Text style={styles.jointxt}>Join A New Campaign</Text>
         <TouchableOpacity
-          onPress={() => navigation.navigate('OtpVerify')}
+          onPress={() =>
+            navigation.navigate('OtpVerify', {type: 'campaignn', data: user})
+          }
           style={styles.plusbox}>
           <Image
             style={styles.plusicon}

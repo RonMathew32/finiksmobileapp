@@ -1,4 +1,5 @@
 import {
+  ActivityIndicator,
   Image,
   SafeAreaView,
   StyleSheet,
@@ -11,20 +12,43 @@ import {logo} from '../../utils/images';
 import {hp, normalize, wp} from '../../utils/Constants';
 import InputText from '../components/InputText';
 import {useNavigation} from '@react-navigation/native';
+import {SignUpApi} from '../api/AuthApi';
+import {ToastMessageLight} from '../components/GlobalComponent/DisplayMessage';
+import useReduxStore from '../hooks/useReduxStore';
+import {setLoading} from '../redux/campaignReducer';
 
 const Register = () => {
+  const {loading, dispatch} = useReduxStore();
   const navigation = useNavigation();
   const [data, setData] = useState({
-    firstname: '',
-    lastname: '',
-    email: '',
-    password: '',
-    address: '',
-    phone: '',
+    email: 'volunteer255@gmail.com',
+    password: 'donnn123$',
+    firstName: 'vloun2',
+    lastName: 'acc',
+    address: 'this is address',
+    phoneNumber: '123456788',
   });
   const onChangeValue = (key, value) => {
     setData({...data, [key]: value});
   };
+
+  const onSignUpPress = async () => {
+    dispatch(setLoading(true));
+    try {
+      const res = await SignUpApi(data);
+      if (res.data.success) {
+        ToastMessageLight(res.data.message);
+        navigation.navigate('OtpVerify', {type: 'email', data: data});
+      } else {
+        ToastMessageLight(res.data.message);
+      }
+    } catch (error) {
+      ToastMessageLight('Check Your Network');
+    } finally {
+      dispatch(setLoading(false));
+    }
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.innerbox}>
@@ -32,17 +56,17 @@ const Register = () => {
         <View style={styles.inputsbox}>
           <InputText
             placeholder="First Name"
-            value={data.firstname}
+            value={data.firstName}
             multiline={false}
-            onChangeText={val => onChangeValue('firstname', val)}
+            onChangeText={val => onChangeValue('firstName', val)}
             containerstyle={styles.containerstyle}
             textinputstyle={styles.textinputstyle}
           />
           <InputText
             placeholder="Last Name"
-            value={data.lastname}
+            value={data.lastName}
             multiline={false}
-            onChangeText={val => onChangeValue('lastname', val)}
+            onChangeText={val => onChangeValue('lastName', val)}
             containerstyle={styles.containerstyle}
             textinputstyle={styles.textinputstyle}
           />
@@ -58,6 +82,7 @@ const Register = () => {
             placeholder="Password"
             value={data.password}
             multiline={false}
+            secureTextEntry={true}
             onChangeText={val => onChangeValue('password', val)}
             containerstyle={styles.containerstyle}
             textinputstyle={styles.textinputstyle}
@@ -72,16 +97,21 @@ const Register = () => {
           />
           <InputText
             placeholder="Phone Number"
-            value={data.phone}
+            value={data.phoneNumber}
             multiline={false}
-            onChangeText={val => onChangeValue('phone', val)}
+            onChangeText={val => onChangeValue('phoneNumber', val)}
             containerstyle={styles.containerstyle}
             textinputstyle={styles.textinputstyle}
           />
           <TouchableOpacity
-            onPress={() => navigation.navigate('Authenticated')}
+            disabled={loading}
+            onPress={onSignUpPress}
             style={styles.button}>
-            <Text style={styles.buttontxt}>Sign Up</Text>
+            {loading ? (
+              <ActivityIndicator size="small" color="white" />
+            ) : (
+              <Text style={styles.buttontxt}>Sign Up</Text>
+            )}
           </TouchableOpacity>
           <Text style={styles.donttxt}>
             Already have an account?{'  '}

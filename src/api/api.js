@@ -9,7 +9,7 @@ FiniksApi.interceptors.request.use(
     const data = store.getState();
     const token = data.userReducer.token;
     if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
+      config.headers.Authorization = `team Bearer ${token}`;
     }
     return config;
   },

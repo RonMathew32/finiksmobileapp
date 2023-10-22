@@ -11,6 +11,7 @@ const InputText = ({
   LeftComponent,
   multiline,
   type,
+  secureTextEntry,
 }) => {
   return (
     <View style={[styles.container, containerstyle]}>
@@ -22,6 +23,7 @@ const InputText = ({
         value={value}
         onChangeText={onChangeText}
         multiline={multiline}
+        secureTextEntry={secureTextEntry}
         keyboardType={type ? 'phone-pad' : 'default'}
       />
     </View>

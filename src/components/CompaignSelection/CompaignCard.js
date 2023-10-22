@@ -7,7 +7,9 @@ const CompaignCard = ({name, status, onPress}) => {
   return (
     <TouchableOpacity onPress={onPress} style={styles.container}>
       <Text style={styles.name}>{name}</Text>
-      <View style={[styles.dot, status && {backgroundColor: '#49C661'}]}></View>
+      <View style={[styles.dot, status && {backgroundColor: '#49C661'}]}>
+        <View />
+      </View>
     </TouchableOpacity>
   );
 };
@@ -57,6 +59,6 @@ const styles = StyleSheet.create({
 
     elevation: 5,
 
-    backgroundColor: 'rgba(0,0,0,0.23)',
+    backgroundColor: '#D9D9D9',
   },
 });

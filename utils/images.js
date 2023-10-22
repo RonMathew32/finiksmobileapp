@@ -18,6 +18,8 @@ const phoneicon = require('../assets/Header/phoneicon.png');
 const addusericon = require('../assets/Header/addusericon.png');
 const emailicon = require('../assets/Header/emailicon.png');
 const dotsicon = require('../assets/Header/dotsicon.png');
+const crossicon = require('../assets/Header/crossicon.png');
+const tick = require('../assets/Header/tick.png');
 
 const chevronback = require('../assets/Header/chevronback.png');
 const filterbtn = require('../assets/Header/filterbtn.png');
@@ -41,6 +43,8 @@ export {
   addusericon,
   emailicon,
   dotsicon,
+  crossicon,
+  tick,
   chevronback,
   filterbtn,
 };

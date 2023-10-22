@@ -1,13 +1,5 @@
 import {Dimensions, Platform, PixelRatio} from 'react-native';
-import GlobalApi from '../src/api/api';
-import {
-  docxfile,
-  gallery,
-  galleryimg,
-  pdffile,
-  pptfile,
-  xlsfile,
-} from './Images';
+import FiniksApi from '../src/api/api';
 
 const {width: SCREEN_WIDTH, height: SCREEN_HEIGHT} = Dimensions.get('window');
 
@@ -29,7 +21,8 @@ export function normalize(size) {
 
 export const fetcher = (...args) => fetch(...args).then(res => res.json());
 
-export const Axiosfetcher = url => GlobalApi.get(url).then(res => res.data);
+export const Axiosfetcher = (...args) =>
+  FiniksApi.get(...args).then(res => res.data);
 
 export const Montserrat = 'Montserrat';
 export const MontserratBold = 'Montserrat-Bold';

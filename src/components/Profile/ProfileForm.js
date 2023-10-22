@@ -7,8 +7,10 @@ import {
 } from 'react-native';
 import React, {useState} from 'react';
 import {MontserratMedium, hp, normalize, wp} from '../../../utils/Constants';
+import {useDispatch} from 'react-redux';
+import {removeUser} from '../../redux/userReducer';
 
-const CustomInput = ({name, placeholder, value, setValue}) => {
+export const CustomInput = ({name, placeholder, value, setValue}) => {
   return (
     <View>
       <Text style={styles.nametxt}>{name}</Text>
@@ -25,6 +27,7 @@ const CustomInput = ({name, placeholder, value, setValue}) => {
 };
 
 const ProfileForm = () => {
+  const dispatch = useDispatch();
   const [data, setData] = useState({
     firstname: '',
     lastname: '',
@@ -68,7 +71,9 @@ const ProfileForm = () => {
         value={data.address}
         setValue={val => onChangeValue('address', val)}
       />
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity
+        onPress={() => dispatch(removeUser(''))}
+        style={styles.button}>
         <Text style={styles.buttontxt}>Log Out</Text>
       </TouchableOpacity>
     </View>

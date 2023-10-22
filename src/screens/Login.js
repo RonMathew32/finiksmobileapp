@@ -1,4 +1,5 @@
 import {
+  ActivityIndicator,
   Image,
   ImageBackground,
   SafeAreaView,
@@ -13,16 +14,40 @@ import {loginback, logo, logowhite} from '../../utils/images';
 import {hp, normalize, wp} from '../../utils/Constants';
 import InputText from '../components/InputText';
 import {useNavigation} from '@react-navigation/native';
+import {LoginApi} from '../api/AuthApi';
+import {useDispatch} from 'react-redux';
+import {saveToken, saveUser} from '../redux/userReducer';
+import {ToastMessageLight} from '../components/GlobalComponent/DisplayMessage';
+import {setLoading} from '../redux/campaignReducer';
+import useReduxStore from '../hooks/useReduxStore';
 
 const Login = () => {
+  const {loading, dispatch} = useReduxStore();
   const navigation = useNavigation();
   const [data, setData] = useState({
-    email: '',
-    password: '',
+    email: 'aidataronofficial@gmail.com',
+    password: 'donnn123$',
   });
 
   const onChangeValue = (key, value) => {
     setData({...data, [key]: value});
+  };
+
+  const onLoginPress = async () => {
+    dispatch(setLoading(true));
+    try {
+      const res = await LoginApi(data);
+      if (res.data.success) {
+        dispatch(saveToken(res.data.access_token));
+        dispatch(saveUser(res.data));
+      } else {
+        ToastMessageLight(res.data.message);
+      }
+    } catch (error) {
+      ToastMessageLight('Check your network');
+    } finally {
+      dispatch(setLoading(false));
+    }
   };
 
   return (
@@ -42,17 +67,23 @@ const Login = () => {
         />
         <InputText
           placeholder="Password"
-          value={data.email}
+          value={data.password}
           multiline={false}
-          onChangeText={val => onChangeValue('email', val)}
+          onChangeText={val => onChangeValue('password', val)}
+          secureTextEntry={true}
           containerstyle={styles.containerstyle}
           textinputstyle={styles.textinputstyle}
         />
         <Text style={styles.forgottxt}>Forgot Password?</Text>
         <TouchableOpacity
-          onPress={() => navigation.navigate('CompaignSelection')}
+          disabled={loading}
+          onPress={onLoginPress}
           style={styles.button}>
-          <Text style={styles.buttontxt}>Sign In</Text>
+          {loading ? (
+            <ActivityIndicator size="small" color={'white'} />
+          ) : (
+            <Text style={styles.buttontxt}>{'Sign In'}</Text>
+          )}
         </TouchableOpacity>
         <Text style={styles.donttxt}>
           Don’t have an account?{'  '}

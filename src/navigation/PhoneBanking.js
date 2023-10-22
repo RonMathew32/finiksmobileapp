@@ -4,6 +4,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import VoterCheck from '../screens/Authenticated/PhoneBanking/VoterCheck';
 import PhoneBank from '../screens/Authenticated/PhoneBanking/PhoneBank';
 import TotalVoters from '../screens/Authenticated/PhoneBanking/TotalVoters';
+
 const Stack = createNativeStackNavigator();
 
 const PhoneBanking = () => {
@@ -11,7 +12,6 @@ const PhoneBanking = () => {
     <Stack.Navigator screenOptions={{headerShown: false}}>
       <Stack.Screen name="PhoneBank" component={PhoneBank} />
       <Stack.Screen name="VoterCheck" component={VoterCheck} />
-      <Stack.Screen name="TotalVoters" component={TotalVoters} />
     </Stack.Navigator>
   );
 };

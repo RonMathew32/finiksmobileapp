@@ -1,4 +1,4 @@
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import {chevronback, filterbtn} from '../../../../utils/images';
 import {
@@ -12,7 +12,7 @@ import {
 const VotersHeader = () => {
   return (
     <View style={styles.container}>
-      <View style={styles.leftview}>
+      <TouchableOpacity style={styles.leftview}>
         <Image
           source={chevronback}
           style={styles.chevback}
@@ -22,7 +22,7 @@ const VotersHeader = () => {
           <Text style={styles.nametxt}>Frodo at The Shire, Middle Earth</Text>
           <Text style={styles.numofvotertxt}>4 Voters found</Text>
         </View>
-      </View>
+      </TouchableOpacity>
       <View style={styles.rightview}>
         <Text style={styles.filtertxt}>Filter</Text>
         <View style={styles.filterview}>

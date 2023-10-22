@@ -1,5 +1,5 @@
 import {StyleSheet, Text, TouchableOpacity, View, Image} from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import {
   addusericon,
   dotsicon,
@@ -17,10 +17,26 @@ import {
   wp,
 } from '../../../../utils/Constants';
 import {NavigationContainer, useNavigation} from '@react-navigation/native';
+import EmailUserModal from '../../GlobalComponent/EmailUserModal';
+import AddToTeamModal from '../../GlobalComponent/AddToTeamModal';
 
 const VoterCheckHeader = ({name}) => {
+  const [messageModal, setMessageModal] = useState(false);
+  const [addToTeamModal, setAddToTeammModal] = useState(false);
+  const [type, setType] = useState('Message');
   const navigation = useNavigation();
-  const OnCardPress = () => {};
+  const OnEMCardPress = val => {
+    setType(val);
+    setMessageModal(true);
+  };
+  const OnCardPress = val => {
+    if (val == 'Add To Team') {
+      setAddToTeammModal(true);
+    } else if (val == 'Call') {
+    } else {
+      navigation.navigate('UpdateVoterInfo');
+    }
+  };
   return (
     <View style={{overflow: 'hidden', paddingBottom: 4}}>
       <View style={styles.shadow}>
@@ -30,15 +46,13 @@ const VoterCheckHeader = ({name}) => {
             <Text style={styles.done}>Done</Text>
           </TouchableOpacity>
           <Text style={styles.name}>{name}</Text>
-          <TouchableOpacity onPress={() => navigation.navigate('TotalVoters')}>
-            <Image source={homeicon} style={styles.icon} resizeMode="contain" />
-          </TouchableOpacity>
+          <View style={styles.icon}></View>
         </View>
         <View style={styles.bottomheader}>
           <Card
             icon={messageicon}
             name="Message"
-            onPress={() => OnCardPress('Message')}
+            onPress={() => OnEMCardPress('Message')}
             iconstyle={styles.images}
           />
           <Card
@@ -56,7 +70,7 @@ const VoterCheckHeader = ({name}) => {
           <Card
             icon={emailicon}
             name="Email"
-            onPress={() => OnCardPress('Email')}
+            onPress={() => OnEMCardPress('Email')}
             iconstyle={styles.emailicon}
           />
           <Card
@@ -67,6 +81,15 @@ const VoterCheckHeader = ({name}) => {
           />
         </View>
       </View>
+      <EmailUserModal
+        visible={messageModal}
+        setVisible={setMessageModal}
+        type={type}
+      />
+      <AddToTeamModal
+        visible={addToTeamModal}
+        setVisible={setAddToTeammModal}
+      />
     </View>
   );
 };

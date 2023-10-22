@@ -1,14 +1,33 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {Image, SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
+import VoterInfoHeader from '../../../components/Profile/VoterInfoHeader';
+import PhotoPicker from '../../../components/Profile/PhotoPicker';
+import VoterProfileForm from '../../../components/Profile/VoterProfileForm';
+import {hp, wp} from '../../../../utils/Constants';
+import {logo} from '../../../../utils/images';
 
 const UpdateVoterInfo = () => {
   return (
-    <View>
-      <Text>UpdateVoterInfo</Text>
-    </View>
+    <SafeAreaView style={styles.container}>
+      <VoterInfoHeader />
+      <PhotoPicker />
+      <VoterProfileForm />
+      <Image source={logo} style={styles.logo} resizeMode="contain" />
+    </SafeAreaView>
   );
 };
 
 export default UpdateVoterInfo;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: 'white',
+  },
+  logo: {
+    width: wp(19),
+    height: hp(6),
+    marginTop: hp(3),
+    alignSelf: 'center',
+  },
+});

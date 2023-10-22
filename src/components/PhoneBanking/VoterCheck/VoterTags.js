@@ -1,11 +1,21 @@
-import {Image, ScrollView, StyleSheet, Text, View} from 'react-native';
-import React from 'react';
+import {
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import React, {useState} from 'react';
 import {plusicon} from '../../../../utils/images';
 import {MontserratMedium, hp, normalize, wp} from '../../../../utils/Constants';
+import TagSelectionModal from '../../GlobalComponent/TagSelectionModal';
 
 const tags = ['voter', 'Pro-Gun', 'VBM Reg'];
 
 const VoterTags = () => {
+  const [visible, setVisible] = useState(false);
+  const [selected, setSelected] = useState([]);
   return (
     <View style={styles.container}>
       <ScrollView style={styles.scrollview} horizontal>
@@ -13,9 +23,15 @@ const VoterTags = () => {
           return <Tags key={index} name={item} />;
         })}
       </ScrollView>
-      <View style={styles.plusbox}>
+      <TouchableOpacity onPress={() => setVisible(true)} style={styles.plusbox}>
         <Image source={plusicon} style={styles.plusicon} resizeMode="contain" />
-      </View>
+      </TouchableOpacity>
+      <TagSelectionModal
+        visible={visible}
+        setVisible={setVisible}
+        customTags={tags}
+        campaignTags={tags}
+      />
     </View>
   );
 };

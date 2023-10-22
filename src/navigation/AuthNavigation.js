@@ -47,7 +47,11 @@ const AuthNavigation = () => {
 function getTabBarVisibility(route) {
   const routeName = getFocusedRouteNameFromRoute(route);
 
-  if (routeName === 'VoterCheck' || routeName === 'TotalVoters') {
+  if (
+    routeName === 'VoterCheck' ||
+    routeName === 'TotalVoters' ||
+    routeName == 'AddToTeam'
+  ) {
     return 'none';
   }
 

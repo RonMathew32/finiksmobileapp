@@ -11,6 +11,10 @@ import {NavigationContainer} from '@react-navigation/native';
 import MainNavigation from './src/navigation/MainNavigation';
 import {useFonts} from 'expo-font';
 import {Text} from 'react-native';
+import {Provider} from 'react-redux';
+import {PersistGate} from 'redux-persist/integration/react';
+import store, {persistor} from './src/redux/store';
+import {RootSiblingParent} from 'react-native-root-siblings';
 
 function App(): JSX.Element {
   const [fontsLoaded] = useFonts({
@@ -24,9 +28,15 @@ function App(): JSX.Element {
     return <Text>Loading</Text>;
   }
   return (
-    <NavigationContainer>
-      <MainNavigation />
-    </NavigationContainer>
+    <Provider store={store}>
+      <PersistGate loading={<></>} persistor={persistor}>
+        <RootSiblingParent>
+          <NavigationContainer>
+            <MainNavigation />
+          </NavigationContainer>
+        </RootSiblingParent>
+      </PersistGate>
+    </Provider>
   );
 }
 
