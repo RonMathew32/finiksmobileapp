@@ -28,11 +28,15 @@ const CompaignSelection = () => {
   }, [user]);
 
   const getAllCampaign = async () => {
-    const res = await GetJoinedCampaign({id: user?.id, role: 'team'});
-    if (res.data.success) {
-      dispatch(AllCampaigns(res.data.joinedCampaigns.campaignJoined));
-    } else {
-      ToastMessageDark(res.data.message);
+    try {
+      const res = await GetJoinedCampaign({id: user?.id, role: 'team'});
+      if (res.data.success) {
+        dispatch(AllCampaigns(res.data.joinedCampaigns.campaignJoined));
+      } else {
+        ToastMessageDark(res.data.message);
+      }
+    } catch (error) {
+      ToastMessageDark('Something went wrong');
     }
   };
 
