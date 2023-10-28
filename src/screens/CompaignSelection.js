@@ -1,12 +1,13 @@
 import {
   Image,
   SafeAreaView,
+  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
-import React from 'react';
+import React, {useEffect} from 'react';
 import CompaignHeader from '../components/CompaignSelection/CompaignHeader';
 import ProfileView from '../components/GlobalComponent/ProfileView';
 import {Montserrat, hp, normalize, wp} from '../../utils/Constants';
@@ -14,14 +15,32 @@ import CompaignCard from '../components/CompaignSelection/CompaignCard';
 import {logo, plusicon} from '../../utils/images';
 import {useNavigation} from '@react-navigation/native';
 import useReduxStore from '../hooks/useReduxStore';
+import {GetJoinedCampaign} from '../api/AuthApi';
+import {AllCampaigns, CurrentCampaign} from '../redux/campaignReducer';
+import {ToastMessageDark} from '../components/GlobalComponent/DisplayMessage';
 
 const CompaignSelection = () => {
-  const {user} = useReduxStore();
+  const {user, dispatch, allcampaign, campaign} = useReduxStore();
   const navigation = useNavigation();
 
-  const navigateTo = () => {
+  useEffect(() => {
+    getAllCampaign();
+  }, [user]);
+
+  const getAllCampaign = async () => {
+    const res = await GetJoinedCampaign({id: user?.id, role: 'team'});
+    if (res.data.success) {
+      dispatch(AllCampaigns(res.data.joinedCampaigns.campaignJoined));
+    } else {
+      ToastMessageDark(res.data.message);
+    }
+  };
+
+  const navigateTo = item => {
+    dispatch(CurrentCampaign(item));
     navigation.navigate('Authenticated');
   };
+
   return (
     <SafeAreaView style={styles.container}>
       <CompaignHeader />
@@ -29,18 +48,18 @@ const CompaignSelection = () => {
       <View style={styles.ongingbox}>
         <Text style={styles.ongoingtxt}>Ongoing Campaigns</Text>
       </View>
-      <View style={styles.compaignBox}>
-        <CompaignCard
-          name="Hannah Jacobs for congress"
-          status={true}
-          onPress={() => navigateTo()}
-        />
-        <CompaignCard
-          name="Hannah Jacobs for congress"
-          status={false}
-          onPress={() => navigateTo()}
-        />
-      </View>
+      <ScrollView contentContainerStyle={styles.compaignBox}>
+        {allcampaign?.map((item, index) => {
+          return (
+            <CompaignCard
+              key={item.campaignId}
+              name={item.campaignName}
+              status={campaign?.campaignId == item.campaignId}
+              onPress={() => navigateTo(item)}
+            />
+          );
+        })}
+      </ScrollView>
       <View style={styles.bottombox}>
         <Text style={styles.jointxt}>Join A New Campaign</Text>
         <TouchableOpacity

@@ -26,7 +26,7 @@ const Login = () => {
   const navigation = useNavigation();
   const [data, setData] = useState({
     email: 'aidataronofficial@gmail.com',
-    password: 'donnn123$',
+    password: 'test123$',
   });
 
   const onChangeValue = (key, value) => {

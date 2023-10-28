@@ -7,8 +7,11 @@ import {
   chevrondown,
   squareicon,
 } from '../../../utils/images';
+import useReduxStore from '../../hooks/useReduxStore';
 
 const Header = () => {
+  const {campaign} = useReduxStore();
+  console.log(campaign);
   return (
     <View style={{overflow: 'hidden', paddingBottom: 4}}>
       <View style={styles.container}>
@@ -27,7 +30,7 @@ const Header = () => {
             style={styles.chevron}
             resizeMode="contain"
           />
-          <Text style={styles.nammetxt}>HJ For Congress</Text>
+          <Text style={styles.nammetxt}>{campaign.campaignName}</Text>
           <Image
             source={squareicon}
             style={styles.square}

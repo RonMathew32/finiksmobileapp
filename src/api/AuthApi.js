@@ -38,3 +38,10 @@ export const JoinCampaign = async ({email, campaignCode}) => {
     campaignCode,
   });
 };
+
+export const GetJoinedCampaign = async ({id, role}) => {
+  return await FiniksApi.post('/api/teammember/getjoinedcampaigns', {
+    id,
+    role,
+  });
+};

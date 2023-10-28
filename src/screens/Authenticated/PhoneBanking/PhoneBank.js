@@ -11,7 +11,7 @@ const PhoneBank = () => {
   const navigation = useNavigation();
 
   const navigate = () => {
-    navigation.navigate('VoterCheck');
+    navigation.navigate('PhoneBankingRecords');
   };
 
   return (
