@@ -10,23 +10,28 @@ import {
   wp,
 } from '../../../../utils/Constants';
 
-const VoterInfo = () => {
+const VoterInfo = ({data}) => {
   return (
     <View style={styles.container}>
       <View>
         <Text style={styles.heading}>Name</Text>
-        <Text style={styles.subheading}>Frodo Baggins</Text>
+        <Text
+          style={
+            styles.subheading
+          }>{`${data.FIRSTNAME} ${data.LASTNAME} `}</Text>
         <Text style={styles.heading}>Address</Text>
-        <Text style={styles.subheading}>
-          1 Bag End, The Shire, Middle Earth 10323
-        </Text>
+        <Text style={styles.subheading}>{data.ADDRESS}</Text>
         <Text style={styles.heading}>Demographics</Text>
         <Text style={styles.subheading}>
-          Male{'     '}| 45 Years Old{'     '}| Republican
+          {data.SEX == 'F' ? 'Female' : 'Male'}
+          {'     '}| {data.AGE} Years Old{'     '}| Republican
         </Text>
       </View>
       <View style={styles.imageback}>
-        <Text style={styles.nametxt}>AC</Text>
+        <Text
+          style={
+            styles.nametxt
+          }>{`${data.FIRSTNAME[0]}${data.LASTNAME[0]}`}</Text>
       </View>
     </View>
   );

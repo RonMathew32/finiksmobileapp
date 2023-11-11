@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   container: {
-    backgroundColor: 'rgba(217, 217, 217, .24)',
+    backgroundColor: '#D9D9D9',
 
     shadowColor: '#545454',
     shadowOffset: {width: 1, height: 1},

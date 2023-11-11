@@ -7,16 +7,34 @@ import VoterInfo from '../../../components/PhoneBanking/VoterCheck/VoterInfo';
 import VoterDescription from '../../../components/PhoneBanking/VoterCheck/VoterDescription';
 import SelectionButton from '../../../components/PhoneBanking/VoterCheck/SelectionButton';
 import VoterSurvey from '../../../components/PhoneBanking/VoterCheck/VoterSurvey';
+import useVoterCheck from '../../../hooks/useVoterCheck';
+import {ToastMessageDark} from '../../../components/GlobalComponent/DisplayMessage';
+import LoadingScreen from '../../../components/GlobalComponent/LoadingScreen';
 
-const VoterCheck = () => {
+const VoterCheck = ({route, navigation}) => {
+  const item = route.params?.item ? route.params.item : null;
+  const {list, current, setCurrent} = useVoterCheck(item, navigation);
   const [selected, setSelected] = useState('');
 
   const onNextPress = () => {
-    setSelected('');
+    if (current == 0) {
+      navigation.goBack();
+      ToastMessageDark('List Finished');
+    } else {
+      setCurrent(current - 1);
+      setSelected('');
+    }
   };
+
+  if (list.length == 0) {
+    return <LoadingScreen />;
+  }
+
   return (
     <SafeAreaView style={styles.container}>
-      <VoterCheckHeader name="Frodo Beggins" />
+      <VoterCheckHeader
+        name={`${list[current].FIRSTNAME} ${list[current].LASTNAME}`}
+      />
       {selected == 'survey' ? (
         <VoterSurvey />
       ) : (
@@ -26,7 +44,7 @@ const VoterCheck = () => {
               Last Contacted 3/21/2021 - 3PM
             </Text>
             <VoterTags />
-            <VoterInfo />
+            <VoterInfo data={list[current]} />
           </View>
           <VoterDescription />
         </>

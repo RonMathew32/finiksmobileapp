@@ -14,7 +14,7 @@ import {GetPhoneBank} from '../../../api/PhoneBankApi';
 import {ToastMessageDark} from '../../../components/GlobalComponent/DisplayMessage';
 import CompaignCard from '../../../components/CompaignSelection/CompaignCard';
 
-const PhoneBankingRecords = () => {
+const PhoneBankingRecords = ({navigation}) => {
   const {user, campaign} = useReduxStore();
   const [data, setData] = useState(null);
 
@@ -37,7 +37,6 @@ const PhoneBankingRecords = () => {
       ToastMessageDark('Something went wrong');
     }
   };
-  console.log(data);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -46,12 +45,12 @@ const PhoneBankingRecords = () => {
         <Text style={styles.ongoingtxt}>Phone Bank</Text>
       </View>
       <ScrollView contentContainerStyle={styles.compaignBox}>
-        {data.map((item, index) => (
+        {data?.map((item, index) => (
           <CompaignCard
             key={index}
             name={item.recordName}
             status={item.active == 'Active'}
-            onPress={() => console.log('zain')}
+            onPress={() => navigation.navigate('VoterCheck', {item})}
           />
         ))}
       </ScrollView>
