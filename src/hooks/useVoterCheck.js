@@ -76,7 +76,9 @@ const useVoterCheck = (item, navigation) => {
     setLoading(true);
     try {
       const res = await GetVoterCheckData({id: item?.list, type: 'getlist'});
+      console.log(res);
       if (res.data.success) {
+        console.log(res.data.list.voters);
         if (res.data.list.voters.length > 0) {
           const voters = res.data.list.voters.filter(
             (value, index) => !value.voterDone,
@@ -86,6 +88,7 @@ const useVoterCheck = (item, navigation) => {
             setCurrent(voters.length - 1);
             setTags(voters[voters.length - 1].voterTags);
             setList(voters);
+            console.log(voters);
           } else {
             ToastMessageDark('Already Finished');
             navigation.goBack();
@@ -100,7 +103,17 @@ const useVoterCheck = (item, navigation) => {
       setLoading(false);
     }
   };
-  return {list, current, setCurrent};
+  return {
+    list,
+    current,
+    setCurrent,
+    tags,
+    customTags,
+    adminTags,
+    surveyList,
+    script,
+    loading,
+  };
 };
 
 export default useVoterCheck;

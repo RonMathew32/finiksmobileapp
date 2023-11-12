@@ -13,7 +13,17 @@ import LoadingScreen from '../../../components/GlobalComponent/LoadingScreen';
 
 const VoterCheck = ({route, navigation}) => {
   const item = route.params?.item ? route.params.item : null;
-  const {list, current, setCurrent} = useVoterCheck(item, navigation);
+  const {
+    list,
+    current,
+    setCurrent,
+    tags,
+    customTags,
+    adminTags,
+    surveyList,
+    script,
+    loading,
+  } = useVoterCheck(item, navigation);
   const [selected, setSelected] = useState('');
 
   const onNextPress = () => {
@@ -26,7 +36,7 @@ const VoterCheck = ({route, navigation}) => {
     }
   };
 
-  if (list.length == 0) {
+  if (list.length == 0 || loading) {
     return <LoadingScreen />;
   }
 
@@ -36,7 +46,7 @@ const VoterCheck = ({route, navigation}) => {
         name={`${list[current].FIRSTNAME} ${list[current].LASTNAME}`}
       />
       {selected == 'survey' ? (
-        <VoterSurvey />
+        <VoterSurvey data={surveyList} />
       ) : (
         <>
           <View style={styles.voterinfo}>
