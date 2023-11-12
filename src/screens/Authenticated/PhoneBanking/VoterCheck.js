@@ -18,6 +18,7 @@ const VoterCheck = ({route, navigation}) => {
     current,
     setCurrent,
     tags,
+    setTags,
     customTags,
     adminTags,
     surveyList,
@@ -53,7 +54,12 @@ const VoterCheck = ({route, navigation}) => {
             <Text style={styles.lastcontact}>
               Last Contacted 3/21/2021 - 3PM
             </Text>
-            <VoterTags />
+            <VoterTags
+              tags={tags}
+              setTags={setTags}
+              customTags={customTags}
+              adminTags={adminTags}
+            />
             <VoterInfo data={list[current]} />
           </View>
           <VoterDescription />

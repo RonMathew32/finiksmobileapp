@@ -11,16 +11,15 @@ import {plusicon} from '../../../../utils/images';
 import {MontserratMedium, hp, normalize, wp} from '../../../../utils/Constants';
 import TagSelectionModal from '../../GlobalComponent/TagSelectionModal';
 
-const tags = ['voter', 'Pro-Gun', 'VBM Reg'];
-
-const VoterTags = () => {
+const VoterTags = ({tags, setTags, customTags, adminTags}) => {
   const [visible, setVisible] = useState(false);
   const [selected, setSelected] = useState([]);
+  console.log(adminTags);
   return (
     <View style={styles.container}>
       <ScrollView style={styles.scrollview} horizontal>
-        {tags.map((item, index) => {
-          return <Tags key={index} name={item} />;
+        {tags?.map((item, index) => {
+          return <Tags key={index} name={item.tagName} />;
         })}
       </ScrollView>
       <TouchableOpacity onPress={() => setVisible(true)} style={styles.plusbox}>
@@ -29,8 +28,10 @@ const VoterTags = () => {
       <TagSelectionModal
         visible={visible}
         setVisible={setVisible}
-        customTags={tags}
-        campaignTags={tags}
+        customTags={customTags}
+        campaignTags={adminTags}
+        tags={tags}
+        setTags={setTags}
       />
     </View>
   );

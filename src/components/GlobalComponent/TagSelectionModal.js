@@ -17,7 +17,14 @@ import {
   wp,
 } from '../../../utils/Constants';
 
-const TagSelectionModal = ({visible, setVisible, customTags, campaignTags}) => {
+const TagSelectionModal = ({
+  visible,
+  setVisible,
+  customTags,
+  campaignTags,
+  tags,
+  setTags,
+}) => {
   const [type, setType] = useState('custom');
   return (
     <ReactNativeModal
@@ -69,8 +76,10 @@ const TagSelectionModal = ({visible, setVisible, customTags, campaignTags}) => {
           keyExtractor={(item, index) => index.toString()}
           style={styles.tagview}
           renderItem={({item, index}) => (
-            <TouchableOpacity style={styles.tagbox}>
-              <Text style={styles.tagtxt}>{item}</Text>
+            <TouchableOpacity
+              onPress={() => setTags([...tags, item])}
+              style={styles.tagbox}>
+              <Text style={styles.tagtxt}>{item.tagName}</Text>
               <View style={styles.dot} />
             </TouchableOpacity>
           )}

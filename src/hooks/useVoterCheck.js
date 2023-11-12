@@ -27,12 +27,6 @@ const useVoterCheck = (item, navigation) => {
     GetUsersData();
   }, [item]);
 
-  useEffect(() => {
-    if (list.length > 0) {
-      getVoterTags();
-    }
-  }, [campaign, item?.scriptId]);
-
   const getVoterTags = async () => {
     setLoading(true);
     try {
@@ -65,7 +59,6 @@ const useVoterCheck = (item, navigation) => {
         ToastMessageDark('Error in finding');
       }
     } catch (error) {
-      console.log(error);
       ToastMessageDark('Something went wrong');
     } finally {
       setLoading(false);
@@ -76,9 +69,8 @@ const useVoterCheck = (item, navigation) => {
     setLoading(true);
     try {
       const res = await GetVoterCheckData({id: item?.list, type: 'getlist'});
-      console.log(res);
+      await getVoterTags();
       if (res.data.success) {
-        console.log(res.data.list.voters);
         if (res.data.list.voters.length > 0) {
           const voters = res.data.list.voters.filter(
             (value, index) => !value.voterDone,
@@ -88,7 +80,6 @@ const useVoterCheck = (item, navigation) => {
             setCurrent(voters.length - 1);
             setTags(voters[voters.length - 1].voterTags);
             setList(voters);
-            console.log(voters);
           } else {
             ToastMessageDark('Already Finished');
             navigation.goBack();
@@ -108,6 +99,7 @@ const useVoterCheck = (item, navigation) => {
     current,
     setCurrent,
     tags,
+    setTags,
     customTags,
     adminTags,
     surveyList,
