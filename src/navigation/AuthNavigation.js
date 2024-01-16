@@ -1,8 +1,8 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import Home from '../screens/Authenticated/Home/Home';
-import Chat from '../screens/Authenticated/Chat/Chat';
-import LeaderBoard from '../screens/Authenticated/LeadBoard/LeaderBoard';
-import Canvass from '../screens/Authenticated/Canvass/Canvass';
+import Home from '../screens/home/Home';
+import Chat from '../screens/chat/Chat';
+import LeaderBoard from '../screens/leadBoard/LeaderBoard';
+import Canvass from '../screens/canvass/Canvass';
 import PhoneBanking from './PhoneBanking';
 import {getFocusedRouteNameFromRoute} from '@react-navigation/native';
 

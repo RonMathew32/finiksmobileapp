@@ -7,12 +7,12 @@ import {
   View,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
-import Header from '../../../components/GlobalComponent/Header';
+import Header from '../../components/GlobalComponent/Header';
 import {Montserrat, hp, normalize} from '../../../../utils/Constants';
-import useReduxStore from '../../../hooks/useReduxStore';
-import {GetPhoneBank} from '../../../api/PhoneBankApi';
-import {ToastMessageDark} from '../../../components/GlobalComponent/DisplayMessage';
-import CompaignCard from '../../../components/CompaignSelection/CompaignCard';
+import useReduxStore from '../../hooks/useReduxStore';
+import {GetPhoneBank} from '../../api/PhoneBankApi';
+import {ToastMessageDark} from '../../components/GlobalComponent/DisplayMessage';
+import CompaignCard from '../../components/CompaignSelection/CompaignCard';
 
 const PhoneBankingRecords = ({navigation}) => {
   const {user, campaign} = useReduxStore();

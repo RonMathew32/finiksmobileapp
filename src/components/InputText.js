@@ -1,6 +1,6 @@
 import {StyleSheet, Text, View, TextInput} from 'react-native';
 import React from 'react';
-import {hp, normalize, wp} from '../../utils/Constants';
+import {hp, normalize, wp} from '../theme/dimensions';
 
 const InputText = ({
   placeholder,

@@ -1,10 +1,9 @@
-import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import VoterCheck from '../screens/Authenticated/PhoneBanking/VoterCheck';
-import PhoneBank from '../screens/Authenticated/PhoneBanking/PhoneBank';
-import TotalVoters from '../screens/Authenticated/PhoneBanking/TotalVoters';
-import PhoneBankingRecords from '../screens/Authenticated/PhoneBanking/PhoneBankingRecords';
+import VoterCheck from '../screens/phoneBanking/VoterCheck';
+import PhoneBank from '../screens/phoneBanking/PhoneBank';
+import TotalVoters from '../screens/phoneBanking/TotalVoters';
+import PhoneBankingRecords from '../screens/phoneBanking/PhoneBankingRecords';
 
 const Stack = createNativeStackNavigator();
 
@@ -22,5 +21,3 @@ const PhoneBanking = () => {
 };
 
 export default PhoneBanking;
-
-const styles = StyleSheet.create({});

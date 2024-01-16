@@ -1,10 +1,10 @@
 import {Image, SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import VoterInfoHeader from '../../../components/Profile/VoterInfoHeader';
-import PhotoPicker from '../../../components/Profile/PhotoPicker';
-import VoterProfileForm from '../../../components/Profile/VoterProfileForm';
-import {hp, wp} from '../../../../utils/Constants';
-import {logo} from '../../../../utils/images';
+import VoterInfoHeader from '../../components/Profile/VoterInfoHeader';
+import PhotoPicker from '../../components/Profile/PhotoPicker';
+import VoterProfileForm from '../../components/Profile/VoterProfileForm';
+import {hp, wp} from '../../theme/dimensions';
+import {logo} from '../../theme/images';
 
 const UpdateVoterInfo = () => {
   return (

@@ -8,40 +8,31 @@ import {
   View,
 } from 'react-native';
 import React, {useEffect} from 'react';
-import CompaignHeader from '../components/CompaignSelection/CompaignHeader';
-import ProfileView from '../components/GlobalComponent/ProfileView';
+import CompaignHeader from '../../components/CompaignSelection/CompaignHeader';
+import ProfileView from '../../components/GlobalComponent/ProfileView';
 import {Montserrat, hp, normalize, wp} from '../../utils/Constants';
-import CompaignCard from '../components/CompaignSelection/CompaignCard';
+import CompaignCard from '../../components/CompaignSelection/CompaignCard';
 import {logo, plusicon} from '../../utils/images';
-import {useNavigation} from '@react-navigation/native';
-import useReduxStore from '../hooks/useReduxStore';
-import {GetJoinedCampaign} from '../api/AuthApi';
-import {AllCampaigns, CurrentCampaign} from '../redux/campaignReducer';
-import {ToastMessageDark} from '../components/GlobalComponent/DisplayMessage';
+import {GetJoinedCampaign} from '../../api/AuthApi';
+// import {AllCampaigns, CurrentCampaign} from '../redux/campaignReducer';
+import {ToastMessageDark} from '../../components/GlobalComponent/DisplayMessage';
+import useReduxStore from '../../hooks/useReduxStore';
+import { getJoinCampaign } from '../../redux/actions/campaings.actions';
 
-const CompaignSelection = () => {
-  const {user, dispatch, allcampaign, campaign} = useReduxStore();
-  const navigation = useNavigation();
+const CompaignSelection = ({navigation}) => {
+  const {dispatch, user} = useReduxStore();
 
   useEffect(() => {
     getAllCampaign();
   }, [user]);
 
   const getAllCampaign = async () => {
-    try {
-      const res = await GetJoinedCampaign({id: user?.id, role: 'team'});
-      if (res.data.success) {
-        dispatch(AllCampaigns(res.data.joinedCampaigns.campaignJoined));
-      } else {
-        ToastMessageDark(res.data.message);
-      }
-    } catch (error) {
-      ToastMessageDark('Something went wrong');
-    }
+      const payload = {id: user?.id, role: 'team'}
+      dispatch(getJoinCampaign({payload, ToastMessageDark}))
   };
 
   const navigateTo = item => {
-    dispatch(CurrentCampaign(item));
+    // dispatch(CurrentCampaign(item));
     navigation.navigate('Authenticated');
   };
 

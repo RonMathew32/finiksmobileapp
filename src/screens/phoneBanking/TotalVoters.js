@@ -1,7 +1,7 @@
 import {FlatList, SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import VotersHeader from '../../../components/PhoneBanking/TotalVoters/VotersHeader';
-import SingleVoter from '../../../components/PhoneBanking/TotalVoters/SingleVoter';
+import VotersHeader from '../../components/PhoneBanking/TotalVoters/VotersHeader';
+import SingleVoter from '../../components/PhoneBanking/TotalVoters/SingleVoter';
 
 const TotalVoters = () => {
   return (

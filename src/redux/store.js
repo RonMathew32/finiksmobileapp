@@ -1,32 +1,32 @@
-import userReducer from './userReducer';
-import campaignReducer from './campaignReducer';
-import thunk from 'redux-thunk';
-// import rootReducer from './reducers/index'
-import {combineReducers, configureStore} from '@reduxjs/toolkit';
-import logger from 'redux-logger';
-import {persistReducer, persistStore} from 'redux-persist';
+import { createStore, applyMiddleware, compose } from 'redux';
+import { persistStore, persistReducer } from 'redux-persist';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
-export const rootReducer = combineReducers({
-  userReducer: userReducer,
-  campaignReducer: campaignReducer,
-});
+import { rootReducer } from './reducers/root.reducers';
+import { rootSaga } from './middlewares/root.saga';
+import createSagaMiddleware from 'redux-saga';
 
 const persistConfig = {
   key: 'finiksroot',
   storage: AsyncStorage,
-  whitelist: ['userReducer'],
-  blacklist: ['campaignReducer'],
-  timeout: null,
+  whitelist: ['authRed'],
+  blacklist: ['campRed'],
+  // Remove timeout if not needed
 };
 
+/* ------------- Redux Configuration ------------- */
+const middleware = [];
+const enhancers = [];
+
+/* ------------- Saga Middleware ------------- */
+const sagaMiddleware = createSagaMiddleware();
+middleware.push(sagaMiddleware);
+
+/* ------------- Assemble Middleware ------------- */
+enhancers.push(applyMiddleware(...middleware));
+
 const persistedReducer = persistReducer(persistConfig, rootReducer);
-
-const store = configureStore({
-  reducer: persistedReducer,
-  devTools: process.env.NODE_ENV !== 'production',
-  middleware: [thunk, logger],
-});
-
-export default store;
+export const store = createStore(persistedReducer, compose(...enhancers));
 export const persistor = persistStore(store);
+
+// kick off root saga
+sagaMiddleware.run(rootSaga);

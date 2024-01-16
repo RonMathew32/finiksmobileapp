@@ -1,10 +1,10 @@
 import {Image, SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import ProfileHeader from '../components/Profile/ProfileHeader';
-import PhotoPicker from '../components/Profile/PhotoPicker';
-import ProfileForm from '../components/Profile/ProfileForm';
-import {logo} from '../../utils/images';
-import {hp, wp} from '../../utils/Constants';
+import ProfileHeader from '../../components/Profile/ProfileHeader';
+import PhotoPicker from '../../components/Profile/PhotoPicker';
+import ProfileForm from '../../components/Profile/ProfileForm';
+import {logo} from '../../theme/images';
+import {hp, wp} from '../../theme/dimensions';
 
 const Profile = () => {
   return (

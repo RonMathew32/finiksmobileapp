@@ -1,15 +1,15 @@
 import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import React, {useState} from 'react';
-import VoterCheckHeader from '../../../components/PhoneBanking/VoterCheck/VoterCheckHeader';
+import VoterCheckHeader from '../../components/PhoneBanking/VoterCheck/VoterCheckHeader';
 import {MontserratBold, hp, normalize, wp} from '../../../../utils/Constants';
-import VoterTags from '../../../components/PhoneBanking/VoterCheck/VoterTags';
-import VoterInfo from '../../../components/PhoneBanking/VoterCheck/VoterInfo';
-import VoterDescription from '../../../components/PhoneBanking/VoterCheck/VoterDescription';
-import SelectionButton from '../../../components/PhoneBanking/VoterCheck/SelectionButton';
-import VoterSurvey from '../../../components/PhoneBanking/VoterCheck/VoterSurvey';
-import useVoterCheck from '../../../hooks/useVoterCheck';
-import {ToastMessageDark} from '../../../components/GlobalComponent/DisplayMessage';
-import LoadingScreen from '../../../components/GlobalComponent/LoadingScreen';
+import VoterTags from '../../components/PhoneBanking/VoterCheck/VoterTags';
+import VoterInfo from '../../components/PhoneBanking/VoterCheck/VoterInfo';
+import VoterDescription from '../../components/PhoneBanking/VoterCheck/VoterDescription';
+import SelectionButton from '../../components/PhoneBanking/VoterCheck/SelectionButton';
+import VoterSurvey from '../../components/PhoneBanking/VoterCheck/VoterSurvey';
+import useVoterCheck from '../../hooks/useVoterCheck';
+import {ToastMessageDark} from '../../components/GlobalComponent/DisplayMessage';
+import LoadingScreen from '../../components/GlobalComponent/LoadingScreen';
 
 const VoterCheck = ({route, navigation}) => {
   const item = route.params?.item ? route.params.item : null;

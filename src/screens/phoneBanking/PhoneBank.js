@@ -1,10 +1,10 @@
 import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import ProfileView from '../../../components/GlobalComponent/ProfileView';
-import CompaignHeader from '../../../components/CompaignSelection/CompaignHeader';
-import Header from '../../../components/GlobalComponent/Header';
+import ProfileView from '../../components/GlobalComponent/ProfileView';
+import CompaignHeader from '../../components/CompaignSelection/CompaignHeader';
+import Header from '../../components/GlobalComponent/Header';
 import {Montserrat, hp, normalize} from '../../../../utils/Constants';
-import CompaignCard from '../../../components/CompaignSelection/CompaignCard';
+import CompaignCard from '../../components/CompaignSelection/CompaignCard';
 import {useNavigation} from '@react-navigation/native';
 
 const PhoneBank = () => {

@@ -1,9 +1,9 @@
 import {FlatList, SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import ElectionCard from '../../../components/Home/ElectionCard';
+import ElectionCard from '../../components/Home/ElectionCard';
 import {hp} from '../../../../utils/Constants';
-import HomeHeader from '../../../components/Home/HomeHeader';
-import Header from '../../../components/GlobalComponent/Header';
+import HomeHeader from '../../components/Home/HomeHeader';
+import Header from '../../components/GlobalComponent/Header';
 
 const Home = () => {
   return (

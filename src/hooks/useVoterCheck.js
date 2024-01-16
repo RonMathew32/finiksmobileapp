@@ -1,8 +1,6 @@
-import {View, Text} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {GetVoterCheckData, GetVoterCheckDataAdmin} from '../api/PhoneBankApi';
 import {ToastMessageDark} from '../components/GlobalComponent/DisplayMessage';
-import {useNavigation} from '@react-navigation/native';
 import useReduxStore from './useReduxStore';
 
 // getlist

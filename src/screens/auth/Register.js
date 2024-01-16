@@ -8,20 +8,19 @@ import {
   View,
 } from 'react-native';
 import React, {useState} from 'react';
-import {logo} from '../../utils/images';
-import {hp, normalize, wp} from '../../utils/Constants';
-import InputText from '../components/InputText';
-import {useNavigation} from '@react-navigation/native';
-import {SignUpApi} from '../api/AuthApi';
-import {ToastMessageLight} from '../components/GlobalComponent/DisplayMessage';
-import useReduxStore from '../hooks/useReduxStore';
-import {setLoading} from '../redux/campaignReducer';
+import {logo} from '../../theme/images';
+import {hp, normalize, wp} from '../../theme/dimensions';
+import InputText from '../../components/InputText';
+import {ToastMessageLight} from '../../components/GlobalComponent/DisplayMessage';
+import {getRegsitered} from '../../redux/actions/auth.actions';
+import useReduxStore from '../../hooks/useReduxStore';
+import AppButton from '../../components/AppButton';
+import { COLORS } from '../../theme/colors';
 
-const Register = () => {
-  const {loading, dispatch} = useReduxStore();
-  const navigation = useNavigation();
+const Register = ({navigation}) => {
+  const {dispatch, loading, setLoading} = useReduxStore();
   const [data, setData] = useState({
-    email: 'volunteer255@gmail.com',
+    email: 'romexeg311@rentaen.com',
     password: 'donnn123$',
     firstName: 'vloun2',
     lastName: 'acc',
@@ -32,21 +31,19 @@ const Register = () => {
     setData({...data, [key]: value});
   };
 
+  const navigateToOTPVerification = () => {
+    navigation.navigate('OtpVerify', {type: 'email', data: data});
+  };
+
   const onSignUpPress = async () => {
-    dispatch(setLoading(true));
-    try {
-      const res = await SignUpApi(data);
-      if (res.data.success) {
-        ToastMessageLight(res.data.message);
-        navigation.navigate('OtpVerify', {type: 'email', data: data});
-      } else {
-        ToastMessageLight(res.data.message);
-      }
-    } catch (error) {
-      ToastMessageLight('Check Your Network');
-    } finally {
-      dispatch(setLoading(false));
-    }
+    dispatch(
+      getRegsitered({
+        payload: data,
+        setLoading,
+        ToastMessageLight,
+        navigateToOTPVerification,
+      }),
+    );
   };
 
   return (
@@ -103,16 +100,13 @@ const Register = () => {
             containerstyle={styles.containerstyle}
             textinputstyle={styles.textinputstyle}
           />
-          <TouchableOpacity
-            disabled={loading}
+
+          <AppButton
+            title="Sign Up"
+            loading={loading}
             onPress={onSignUpPress}
-            style={styles.button}>
-            {loading ? (
-              <ActivityIndicator size="small" color="white" />
-            ) : (
-              <Text style={styles.buttontxt}>Sign Up</Text>
-            )}
-          </TouchableOpacity>
+          />
+
           <Text style={styles.donttxt}>
             Already have an account?{'  '}
             <Text
@@ -132,7 +126,7 @@ export default Register;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#130000',
+    backgroundColor: COLORS.background,
   },
   innerbox: {
     flex: 1,
@@ -155,23 +149,6 @@ const styles = StyleSheet.create({
     marginBottom: hp(2),
     flex: 0,
   },
-  textinputstyle: {},
-  button: {
-    height: hp(6),
-    width: '50%',
-    backgroundColor: 'rgba(209, 46, 47, 1)',
-    alignSelf: 'center',
-    borderRadius: wp(3),
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: hp(3),
-  },
-
-  buttontxt: {
-    fontSize: normalize(16),
-    fontWeight: '700',
-    color: 'white',
-  },
   donttxt: {
     fontSize: normalize(14),
     fontWeight: '400',
@@ -180,6 +157,6 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   signuptxt: {
-    color: 'rgba(209, 46, 47, 1)',
+    color: COLORS.primary,
   },
 });
