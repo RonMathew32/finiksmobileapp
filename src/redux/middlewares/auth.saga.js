@@ -19,29 +19,28 @@ function* handleApiRequest({
     if (data?.setLoading) data.setLoading(true);
 
     const res = yield ApiCall({ body: data?.payload, route, verb });
-
-    const { status, payload } = res;
+    const { status, response } = res;
 
     const handleCommonLogic = () => {
       if (data?.setLoading) data.setLoading(false);
-      if (data?.ToastMessageLight) data.ToastMessageLight(payload?.message);
+      if (data?.ToastMessageLight) data.ToastMessageLight(response?.message);
     };
 
     switch (status) {
       case 200:
-        console.log(`${successMessage} SUCCESSFUL`, payload);
-        if (successAction) yield put(successAction(payload));
+        console.log(`${successMessage} SUCCESSFUL`, response);
+        if (successAction) yield put(successAction(response));
 
-        if (navigateToOTP && payload?.message === STRINGS.TEXT_OTP_SENT_TO_EMAIL) {
+        if (navigateToOTP && response?.message === STRINGS.TEXT_OTP_SENT_TO_EMAIL) {
           navigateToOTP();
         }
-        if (onOTPFails && payload?.message === STRINGS.TEXT_OTP_WRONG) {
+        if (onOTPFails && response?.message === STRINGS.TEXT_OTP_WRONG) {
           onOTPFails(true);
         }
-        if (navigationToLogin && payload?.message === STRINGS.TEXT_EMAIL_VERIFIED) {
+        if (navigationToLogin && response?.message === STRINGS.TEXT_EMAIL_VERIFIED) {
           navigationToLogin();
         }
-        if (onSentOTP && payload?.message === STRINGS.TEXT_NEW_OTP_SENT) {
+        if (onSentOTP && response?.message === STRINGS.TEXT_NEW_OTP_SENT) {
           onSentOTP(false);
         }
 
@@ -54,6 +53,7 @@ function* handleApiRequest({
     }
   } catch (e) {
     console.error(e);
+    if (data?.ToastMessageLight) data.ToastMessageLight('Network request failed');
   } finally {
     if (data?.setLoading) data.setLoading(false);
   }

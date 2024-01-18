@@ -1,6 +1,6 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import {wp} from '../../../utils/Constants';
+import {wp} from '../../theme/dimensions';
 
 const HomeHeader = () => {
   return (

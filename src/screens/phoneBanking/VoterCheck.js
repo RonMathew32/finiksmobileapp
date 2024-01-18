@@ -1,7 +1,8 @@
 import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import React, {useState} from 'react';
 import VoterCheckHeader from '../../components/PhoneBanking/VoterCheck/VoterCheckHeader';
-import {MontserratBold, hp, normalize, wp} from '../../../../utils/Constants';
+import {hp, normalize, wp} from '../../theme/dimensions';
+import {MontserratBold} from '../../theme/fonts';
 import VoterTags from '../../components/PhoneBanking/VoterCheck/VoterTags';
 import VoterInfo from '../../components/PhoneBanking/VoterCheck/VoterInfo';
 import VoterDescription from '../../components/PhoneBanking/VoterCheck/VoterDescription';
@@ -10,44 +11,48 @@ import VoterSurvey from '../../components/PhoneBanking/VoterCheck/VoterSurvey';
 import useVoterCheck from '../../hooks/useVoterCheck';
 import {ToastMessageDark} from '../../components/GlobalComponent/DisplayMessage';
 import LoadingScreen from '../../components/GlobalComponent/LoadingScreen';
+import useReduxStore from '../../hooks/useReduxStore';
+import { setCurrentVoter, setVotersTag } from '../../redux/actions/voters.actions';
 
 const VoterCheck = ({route, navigation}) => {
   const item = route.params?.item ? route.params.item : null;
+  const {dispatch} = useReduxStore()
   const {
-    list,
-    current,
-    setCurrent,
-    tags,
-    setTags,
+    undoneVoters,
+    votersTag,
+    campaignTags,
     customTags,
-    adminTags,
-    surveyList,
+    survey,
     script,
     loading,
+    currentVoter,
+    campaignOwnerID,
   } = useVoterCheck(item, navigation);
   const [selected, setSelected] = useState('');
 
+  console.log(undoneVoters);
+
   const onNextPress = () => {
-    if (current == 0) {
-      navigation.goBack();
+    if (currentVoter == 0) {
+      // navigation.goBack();
       ToastMessageDark('List Finished');
     } else {
-      setCurrent(current - 1);
+      dispatch(setCurrentVoter(current - 1));
       setSelected('');
     }
   };
 
-  if (list.length == 0 || loading) {
+  if (undoneVoters?.length == 0 || loading) {
     return <LoadingScreen />;
   }
 
   return (
     <SafeAreaView style={styles.container}>
-      <VoterCheckHeader
-        name={`${list[current].FIRSTNAME} ${list[current].LASTNAME}`}
-      />
+      {/* <VoterCheckHeader
+        name={`${undoneVoters[current]?.FIRSTNAME} ${undoneVoters[current]?.LASTNAME}`}
+      /> */}
       {selected == 'survey' ? (
-        <VoterSurvey data={surveyList} />
+        <VoterSurvey data={survey} />
       ) : (
         <>
           <View style={styles.voterinfo}>
@@ -55,12 +60,12 @@ const VoterCheck = ({route, navigation}) => {
               Last Contacted 3/21/2021 - 3PM
             </Text>
             <VoterTags
-              tags={tags}
-              setTags={setTags}
-              customTags={customTags}
-              adminTags={adminTags}
+              tags={votersTag}
+              setTags={(tag)=> dispatch(setVotersTag(tag))}
+              customTags={campaignTags}
+              adminTags={customTags}
             />
-            <VoterInfo data={list[current]} />
+            {/* <VoterInfo data={undoneVoters[current]} /> */}
           </View>
           <VoterDescription />
         </>

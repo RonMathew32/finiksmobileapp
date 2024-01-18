@@ -9,13 +9,13 @@ import {
 import React, {useState} from 'react';
 import ReactNativeModal from 'react-native-modal';
 import {
-  Montserrat,
-  MontserratMedium,
-  MontserratSemiBold,
   hp,
   normalize,
   wp,
-} from '../../../utils/Constants';
+} from '../../theme/dimensions';
+import {  Montserrat,
+  MontserratMedium,
+  MontserratSemiBold} from '../../theme/fonts';
 
 const TagSelectionModal = ({
   visible,

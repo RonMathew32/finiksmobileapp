@@ -9,7 +9,7 @@ const persistConfig = {
   key: 'finiksroot',
   storage: AsyncStorage,
   whitelist: ['authRed'],
-  blacklist: ['campRed'],
+  blacklist: ['campRed', 'voteRed'],
   // Remove timeout if not needed
 };
 

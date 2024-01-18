@@ -1,6 +1,7 @@
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
-import {MontserratSemiBold, hp, normalize, wp} from '../../../utils/Constants';
+import {hp, normalize, wp} from '../../theme/dimensions';
+import {MontserratSemiBold} from '../../theme/fonts';
 import {useNavigation} from '@react-navigation/native';
 
 const CompaignCard = ({name, status, onPress}) => {

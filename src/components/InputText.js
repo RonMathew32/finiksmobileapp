@@ -11,6 +11,8 @@ const InputText = ({
   LeftComponent,
   multiline,
   type,
+  onChange,
+  maxLength,
   secureTextEntry,
 }) => {
   return (
@@ -22,7 +24,9 @@ const InputText = ({
         style={[styles.textinput, textinputstyle]}
         value={value}
         onChangeText={onChangeText}
+        onChange={onChange}
         multiline={multiline}
+        maxLength={maxLength}
         secureTextEntry={secureTextEntry}
         keyboardType={type ? 'phone-pad' : 'default'}
       />

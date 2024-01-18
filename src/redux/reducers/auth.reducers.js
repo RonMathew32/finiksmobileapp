@@ -26,8 +26,8 @@ const AuthReducer = (state = initialState, action) => {
     case ACTION_TYPES.LOGOUT.SET:
       return {
         ...state,
-        userData: null,
-        userToken: null,
+        user: null,
+        token: null,
       };
 
     case ACTION_TYPES.BIOMETRICS.UPDATE:

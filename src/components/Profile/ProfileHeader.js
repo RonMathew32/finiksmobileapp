@@ -1,13 +1,13 @@
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
-import {chevronleft} from '../../../utils/images';
+import {chevronleft} from '../../theme/images';
 import {
-  MontserratMedium,
-  MontserratSemiBold,
   hp,
   normalize,
   wp,
-} from '../../../utils/Constants';
+} from '../../theme/dimensions';
+import {  MontserratMedium,
+  MontserratSemiBold } from '../../theme/fonts';
 import {useNavigation} from '@react-navigation/native';
 
 const ProfileHeader = () => {

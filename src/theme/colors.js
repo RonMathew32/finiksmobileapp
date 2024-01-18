@@ -2,5 +2,7 @@ export const COLORS = {
     background: '#130000',
     primary: 'rgba(209, 46, 47, 1)',
     white: 'white',
-    lavendarWhite: '#D2D2D2'
+    lavendarWhite: '#D2D2D2',
+    lavendarWhiteDark: '#a6a6a6',
+    orangeReddish: '#D12E2F'
   };

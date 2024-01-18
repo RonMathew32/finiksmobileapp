@@ -1,14 +1,14 @@
 import {Image, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {
-  Montserrat,
-  MontserratBold,
-  MontserratMedium,
-  MontserratSemiBold,
   hp,
   normalize,
   wp,
-} from '../../../utils/Constants';
+} from '../../theme/dimensions';
+import {  Montserrat,
+  MontserratBold,
+  MontserratMedium,
+  MontserratSemiBold} from '../../theme/fonts';
 
 const ElectionCard = () => {
   return (

@@ -1,7 +1,7 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React, {useState} from 'react';
 import {CustomInput} from './ProfileForm';
-import {hp} from '../../../utils/Constants';
+import {hp} from '../../theme/dimensions';
 
 const VoterProfileForm = () => {
   const [data, setData] = useState({

@@ -1,3 +1,4 @@
+import React, { useEffect } from 'react';
 import {
   Image,
   SafeAreaView,
@@ -7,66 +8,76 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useEffect} from 'react';
 import CompaignHeader from '../../components/CompaignSelection/CompaignHeader';
 import ProfileView from '../../components/GlobalComponent/ProfileView';
-import {Montserrat, hp, normalize, wp} from '../../utils/Constants';
 import CompaignCard from '../../components/CompaignSelection/CompaignCard';
-import {logo, plusicon} from '../../utils/images';
-import {GetJoinedCampaign} from '../../api/AuthApi';
-// import {AllCampaigns, CurrentCampaign} from '../redux/campaignReducer';
-import {ToastMessageDark} from '../../components/GlobalComponent/DisplayMessage';
+import { ToastMessageLight } from '../../components/GlobalComponent/DisplayMessage';
+import { hp, normalize, wp } from '../../theme/dimensions';
+import { COLORS } from '../../theme/colors';
+import { Montserrat } from '../../theme/fonts';
+import { logo, plusicon } from '../../theme/images';
+import routes from '../../constants/routes';
 import useReduxStore from '../../hooks/useReduxStore';
-import { getJoinCampaign } from '../../redux/actions/campaings.actions';
+import {
+  getJoinedCampaign,
+  setCurrentCampaign,
+  setJoinedCampaign,
+} from '../../redux/actions/campaings.actions';
 
-const CompaignSelection = ({navigation}) => {
-  const {dispatch, user} = useReduxStore();
+const CompaignSelection = ({ navigation }) => {
+  const { dispatch, user, allCampaign, currentCampaign, token } = useReduxStore();
+  const payload = {
+    id: user?.id,
+    role: user?.role,
+  };
 
   useEffect(() => {
     getAllCampaign();
   }, [user]);
 
   const getAllCampaign = async () => {
-      const payload = {id: user?.id, role: 'team'}
-      dispatch(getJoinCampaign({payload, ToastMessageDark}))
+    dispatch(
+      getJoinedCampaign({
+        payload,
+        ToastMessageLight,
+        setJoinedCampaign,
+        token,
+      }),
+    );
   };
 
-  const navigateTo = item => {
-    // dispatch(CurrentCampaign(item));
-    navigation.navigate('Authenticated');
+  const navigateTo = (item) => {
+    dispatch(setCurrentCampaign(item));
+    navigation.navigate(routes.AuthNavigation);
+  };
+
+  const onPressJoinNewCampaign = () => {
+    navigation.navigate(routes.OtpVerify, { type: 'campaign', data: user });
   };
 
   return (
     <SafeAreaView style={styles.container}>
       <CompaignHeader />
       <ProfileView />
-      <View style={styles.ongingbox}>
-        <Text style={styles.ongoingtxt}>Ongoing Campaigns</Text>
+      <View style={styles.ongoingBox}>
+        <Text style={styles.ongoingText}>Ongoing Campaigns</Text>
       </View>
       <ScrollView contentContainerStyle={styles.compaignBox}>
-        {allcampaign?.map((item, index) => {
-          return (
-            <CompaignCard
-              key={item.campaignId}
-              name={item.campaignName}
-              status={campaign?.campaignId == item.campaignId}
-              onPress={() => navigateTo(item)}
-            />
-          );
-        })}
-      </ScrollView>
-      <View style={styles.bottombox}>
-        <Text style={styles.jointxt}>Join A New Campaign</Text>
-        <TouchableOpacity
-          onPress={() =>
-            navigation.navigate('OtpVerify', {type: 'campaignn', data: user})
-          }
-          style={styles.plusbox}>
-          <Image
-            style={styles.plusicon}
-            source={plusicon}
-            resizeMode="contain"
+        {allCampaign?.map((item) => (
+          <CompaignCard
+            key={item.campaignId}
+            name={item.campaignName}
+            status={currentCampaign?.campaignId === item.campaignId}
+            onPress={() => navigateTo(item)}
           />
+        ))}
+      </ScrollView>
+      <View style={styles.bottomBox}>
+        <Text style={styles.joinText}>Join A New Campaign</Text>
+        <TouchableOpacity
+          onPress={onPressJoinNewCampaign}
+          style={styles.plusBox}>
+          <Image style={styles.plusIcon} source={plusicon} resizeMode="contain" />
         </TouchableOpacity>
         <Image source={logo} style={styles.logo} resizeMode="contain" />
       </View>
@@ -74,40 +85,38 @@ const CompaignSelection = ({navigation}) => {
   );
 };
 
-export default CompaignSelection;
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: COLORS.white,
   },
-  ongingbox: {
+  ongoingBox: {
     borderBottomWidth: 1,
     alignSelf: 'center',
     paddingBottom: hp(1.5),
     marginTop: hp(9),
-    borderBottomColor: '#A6A6A6',
+    borderBottomColor: COLORS.lavendarWhiteDark,
   },
-  ongoingtxt: {
+  ongoingText: {
     fontFamily: Montserrat,
     fontSize: normalize(16),
-    color: '#A6A6A6',
+    color: COLORS.lavendarWhiteDark,
   },
   compaignBox: {
     alignItems: 'center',
     marginTop: hp(5),
   },
-  bottombox: {
+  bottomBox: {
     marginTop: hp(8),
     alignItems: 'center',
   },
-  jointxt: {
+  joinText: {
     fontFamily: Montserrat,
     fontSize: normalize(16),
-    color: '#A6A6A6',
+    color: COLORS.lavendarWhiteDark,
   },
-  plusbox: {
-    backgroundColor: '#D12E2F',
+  plusBox: {
+    backgroundColor: COLORS.orangeReddish,
     height: wp(10),
     width: wp(10),
     alignItems: 'center',
@@ -115,10 +124,10 @@ const styles = StyleSheet.create({
     borderRadius: wp(10) / 2,
     marginTop: hp(4),
   },
-  plusicon: {
+  plusIcon: {
     width: wp(5.5),
     height: wp(5.5),
-    tintColor: 'white',
+    tintColor: COLORS.white,
   },
   logo: {
     width: wp(19),
@@ -126,3 +135,5 @@ const styles = StyleSheet.create({
     marginTop: hp(10),
   },
 });
+
+export default CompaignSelection;

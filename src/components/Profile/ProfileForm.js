@@ -6,9 +6,10 @@ import {
   View,
 } from 'react-native';
 import React, {useState} from 'react';
-import {MontserratMedium, hp, normalize, wp} from '../../../utils/Constants';
+import {hp, normalize, wp} from '../../theme/dimensions';
+import { MontserratMedium } from '../../theme/fonts';
 import {useDispatch} from 'react-redux';
-import {removeUser} from '../../redux/userReducer';
+import { setLogout } from '../../redux/actions/auth.actions';
 
 export const CustomInput = ({name, placeholder, value, setValue}) => {
   return (
@@ -72,7 +73,7 @@ const ProfileForm = () => {
         setValue={val => onChangeValue('address', val)}
       />
       <TouchableOpacity
-        onPress={() => dispatch(removeUser(''))}
+        onPress={() => dispatch(setLogout(null))}
         style={styles.button}>
         <Text style={styles.buttontxt}>Log Out</Text>
       </TouchableOpacity>

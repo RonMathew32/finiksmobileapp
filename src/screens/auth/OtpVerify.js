@@ -15,7 +15,6 @@ import {normalize} from '../../theme/dimensions';
 import {wp, hp} from '../../theme/dimensions';
 import InputText from '../../components/InputText';
 import {
-  ToastMessageDark,
   ToastMessageLight,
 } from '../../components/GlobalComponent/DisplayMessage';
 import {COLORS} from '../../theme/colors';
@@ -23,14 +22,16 @@ import useReduxStore from '../../hooks/useReduxStore';
 import {getNewOTP, getVerifyOTP} from '../../redux/actions/auth.actions';
 import AppButton from '../../components/AppButton';
 import {STRINGS} from '../../constants/strings';
+import { getJoinCampaign, getJoinedCampaign, setJoinedCampaign } from '../../redux/actions/campaings.actions';
+import routes from '../../constants/routes';
 
 const OtpVerify = ({route, navigation}) => {
-  const {dispatch, loading, setLoading} = useReduxStore();
+  const {dispatch, loading, setLoading, token, user} = useReduxStore();
   const [resendOTPLoader, setResendOTPLoader] = useState(false);
+  const [resendOTP, setResendOTP] = useState(false);
   const [data, setData] = useState({
     code: '',
   });
-  const [resendOTP, setResendOTP] = useState(false);
 
   const payload = {
     otp: data.code,
@@ -42,7 +43,7 @@ const OtpVerify = ({route, navigation}) => {
   };
 
   const navigationToLogin = () => {
-    navigation.navigate('Login');
+    navigation.navigate(routes.Login);
   };
 
   const resendOTPRequest = () => {
@@ -52,7 +53,22 @@ const OtpVerify = ({route, navigation}) => {
     );
   };
 
-  const onVerifyPress = async () => {
+  const onSuccessJoinCampaign = () => {
+    const payload = {
+      id: user?.id,
+      role: user?.role
+    }
+    dispatch(
+      getJoinedCampaign({
+        payload,
+        ToastMessageLight,
+        setJoinedCampaign,
+        token,
+      }),
+    );
+    navigation.goBack();
+  }
+  const onVerifyPress = () => {
     if (route.params?.type == 'email') {
       dispatch(
         getVerifyOTP({
@@ -63,19 +79,15 @@ const OtpVerify = ({route, navigation}) => {
           navigationToLogin,
         }),
       );
+    } else {
+      if(data?.code){
+        delete payload.otp
+        payload.campaignCode = data.code;
+        dispatch(getJoinCampaign({payload, ToastMessageLight, onSuccessJoinCampaign, setLoading}))
+      } else {
+        ToastMessageLight(STRINGS.TEXT_ENTER_INVITE_CODE)
+      }
     }
-    //  else {
-    //   const res = await JoinCampaign({
-    //     email: route.params?.data.email,
-    //     campaignCode: data.code ? data.code : 'I02wL!',
-    //   });
-    //   if (res.data) {
-    //     ToastMessageDark(res.data.message);
-    //     navigation.goBack();
-    //   }
-    // }
-    // console.log(error.message);
-    // ToastMessageLight('Something went wrong kindly try again');
   };
 
   return (
@@ -97,9 +109,10 @@ const OtpVerify = ({route, navigation}) => {
             <Text style={styles.headtxt}>{STRINGS.TEXT_ENTER_UNIQUE_CODE}</Text>
           ))}
         <InputText
-          placeholder={STRINGS.TEXT_INPUT_PLACEHOLDER_INVITE_CODE}
+          placeholder={route.params?.type == 'email'? STRINGS.TEXT_SIX_DIGIT_CODE : STRINGS.TEXT_INPUT_PLACEHOLDER_INVITE_CODE}
           value={data.code}
           multiline={false}
+          maxLength={6}
           onChangeText={val => onChangeValue('code', val)}
           containerstyle={styles.containerstyle}
           textinputstyle={styles.textinputstyle}
@@ -115,7 +128,7 @@ const OtpVerify = ({route, navigation}) => {
         ) : null}
 
         <AppButton
-          title={STRINGS.TEXT_VERIFY}
+          title={route.params?.type == 'email'? STRINGS.TEXT_VERIFY : STRINGS.TXT_JOIN_CAMPAIGN}
           loading={loading}
           onPress={onVerifyPress}
           style={styles.button}
@@ -150,7 +163,7 @@ const styles = StyleSheet.create({
   backicon: {
     width: wp(6),
     height: wp(6),
-    tintColor: 'white',
+    tintColor: COLORS.white,
   },
   backimg: {
     width: '100%',

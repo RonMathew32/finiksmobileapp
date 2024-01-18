@@ -8,13 +8,13 @@ import {
 } from 'react-native';
 import React, {useState} from 'react';
 import {
-  MontserratExtraBold,
-  MontserratMedium,
-  MontserratSemiBold,
   hp,
   normalize,
   wp,
-} from '../../../../utils/Constants';
+} from '../../../theme/dimensions';
+import { MontserratExtraBold,
+  MontserratMedium,
+  MontserratSemiBold } from '../../../theme/fonts'
 import VoterTags from './VoterTags';
 import ReactNativeModal from 'react-native-modal';
 

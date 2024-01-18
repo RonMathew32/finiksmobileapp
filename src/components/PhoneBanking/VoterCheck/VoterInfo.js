@@ -1,14 +1,14 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {
-  MontserratBold,
-  MontserratExtraBold,
-  MontserratMedium,
-  MontserratSemiBold,
   hp,
   normalize,
   wp,
-} from '../../../../utils/Constants';
+} from '../../../theme/dimensions';
+import {  MontserratBold,
+  MontserratExtraBold,
+  MontserratMedium,
+  MontserratSemiBold } from '../../../theme/fonts';
 
 const VoterInfo = ({data}) => {
   return (

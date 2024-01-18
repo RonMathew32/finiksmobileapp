@@ -10,8 +10,9 @@ import {
 import React, {memo, useMemo, useState} from 'react';
 import Modal from 'react-native-modal';
 import CountryData from '../../utils/CountryData';
-import {Belleza, hp, normalize, wp} from '../../utils/constants';
-import {arrowdown, crossicon} from '../../utils/images';
+import {hp, normalize, wp} from '../theme/dimensions';
+import {Belleza} from '../theme/fonts';
+import {arrowdown, crossicon} from '../theme/images';
 
 const CountryPicker = () => {
   const [country, setCountry] = useState({

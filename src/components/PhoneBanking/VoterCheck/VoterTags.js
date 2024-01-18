@@ -7,14 +7,14 @@ import {
   View,
 } from 'react-native';
 import React, {useState} from 'react';
-import {plusicon} from '../../../../utils/images';
-import {MontserratMedium, hp, normalize, wp} from '../../../../utils/Constants';
+import {plusicon} from '../../../theme/images';
+import {hp, normalize, wp} from '../../../theme/dimensions';
+import {MontserratMedium} from '../../../theme/fonts';
 import TagSelectionModal from '../../GlobalComponent/TagSelectionModal';
 
 const VoterTags = ({tags, setTags, customTags, adminTags}) => {
   const [visible, setVisible] = useState(false);
-  const [selected, setSelected] = useState([]);
-  console.log(adminTags);
+  
   return (
     <View style={styles.container}>
       <ScrollView style={styles.scrollview} horizontal>

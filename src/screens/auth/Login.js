@@ -19,20 +19,19 @@ import {ToastMessageLight} from '../../components/GlobalComponent/DisplayMessage
 import useReduxStore from '../../hooks/useReduxStore';
 import {STRINGS} from '../../constants/strings';
 import AppButton from '../../components/AppButton';
-import Toast from 'react-native-root-toast';
 
 const Login = ({navigation}) => {
   const {dispatch, loading, setLoading, user, token} = useReduxStore();
   const [data, setData] = useState({
     email: 'aidataronofficial@gmail.com',
-    password: 'donnn123',
+    password: 'donnn123$',
   });
 
   const onChangeValue = (key, value) => {
     setData({...data, [key]: value});
   };
 
-  const onLoginPress = () => {
+  const onLoginPress = async () => {
       dispatch(getLogin({payload: data, setLoading, ToastMessageLight}));
   };
 

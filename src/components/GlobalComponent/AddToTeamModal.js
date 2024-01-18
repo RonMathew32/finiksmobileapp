@@ -8,14 +8,14 @@ import {
 } from 'react-native';
 import React, {useState} from 'react';
 import ReactNativeModal from 'react-native-modal';
-import {crossicon} from '../../../utils/images';
+import {crossicon} from '../../theme/images';
 import {
   hp,
   wp,
   normalize,
-  Montserrat,
-  MontserratBold,
-} from '../../../utils/Constants';
+} from '../../theme/dimensions';
+import {  Montserrat,
+  MontserratBold } from '../../theme/fonts';
 import InputText from '../InputText';
 
 const AddToTeamModal = ({visible, setVisible}) => {

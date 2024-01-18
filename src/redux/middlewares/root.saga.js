@@ -5,14 +5,23 @@ import {
   registerdRequestSaga,
   newOTPRequestSaga,
 } from './auth.saga';
-import {joinCampaignRequestSaga} from './campaign.saga';
+import {joinCampaignRequestSaga, joinedCampaignRequestSaga} from './campaign.saga';
+import { getCampaignTagsRequestSaga, getCustomTagsRequestSaga, getScriptRequestSaga, getSurveyListRequestSaga, getVoterCheckDataByAdminRequestSaga, getVoterCheckDataRequestSaga, getVoterListRequestSaga } from './voters.saga';
+import { getPhoneBankRecordsRequestSaga } from './phonebank.saga';
 
 export function* rootSaga() {
   yield all([
     loginRequestSaga(),
     registerdRequestSaga(),
     verifyOTPRequestSaga(),
-    joinCampaignRequestSaga(),
     newOTPRequestSaga(),
+    joinCampaignRequestSaga(),
+    joinedCampaignRequestSaga(),
+    getVoterListRequestSaga(),
+    getCampaignTagsRequestSaga(),
+    getSurveyListRequestSaga(),
+    getScriptRequestSaga(),
+    getCustomTagsRequestSaga(),
+    getPhoneBankRecordsRequestSaga()    
   ]);
 }

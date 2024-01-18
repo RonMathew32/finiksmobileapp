@@ -1,6 +1,7 @@
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
-import {MontserratBold, hp, normalize, wp} from '../../../utils/Constants';
+import {hp, normalize, wp} from '../../theme/dimensions';
+import {MontserratBold} from '../../theme/fonts';
 
 const PhotoPicker = () => {
   return (

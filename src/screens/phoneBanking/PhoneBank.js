@@ -3,15 +3,15 @@ import React from 'react';
 import ProfileView from '../../components/GlobalComponent/ProfileView';
 import CompaignHeader from '../../components/CompaignSelection/CompaignHeader';
 import Header from '../../components/GlobalComponent/Header';
-import {Montserrat, hp, normalize} from '../../../../utils/Constants';
+import {hp, normalize} from '../../theme/dimensions';
+import {Montserrat} from '../../theme/fonts';
 import CompaignCard from '../../components/CompaignSelection/CompaignCard';
-import {useNavigation} from '@react-navigation/native';
+import routes from '../../constants/routes';
 
-const PhoneBank = () => {
-  const navigation = useNavigation();
+const PhoneBank = ({navigation}) => {
 
-  const navigate = () => {
-    navigation.navigate('PhoneBankingRecords');
+  const navigateTo = () => {
+    navigation.navigate(routes?.PhoneBankingRecords);
   };
 
   return (
@@ -25,17 +25,17 @@ const PhoneBank = () => {
         <CompaignCard
           name="Use your own phone number"
           status={true}
-          onPress={navigate}
+          onPress={navigateTo}
         />
         <CompaignCard
           name="Use Auto-dialer"
           status={false}
-          onPress={navigate}
+          onPress={navigateTo}
         />
         <CompaignCard
           name="Use Predictive dialer"
           status={false}
-          onPress={navigate}
+          onPress={navigateTo}
         />
       </View>
     </SafeAreaView>

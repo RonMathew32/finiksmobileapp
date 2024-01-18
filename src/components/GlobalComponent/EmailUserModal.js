@@ -8,17 +8,18 @@ import {
 } from 'react-native';
 import React from 'react';
 import ReactNativeModal from 'react-native-modal';
-import {crossicon, messageicon, tick} from '../../../utils/images';
+import {crossicon, messageicon, tick} from '../../theme/images';
 import {
   Montserrat,
   MontserratBold,
   MontserratExtraBold,
   MontserratMedium,
   MontserratSemiBold,
-  hp,
+
+} from '../../theme/fonts';
+import {  hp,
   normalize,
-  wp,
-} from '../../../utils/Constants';
+  wp } from '../../theme/dimensions';
 
 const EmailUserModal = ({visible, setVisible, votter, type}) => {
   return (

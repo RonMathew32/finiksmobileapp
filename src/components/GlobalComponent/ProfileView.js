@@ -1,13 +1,13 @@
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
-import {arrowright} from '../../../utils/images';
+import {arrowright} from '../../theme/images';
 import {
-  Montserrat,
-  MontserratBold,
   hp,
   normalize,
   wp,
-} from '../../../utils/Constants';
+} from '../../theme/dimensions';
+import {  Montserrat,
+  MontserratBold} from '../../theme/fonts';
 import {useNavigation} from '@react-navigation/native';
 
 const ProfileView = () => {

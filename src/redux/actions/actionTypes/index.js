@@ -13,5 +13,17 @@ export const ACTION_TYPES = {
   USER_DATA: createAsyncActionTypes('USER_DATA'),
   LOGOUT: createAsyncActionTypes('LOGOUT'),
   JOIN_CAMPAIGN: createAsyncActionTypes('JOIN_CAMPAIGN'),
+  JOINED_CAMPAIGN: createAsyncActionTypes('JOINED_CAMPAIGN'),
   CURRENT_CAMPAIGN: createAsyncActionTypes('CURRENT_CAMPAIGN'),
+  VOTER_CHECK_DATA: createAsyncActionTypes('VOTER_CHECK_DATA'),
+  VOTER_CHECK_DATA_BY_ADMIN: createAsyncActionTypes('VOTER_CHECK_DATA_BY_ADMIN'),
+  VOTER_LIST: createAsyncActionTypes('VOTER_LIST'),
+  CAMPAIGN_TAGS: createAsyncActionTypes('CAMPAIGN_TAGS'),
+  CUSTOM_TAGS: createAsyncActionTypes('CUSTOM_TAGS'),
+  SURVEY_LIST: createAsyncActionTypes('SURVEY_LIST'),
+  SCRIPT: createAsyncActionTypes('SCRIPT'),
+  CURRENT_VOTER: createAsyncActionTypes('CURRENT_VOTER'),
+  UNDONE_VOTERS: createAsyncActionTypes('UNDONE_VOTERS'),
+  VOTERS_TAG: createAsyncActionTypes('VOTERS_TAG'),
+  PHONE_BANK_RECORDS: createAsyncActionTypes('PHONE_BANK_RECORDS')
 };

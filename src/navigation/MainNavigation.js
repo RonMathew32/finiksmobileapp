@@ -1,13 +1,13 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-// import { useSelector } from 'react-redux';
 import Login from '../screens/auth/Login';
 import Register from '../screens/auth/Register';
-// import AuthNavigation from './AuthNavigation';
-// import CompaignSelection from '../screens/CompaignSelection';
-// import Profile from '../screens/Profile';
+import AuthNavigation from './AuthNavigation';
+import CompaignSelection from '../screens/campaign/CompaignSelection';
+import Profile from '../screens/profile/Profile';
 import OtpVerify from '../screens/auth/OtpVerify';
 import { useSelector } from 'react-redux';
-// import UpdateVoterInfo from '../screens/Authenticated/PhoneBanking/UpdateVoterInfo';
+import routes from '../constants/routes';
+import UpdateVoterInfo from '../screens/phoneBanking/UpdateVoterInfo';
 
 
 const Stack = createNativeStackNavigator();
@@ -17,22 +17,23 @@ const MainNavigation = () => {
 
   return (
     <Stack.Navigator
-      initialRouteName={'Login'}
+      initialRouteName={routes.Login}
       screenOptions={{ headerShown: false }}>
-      {/* {token ? (
+      {token ? (
         <Stack.Group navigationKey={token ? 'user' : 'none'}>
-          <Stack.Screen component={CompaignSelection} name="CompaignSelection" />
-          <Stack.Screen component={Profile} name="Profile" />
-          <Stack.Screen component={AuthNavigation} name="Authenticated" />
-          <Stack.Screen component={UpdateVoterInfo} name="UpdateVoterInfo" />
+          <Stack.Screen component={CompaignSelection} name={routes.CompaignSelection} />
+          <Stack.Screen component={Profile} name={routes.Profile} />
+          <Stack.Screen component={AuthNavigation} name={routes.AuthNavigation} />
+          <Stack.Screen component={UpdateVoterInfo} name={routes.UpdateVoterInfo} />
         </Stack.Group>
       ) : (
-        <> */}
-          <Stack.Screen component={Login} name="Login" />
-          <Stack.Screen component={Register} name="Register" />
-          <Stack.Screen component={OtpVerify} name="OtpVerify" /> 
-        {/* </>
-      {/* )} */}
+        <> 
+          <Stack.Screen component={Login} name={routes.Login} />
+          <Stack.Screen component={Register} name={routes.Register} />
+        </>
+       )
+       }
+       <Stack.Screen component={OtpVerify} name={routes.OtpVerify} /> 
     </Stack.Navigator>
   );
 };

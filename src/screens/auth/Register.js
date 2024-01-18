@@ -16,11 +16,12 @@ import {getRegsitered} from '../../redux/actions/auth.actions';
 import useReduxStore from '../../hooks/useReduxStore';
 import AppButton from '../../components/AppButton';
 import { COLORS } from '../../theme/colors';
+import routes from '../../constants/routes';
 
 const Register = ({navigation}) => {
   const {dispatch, loading, setLoading} = useReduxStore();
-  const [data, setData] = useState({
-    email: 'romexeg311@rentaen.com',
+  const [form, setForm] = useState({
+    email: 'ramek85847@konican.com',
     password: 'donnn123$',
     firstName: 'vloun2',
     lastName: 'acc',
@@ -28,23 +29,44 @@ const Register = ({navigation}) => {
     phoneNumber: '123456788',
   });
   const onChangeValue = (key, value) => {
-    setData({...data, [key]: value});
+    setForm({...form, [key]: value});
   };
 
   const navigateToOTPVerification = () => {
-    navigation.navigate('OtpVerify', {type: 'email', data: data});
+    navigation.navigate(routes.OtpVerify, {type: 'email', data: form});
   };
 
-  const onSignUpPress = async () => {
-    dispatch(
-      getRegsitered({
-        payload: data,
-        setLoading,
-        ToastMessageLight,
-        navigateToOTPVerification,
-      }),
-    );
+  const checkFormValues = (obj) => {
+    const missingKeys = [];
+  
+    const isObjectEmpty = Object.keys(obj).every((key) => {
+      const value = obj[key];
+      if (typeof value === 'string' && value.trim() === '') {
+        missingKeys.push(key);
+        return false;
+      }
+      return true;
+    });
+  
+    return { isEmpty: isObjectEmpty, missingKeys };
   };
+
+  const onSignUpPress = () => {
+    const { isEmpty, missingKeys } = checkFormValues(form);
+    if(isEmpty){
+      dispatch(
+        getRegsitered({
+          payload: form,
+          setLoading,
+          ToastMessageLight,
+          navigateToOTPVerification,
+        }),
+      );
+    } else {
+      ToastMessageLight(`Fields must not be empty`)
+    }
+  };
+
 
   return (
     <SafeAreaView style={styles.container}>
@@ -53,7 +75,7 @@ const Register = ({navigation}) => {
         <View style={styles.inputsbox}>
           <InputText
             placeholder="First Name"
-            value={data.firstName}
+            value={form.firstName}
             multiline={false}
             onChangeText={val => onChangeValue('firstName', val)}
             containerstyle={styles.containerstyle}
@@ -61,7 +83,7 @@ const Register = ({navigation}) => {
           />
           <InputText
             placeholder="Last Name"
-            value={data.lastName}
+            value={form.lastName}
             multiline={false}
             onChangeText={val => onChangeValue('lastName', val)}
             containerstyle={styles.containerstyle}
@@ -69,7 +91,7 @@ const Register = ({navigation}) => {
           />
           <InputText
             placeholder="Email"
-            value={data.email}
+            value={form.email}
             multiline={false}
             onChangeText={val => onChangeValue('email', val)}
             containerstyle={styles.containerstyle}
@@ -77,7 +99,7 @@ const Register = ({navigation}) => {
           />
           <InputText
             placeholder="Password"
-            value={data.password}
+            value={form.password}
             multiline={false}
             secureTextEntry={true}
             onChangeText={val => onChangeValue('password', val)}
@@ -86,7 +108,7 @@ const Register = ({navigation}) => {
           />
           <InputText
             placeholder="Address"
-            value={data.address}
+            value={form.address}
             multiline={false}
             onChangeText={val => onChangeValue('address', val)}
             containerstyle={styles.containerstyle}
@@ -94,8 +116,9 @@ const Register = ({navigation}) => {
           />
           <InputText
             placeholder="Phone Number"
-            value={data.phoneNumber}
+            value={form.phoneNumber}
             multiline={false}
+            type={'phone-pad'}
             onChangeText={val => onChangeValue('phoneNumber', val)}
             containerstyle={styles.containerstyle}
             textinputstyle={styles.textinputstyle}

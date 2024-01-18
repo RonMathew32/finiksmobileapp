@@ -7,15 +7,15 @@ import {
   homeicon,
   messageicon,
   phoneicon,
-} from '../../../../utils/images';
+} from '../../../theme/images';
 import {
-  MontserratBold,
-  MontserratExtraBold,
-  MontserratMedium,
   hp,
   normalize,
   wp,
-} from '../../../../utils/Constants';
+} from '../../../theme/dimensions';
+import {  MontserratBold,
+  MontserratExtraBold,
+  MontserratMedium } from '../../../theme/fonts'
 import {NavigationContainer, useNavigation} from '@react-navigation/native';
 import EmailUserModal from '../../GlobalComponent/EmailUserModal';
 import AddToTeamModal from '../../GlobalComponent/AddToTeamModal';

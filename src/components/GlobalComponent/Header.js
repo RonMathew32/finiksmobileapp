@@ -1,17 +1,17 @@
 import {Image, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import {MontserratSemiBold, hp, normalize, wp} from '../../../utils/Constants';
+import {hp, normalize, wp} from '../../theme/dimensions';
+import {MontserratSemiBold} from '../../theme/fonts';
 import {
   bellicon,
   calendericon,
   chevrondown,
   squareicon,
-} from '../../../utils/images';
+} from '../../theme/images';
 import useReduxStore from '../../hooks/useReduxStore';
 
 const Header = () => {
-  const {campaign} = useReduxStore();
-  console.log(campaign);
+  const {currentCampaign} = useReduxStore();
   return (
     <View style={{overflow: 'hidden', paddingBottom: 4}}>
       <View style={styles.container}>
@@ -30,7 +30,7 @@ const Header = () => {
             style={styles.chevron}
             resizeMode="contain"
           />
-          <Text style={styles.nammetxt}>{campaign.campaignName}</Text>
+          <Text style={styles.nammetxt}>{currentCampaign?.campaignName}</Text>
           <Image
             source={squareicon}
             style={styles.square}

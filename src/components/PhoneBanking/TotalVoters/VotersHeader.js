@@ -1,13 +1,13 @@
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
-import {chevronback, filterbtn} from '../../../../utils/images';
+import {chevronback, filterbtn} from '../../../theme/images';
 import {
-  Montserrat,
-  MontserratBold,
   hp,
   normalize,
   wp,
-} from '../../../../utils/Constants';
+} from '../../../theme/dimensions';
+import {   Montserrat,
+  MontserratBold } from '../../../theme/fonts'
 
 const VotersHeader = () => {
   return (
