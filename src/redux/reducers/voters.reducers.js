@@ -9,7 +9,11 @@ const initialState = {
   campaignOwnerID: null,
   currentVoter: '',
   undoneVoters: [],
-  votersTag: []
+  votersTag: [],
+  listId: '',
+  scriptId: '',
+  campaignOwnerID: '',
+  listName: ''
 };
 
 const VotersReducer = (state = initialState, action) => {
@@ -32,7 +36,9 @@ const VotersReducer = (state = initialState, action) => {
       return {
         ...state,
         votersList: data.list.voters,
-        campaignOwnerID: data.list.campaignOwnerId
+        campaignOwnerID: data.list.campaignOwnerId,
+        listId: data.list._id,
+        listName: data.list.listName
       };
 
     case ACTION_TYPES.SURVEY_LIST.SET:
@@ -63,6 +69,11 @@ const VotersReducer = (state = initialState, action) => {
         return {
           ...state,
           votersTag: data,
+        };
+    case ACTION_TYPES.SCRIPT_ID.SET:
+        return {
+          ...state,
+          scriptId: data,
         };
 
     default:

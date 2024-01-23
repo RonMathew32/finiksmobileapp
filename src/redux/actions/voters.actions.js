@@ -20,11 +20,15 @@ export const getScript = data => ({ type: ACTION_TYPES.SCRIPT.GET, data });
 
 export const setScript = data => ({ type: ACTION_TYPES.SCRIPT.SET, data });
 
+export const setScriptId = data => ({ type: ACTION_TYPES.SCRIPT_ID.SET, data });
+
 export const setCurrentVoter = data => ({ type: ACTION_TYPES.CURRENT_VOTER.SET, data });
 
 export const setUndoneVoters = data => ({ type: ACTION_TYPES.UNDONE_VOTERS.SET, data });
 
 export const setVotersTag = data => ({ type: ACTION_TYPES.VOTERS_TAG.SET, data });
+
+export const updateVoterInfo = data => ({ type: ACTION_TYPES.UPDATE_VOTER_INFO.GET, data });
 
 
 

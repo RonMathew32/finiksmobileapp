@@ -7,20 +7,19 @@ import {
   View,
 } from 'react-native';
 import React, {useState} from 'react';
+import {hp, normalize, wp} from '../../../theme/dimensions';
 import {
-  hp,
-  normalize,
-  wp,
-} from '../../../theme/dimensions';
-import { MontserratExtraBold,
+  MontserratExtraBold,
   MontserratMedium,
-  MontserratSemiBold } from '../../../theme/fonts'
+  MontserratSemiBold,
+} from '../../../theme/fonts';
 import VoterTags from './VoterTags';
 import ReactNativeModal from 'react-native-modal';
 
-const VoterSurvey = ({data}) => {
+const VoterSurvey = ({data, tags}) => {
   const [survey, setSurvey] = useState({});
   const [visible, setVisible] = useState(false);
+
   return (
     <View style={styles.container}>
       <FlatList
@@ -75,6 +74,7 @@ const SurveyModal = ({visible, setVisible, survey}) => {
     </ReactNativeModal>
   );
 };
+
 
 export default VoterSurvey;
 

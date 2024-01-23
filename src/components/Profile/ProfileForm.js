@@ -11,7 +11,7 @@ import { MontserratMedium } from '../../theme/fonts';
 import {useDispatch} from 'react-redux';
 import { setLogout } from '../../redux/actions/auth.actions';
 
-export const CustomInput = ({name, placeholder, value, setValue}) => {
+export const CustomInput = ({name, placeholder, value, setValue, keyboardType}) => {
   return (
     <View>
       <Text style={styles.nametxt}>{name}</Text>
@@ -21,6 +21,7 @@ export const CustomInput = ({name, placeholder, value, setValue}) => {
           value={value}
           onChangeText={setValue}
           style={styles.textinput}
+          keyboardType={keyboardType?? 'default'}
         />
       </View>
     </View>

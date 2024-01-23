@@ -11,14 +11,18 @@ import {plusicon} from '../../../theme/images';
 import {hp, normalize, wp} from '../../../theme/dimensions';
 import {MontserratMedium} from '../../../theme/fonts';
 import TagSelectionModal from '../../GlobalComponent/TagSelectionModal';
+import useVoterCheck from '../../../hooks/useVoterCheck';
+import useReduxStore from '../../../hooks/useReduxStore';
+import { setVotersTag } from '../../../redux/actions/voters.actions';
 
-const VoterTags = ({tags, setTags, customTags, adminTags}) => {
+const VoterTags = ({ votersTag , campaignTags, customTags}) => {
   const [visible, setVisible] = useState(false);
+  const { dispatch } = useReduxStore()
   
   return (
     <View style={styles.container}>
       <ScrollView style={styles.scrollview} horizontal>
-        {tags?.map((item, index) => {
+        {votersTag?.map((item, index) => {
           return <Tags key={index} name={item.tagName} />;
         })}
       </ScrollView>
@@ -29,9 +33,10 @@ const VoterTags = ({tags, setTags, customTags, adminTags}) => {
         visible={visible}
         setVisible={setVisible}
         customTags={customTags}
-        campaignTags={adminTags}
-        tags={tags}
-        setTags={setTags}
+        campaignTags={campaignTags}
+        tags={votersTag}
+        setTags={(tag)=> dispatch(setVotersTag(tag))}
+
       />
     </View>
   );

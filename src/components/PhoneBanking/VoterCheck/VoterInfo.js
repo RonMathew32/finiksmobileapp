@@ -9,8 +9,10 @@ import {  MontserratBold,
   MontserratExtraBold,
   MontserratMedium,
   MontserratSemiBold } from '../../../theme/fonts';
+import { partyCodes } from '../../../constants/partyCodes';
+import useReduxStore from '../../../hooks/useReduxStore';
 
-const VoterInfo = ({data}) => {
+const VoterInfo = ({currentVoter}) => {
   return (
     <View style={styles.container}>
       <View>
@@ -18,20 +20,20 @@ const VoterInfo = ({data}) => {
         <Text
           style={
             styles.subheading
-          }>{`${data.FIRSTNAME} ${data.LASTNAME} `}</Text>
+          }>{`${currentVoter?.FIRSTNAME} ${currentVoter?.LASTNAME}`}</Text>
         <Text style={styles.heading}>Address</Text>
-        <Text style={styles.subheading}>{data.ADDRESS}</Text>
+        <Text style={styles.subheading}>{currentVoter.ADDRESS}</Text>
         <Text style={styles.heading}>Demographics</Text>
         <Text style={styles.subheading}>
-          {data.SEX == 'F' ? 'Female' : 'Male'}
-          {'     '}| {data.AGE} Years Old{'     '}| Republican
+          {currentVoter?.SEX == 'F' ? 'Female' : 'Male'}
+          {'     '}|   {currentVoter?.AGE ?? ''} Years Old{'     '}|  {partyCodes[currentVoter?.PARTY_CODE] ?? ''}
         </Text>
       </View>
       <View style={styles.imageback}>
         <Text
           style={
             styles.nametxt
-          }>{`${data.FIRSTNAME[0]}${data.LASTNAME[0]}`}</Text>
+          }>{`${currentVoter?.FIRSTNAME?.trim()[0]} ${currentVoter?.LASTNAME?.trim()[0]}`}</Text>
       </View>
     </View>
   );

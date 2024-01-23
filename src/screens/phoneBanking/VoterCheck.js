@@ -1,6 +1,5 @@
 import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
-import React, {useState} from 'react';
-import VoterCheckHeader from '../../components/PhoneBanking/VoterCheck/VoterCheckHeader';
+import React, {useEffect, useState} from 'react';
 import {hp, normalize, wp} from '../../theme/dimensions';
 import {MontserratBold} from '../../theme/fonts';
 import VoterTags from '../../components/PhoneBanking/VoterCheck/VoterTags';
@@ -12,25 +11,37 @@ import useVoterCheck from '../../hooks/useVoterCheck';
 import {ToastMessageDark} from '../../components/GlobalComponent/DisplayMessage';
 import LoadingScreen from '../../components/GlobalComponent/LoadingScreen';
 import useReduxStore from '../../hooks/useReduxStore';
-import { setCurrentVoter, setVotersTag } from '../../redux/actions/voters.actions';
+import {
+  setCurrentVoter,
+  setVotersTag,
+} from '../../redux/actions/voters.actions';
+import VoterActions from '../../components/PhoneBanking/VoterCheck/VoterActions';
+import VoterHeader from '../../components/PhoneBanking/VoterCheck/VoterHeader';
+import {COLORS} from '../../theme/colors';
 
 const VoterCheck = ({route, navigation}) => {
   const item = route.params?.item ? route.params.item : null;
-  const {dispatch} = useReduxStore()
-  const {
-    undoneVoters,
-    votersTag,
-    campaignTags,
-    customTags,
-    survey,
-    script,
-    loading,
-    currentVoter,
-    campaignOwnerID,
-  } = useVoterCheck(item, navigation);
+  const {dispatch} = useReduxStore();
+  const {votersTag, survey, currentVoter, campaignTags, customTags} =
+    useReduxStore(item);
+  const {loading} = useVoterCheck(item);
   const [selected, setSelected] = useState('');
+  const inputDate = currentVoter?.lastInfluenced
+    ? new Date(currentVoter?.lastInfluenced)
+    : new Date();
 
-  console.log(undoneVoters);
+  const options = {
+    year: 'numeric',
+    month: 'numeric',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+    hour12: true,
+  };
+
+  const formattedDate = new Intl.DateTimeFormat('en-US', options).format(
+    inputDate,
+  );
 
   const onNextPress = () => {
     if (currentVoter == 0) {
@@ -42,30 +53,29 @@ const VoterCheck = ({route, navigation}) => {
     }
   };
 
-  if (undoneVoters?.length == 0 || loading) {
-    return <LoadingScreen />;
-  }
-
-  return (
+  return loading ? (
+    <LoadingScreen />
+  ) : (
     <SafeAreaView style={styles.container}>
-      {/* <VoterCheckHeader
-        name={`${undoneVoters[current]?.FIRSTNAME} ${undoneVoters[current]?.LASTNAME}`}
-      /> */}
+      <VoterHeader
+        title={`${currentVoter?.FIRSTNAME} ${currentVoter?.LASTNAME}`}
+        leftTitle="Done"
+      />
+      <VoterActions currentVoter={currentVoter} navigation={navigation} />
       {selected == 'survey' ? (
-        <VoterSurvey data={survey} />
+        <VoterSurvey tags={votersTag} data={survey} />
       ) : (
         <>
           <View style={styles.voterinfo}>
             <Text style={styles.lastcontact}>
-              Last Contacted 3/21/2021 - 3PM
+              Last Contacted {formattedDate}
             </Text>
             <VoterTags
-              tags={votersTag}
-              setTags={(tag)=> dispatch(setVotersTag(tag))}
-              customTags={campaignTags}
-              adminTags={customTags}
+              campaignTags={campaignTags}
+              customTags={customTags}
+              votersTag={votersTag}
             />
-            {/* <VoterInfo data={undoneVoters[current]} /> */}
+            <VoterInfo currentVoter={currentVoter} />
           </View>
           <VoterDescription />
         </>
@@ -86,16 +96,15 @@ export default VoterCheck;
 
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: COLORS.white,
   },
   voterinfo: {
     marginHorizontal: wp(4),
   },
   lastcontact: {
     fontFamily: MontserratBold,
-    fontSize: normalize(16),
-    color: '#545454',
+    fontSize: normalize(12),
+    color: COLORS.darkGray,
     marginTop: hp(2),
   },
 });

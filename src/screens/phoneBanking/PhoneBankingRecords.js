@@ -16,6 +16,7 @@ import {ToastMessageDark} from '../../components/GlobalComponent/DisplayMessage'
 import CompaignCard from '../../components/CompaignSelection/CompaignCard';
 import { getPhoneBankRecords, setPhoneBankRecords } from '../../redux/actions/phonebank.actions';
 import routes from '../../constants/routes';
+import { setScriptId } from '../../redux/actions/voters.actions';
 
 const PhoneBankingRecords = ({navigation}) => {
   const {user, currentCampaign, token, dispatch, phoneBankRecords} = useReduxStore();
@@ -32,6 +33,10 @@ const PhoneBankingRecords = ({navigation}) => {
     dispatch(getPhoneBankRecords({payload, ToastMessageDark, token, role: user?.role}))
   };
 
+  const navigateToVoterCheck = (item) =>{ 
+    dispatch(setScriptId(item?.scriptId))
+    navigation.navigate(routes?.VoterCheck, {item})
+  }
   return (
     <SafeAreaView style={styles.container}>
       <Header />
@@ -44,7 +49,7 @@ const PhoneBankingRecords = ({navigation}) => {
             key={index}
             name={item.recordName}
             status={item.active == 'Active'}
-            onPress={() => navigation.navigate(routes?.VoterCheck, {item})}
+            onPress={()=> navigateToVoterCheck(item)}
           />
         ))}
       </ScrollView>

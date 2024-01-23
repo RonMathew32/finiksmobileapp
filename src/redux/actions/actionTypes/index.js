@@ -22,8 +22,10 @@ export const ACTION_TYPES = {
   CUSTOM_TAGS: createAsyncActionTypes('CUSTOM_TAGS'),
   SURVEY_LIST: createAsyncActionTypes('SURVEY_LIST'),
   SCRIPT: createAsyncActionTypes('SCRIPT'),
+  SCRIPT_ID: createAsyncActionTypes('SCRIPT_ID'),
   CURRENT_VOTER: createAsyncActionTypes('CURRENT_VOTER'),
   UNDONE_VOTERS: createAsyncActionTypes('UNDONE_VOTERS'),
   VOTERS_TAG: createAsyncActionTypes('VOTERS_TAG'),
+  UPDATE_VOTER_INFO: createAsyncActionTypes('UPDATE_VOTER_INFO'),
   PHONE_BANK_RECORDS: createAsyncActionTypes('PHONE_BANK_RECORDS')
 };

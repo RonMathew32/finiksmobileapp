@@ -2,7 +2,7 @@ import {takeLatest, put} from '@redux-saga/core/effects';
 import {ACTION_TYPES} from '../actions/actionTypes';
 import { ApiCall } from '../../utils/apiService';
 
-function* handleCommonLogic(data) {
+function* handleCommonLogic(data, response) {
   if (data?.setLoading) data.setLoading(false);
   if (data?.ToastMessageLight) data.ToastMessageLight(response?.message);
 }
@@ -27,13 +27,15 @@ function* handleApiRequest({
         console.log(`${successMessage} SUCCESSFUL`, response);
         if (successAction && response?.success) yield put(successAction(response));
         if (onSuccess && response?.success) onSuccess();
-        handleCommonLogic(data);
+        if (data?.ToastMessageLight) data.ToastMessageLight('Voter data updated');
+        if (data?.setLoading) data.setLoading(false);
+        // yield handleCommonLogic(data, response);
         break;
 
       default:
         console.log(`${successMessage} FAILED`, res);
         // if (onSuccess && response?.success) onSuccess();
-        handleCommonLogic(data);
+        yield handleCommonLogic(data, response);
     }
   } catch (e) {
     console.error(e);
@@ -112,4 +114,18 @@ function* getCustomTagsRequest({data}) {
 
 export function* getCustomTagsRequestSaga() {
   yield takeLatest(ACTION_TYPES.CUSTOM_TAGS.GET, getCustomTagsRequest);
+}
+
+function* updateVoterInfoRequest({data}) {
+  yield handleApiRequest({
+    data,
+    route: 'api/teammember/updatevoterinfo',
+    verb: 'POST',
+    successMessage: 'VOTER INFO UPDATE',
+    onSuccess: data?.onSuccess
+  });
+}
+
+export function* updateVoterInfoRequestSaga() {
+  yield takeLatest(ACTION_TYPES.UPDATE_VOTER_INFO.GET, updateVoterInfoRequest);
 }

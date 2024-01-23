@@ -6,7 +6,7 @@ import {
   newOTPRequestSaga,
 } from './auth.saga';
 import {joinCampaignRequestSaga, joinedCampaignRequestSaga} from './campaign.saga';
-import { getCampaignTagsRequestSaga, getCustomTagsRequestSaga, getScriptRequestSaga, getSurveyListRequestSaga, getVoterCheckDataByAdminRequestSaga, getVoterCheckDataRequestSaga, getVoterListRequestSaga } from './voters.saga';
+import { getCampaignTagsRequestSaga, getCustomTagsRequestSaga, getScriptRequestSaga, getSurveyListRequestSaga, getVoterCheckDataByAdminRequestSaga, getVoterCheckDataRequestSaga, getVoterListRequestSaga, updateVoterInfoRequestSaga } from './voters.saga';
 import { getPhoneBankRecordsRequestSaga } from './phonebank.saga';
 
 export function* rootSaga() {
@@ -22,6 +22,7 @@ export function* rootSaga() {
     getSurveyListRequestSaga(),
     getScriptRequestSaga(),
     getCustomTagsRequestSaga(),
+    updateVoterInfoRequestSaga(),
     getPhoneBankRecordsRequestSaga()    
   ]);
 }

@@ -21,21 +21,21 @@ import {
 } from '../redux/actions/voters.actions';
 import {useSelector} from 'react-redux';
 import {STRINGS} from '../constants/strings';
+import {useNavigation} from '@react-navigation/native';
 
-const useVoterCheck = (item, navigation) => {
-  const {currentCampaign, loading, setLoading, dispatch, token, user} =
-    useReduxStore();
+const useVoterCheck = item => {
+  const navigation = useNavigation();
   const {
+    currentCampaign,
+    dispatch,
+    token,
+    user,
     votersList,
-    customTags,
-    campaignTags,
-    survey,
-    script,
-    campaignOwnerID,
-    currentVoter,
-    undoneVoters,
-    votersTag
-  } = useSelector(state => state?.voteRed);
+    scriptId,
+    listId,
+    loading,
+    setLoading
+  } = useReduxStore();
 
   useEffect(() => {
     GetUsersData();
@@ -49,6 +49,7 @@ const useVoterCheck = (item, navigation) => {
         successAction: setCampaignTags,
         ToastMessageLight,
         token,
+        setLoading,
         role: user?.role,
       }),
     );
@@ -59,16 +60,18 @@ const useVoterCheck = (item, navigation) => {
         successAction: setSurveyList,
         ToastMessageLight,
         token,
+        setLoading,
         role: user?.role,
       }),
     );
     dispatch(
       getScript({
-        payload: {id: item.scriptId},
+        payload: {id: item?.scriptId || scriptId},
         param: STRINGS.TEXT_SCRIPT_PARAM,
         successAction: setScript,
         ToastMessageLight,
         token,
+        setLoading,
         role: user?.role,
       }),
     );
@@ -78,47 +81,38 @@ const useVoterCheck = (item, navigation) => {
         successAction: setCustomTags,
         ToastMessageLight,
         token,
+        setLoading,
         role: user?.role,
       }),
     );
   };
 
-  const GetUsersData = () => {
+  const GetUsersData = val => {
     dispatch(
       getVoterList({
-        payload: {id: item?.list},
+        payload: {id: item?.list || listId},
         param: STRINGS.TEXT_VOTER_LIST_PARAM,
         onSuccess: phoneBankFactory,
         successAction: setVoterList,
         ToastMessageLight,
         token,
+        setLoading,
         role: user?.role,
       }),
     );
     if (votersList?.length) {
-      const voters = votersList?.filter(value => !value.voterDone);
-      dispatch(setCurrentVoter(voters.length + 1));
-      dispatch(setUndoneVoters(voters))
-      dispatch(setVotersTag(voters[voters.length - 1].voterTags))
+      const voters = votersList?.filter(value => value.voterDone);
+      console.log('CURRENT VOTER SET');
+      dispatch(setCurrentVoter(voters[1]));
+      dispatch(setUndoneVoters(voters));
+      dispatch(setVotersTag(voters[1].voterTags));
     } else {
       ToastMessageDark('Already Finished');
       navigation.goBack();
     }
   };
 
-  return {
-    votersList,
-    undoneVoters,
-    votersTag,
-    campaignTags,
-    customTags,
-    survey,
-    script,
-    loading,
-    setLoading,
-    currentVoter,
-    campaignOwnerID,
-  };
+  return { GetUsersData, loading, };
 };
 
 export default useVoterCheck;

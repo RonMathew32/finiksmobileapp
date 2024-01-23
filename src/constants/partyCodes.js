@@ -1,0 +1,26 @@
+export const partyCodes = {
+    'A': 'American Independent',
+    'B': 'Constitution Party',
+    'C': 'Consumer',
+    'D': 'Democrat',
+    'E': 'Inferred Democrat',
+    'F': 'Reform',
+    'G': 'Green',
+    'H': 'Liberal',
+    'I': 'Independent',
+    'J': 'UMOJA',
+    'K': 'Independent NM Party',
+    'L': 'Libertarian',
+    'N': 'None/Non-Partisan/No Party/No Preference/Undeclared/Declined to State/Undecided/Unaffiliated',
+    'O': 'Other',
+    'P': 'Peace & Freedom',
+    'R': 'Republican',
+    'S': 'Inferred Republican',
+    'T': 'Right to Life',
+    'U': 'Unknown',
+    'V': 'Conservative',
+    'W': 'Natural Law',
+    'Z': 'Independence',
+  };
+
+  
