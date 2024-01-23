@@ -2,6 +2,7 @@ import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {hp, normalize} from '../../theme/dimensions';
 import {MontserratSemiBold} from '../../theme/fonts';
+import { COLORS } from '../../theme/colors';
 
 const CompaignHeader = () => {
   return (
@@ -19,9 +20,9 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'white',
-
-    shadowColor: '#545454',
+    backgroundColor: COLORS.white,
+    height: hp(6),
+    shadowColor: COLORS.darkGray,
     shadowOffset: {width: 1, height: 1},
     shadowOpacity: 0.4,
     shadowRadius: 3,
@@ -30,7 +31,6 @@ const styles = StyleSheet.create({
   nammetxt: {
     fontFamily: MontserratSemiBold,
     fontSize: normalize(16),
-    color: '#545454',
-    marginBottom: hp(1.5),
+    color: COLORS.darkGray,
   },
 });

@@ -14,12 +14,24 @@ import useReduxStore from '../../hooks/useReduxStore';
 import {GetPhoneBank} from '../../api/PhoneBankApi';
 import {ToastMessageDark} from '../../components/GlobalComponent/DisplayMessage';
 import CompaignCard from '../../components/CompaignSelection/CompaignCard';
-import { getPhoneBankRecords, setPhoneBankRecords } from '../../redux/actions/phonebank.actions';
+import {
+  getPhoneBankRecords,
+  setPhoneBankRecords,
+} from '../../redux/actions/phonebank.actions';
 import routes from '../../constants/routes';
-import { setScriptId } from '../../redux/actions/voters.actions';
+import {setScriptId} from '../../redux/actions/voters.actions';
+import LoadingScreen from '../../components/GlobalComponent/LoadingScreen';
 
 const PhoneBankingRecords = ({navigation}) => {
-  const {user, currentCampaign, token, dispatch, phoneBankRecords} = useReduxStore();
+  const {
+    user,
+    currentCampaign,
+    token,
+    dispatch,
+    phoneBankRecords,
+    setLoading,
+    loading,
+  } = useReduxStore();
 
   useEffect(() => {
     getPhoneBank();
@@ -29,30 +41,42 @@ const PhoneBankingRecords = ({navigation}) => {
     const payload = {
       campaignId: currentCampaign.campaignId,
       teamMemberEmail: user.email,
-    }
-    dispatch(getPhoneBankRecords({payload, ToastMessageDark, token, role: user?.role}))
+    };
+    dispatch(
+      getPhoneBankRecords({
+        payload,
+        ToastMessageDark,
+        token,
+        role: user?.role,
+        setLoading,
+      }),
+    );
   };
 
-  const navigateToVoterCheck = (item) =>{ 
-    dispatch(setScriptId(item?.scriptId))
-    navigation.navigate(routes?.VoterCheck, {item})
-  }
+  const navigateToVoterCheck = item => {
+    dispatch(setScriptId(item?.scriptId));
+    navigation.navigate(routes?.VoterCheck, {item});
+  };
   return (
     <SafeAreaView style={styles.container}>
       <Header />
       <View style={styles.ongingbox}>
         <Text style={styles.ongoingtxt}>Phone Bank</Text>
       </View>
-      <ScrollView contentContainerStyle={styles.compaignBox}>
-        {phoneBankRecords?.map((item, index) => (
-          <CompaignCard
-            key={index}
-            name={item.recordName}
-            status={item.active == 'Active'}
-            onPress={()=> navigateToVoterCheck(item)}
-          />
-        ))}
-      </ScrollView>
+      {loading ? (
+        <LoadingScreen />
+      ) : (
+        <ScrollView contentContainerStyle={styles.compaignBox}>
+          {phoneBankRecords?.map((item, index) => (
+            <CompaignCard
+              key={index}
+              name={item.recordName}
+              status={item.active == 'Active'}
+              onPress={() => navigateToVoterCheck(item)}
+            />
+          ))}
+        </ScrollView>
+      )}
     </SafeAreaView>
   );
 };

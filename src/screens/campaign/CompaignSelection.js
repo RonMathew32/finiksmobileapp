@@ -23,9 +23,10 @@ import {
   setCurrentCampaign,
   setJoinedCampaign,
 } from '../../redux/actions/campaings.actions';
+import LoadingScreen from '../../components/GlobalComponent/LoadingScreen';
 
 const CompaignSelection = ({ navigation }) => {
-  const { dispatch, user, allCampaign, currentCampaign, token } = useReduxStore();
+  const { dispatch, user, allCampaign, currentCampaign, token, loading, setLoading} = useReduxStore();
   const payload = {
     id: user?.id,
     role: user?.role,
@@ -42,6 +43,7 @@ const CompaignSelection = ({ navigation }) => {
         ToastMessageLight,
         setJoinedCampaign,
         token,
+        setLoading
       }),
     );
   };
@@ -62,7 +64,7 @@ const CompaignSelection = ({ navigation }) => {
       <View style={styles.ongoingBox}>
         <Text style={styles.ongoingText}>Ongoing Campaigns</Text>
       </View>
-      <ScrollView contentContainerStyle={styles.compaignBox}>
+     {loading? <LoadingScreen /> : <ScrollView contentContainerStyle={styles.compaignBox}>
         {allCampaign?.map((item) => (
           <CompaignCard
             key={item.campaignId}
@@ -71,7 +73,7 @@ const CompaignSelection = ({ navigation }) => {
             onPress={() => navigateTo(item)}
           />
         ))}
-      </ScrollView>
+      </ScrollView>}
       <View style={styles.bottomBox}>
         <Text style={styles.joinText}>Join A New Campaign</Text>
         <TouchableOpacity
