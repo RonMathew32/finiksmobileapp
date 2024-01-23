@@ -2,6 +2,7 @@ import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import {hp, normalize, wp} from '../../theme/dimensions';
 import {MontserratBold} from '../../theme/fonts';
+import { COLORS } from '../../theme/colors';
 
 const PhotoPicker = () => {
   return (
@@ -11,10 +12,10 @@ const PhotoPicker = () => {
       </View>
       <View style={styles.selectionbox}>
         <TouchableOpacity>
-          <Text>Upload Photo</Text>
+          <Text style={styles.txt}>Upload Photo</Text>
         </TouchableOpacity>
         <TouchableOpacity>
-          <Text>Take Picture</Text>
+          <Text style={styles.txt}>Take Picture</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -27,6 +28,9 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     marginTop: hp(3),
+  },
+  txt: {
+    color: COLORS.lavendarWhiteDark
   },
   imageback: {
     width: wp(25),
