@@ -7,6 +7,7 @@ import {Provider} from 'react-redux';
 import {store} from './src/redux/store';
 import { FONTS } from './src/theme/fonts';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { RootSiblingParent } from 'react-native-root-siblings';
 
 const App = () => {
   const [fontsLoaded] = useFonts(FONTS);
@@ -17,7 +18,9 @@ const App = () => {
     <Provider store={store}>
       <SafeAreaProvider>
         <NavigationContainer>
+        <RootSiblingParent>
           <MainNavigation />
+          </RootSiblingParent>
         </NavigationContainer>
       </SafeAreaProvider>
     </Provider>

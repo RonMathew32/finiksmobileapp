@@ -2,13 +2,13 @@ import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import {hp, normalize, wp} from '../../theme/dimensions';
 import {MontserratSemiBold} from '../../theme/fonts';
-import {useNavigation} from '@react-navigation/native';
+import { COLORS } from '../../theme/colors';
 
 const CompaignCard = ({name, status, onPress}) => {
   return (
     <TouchableOpacity onPress={onPress} style={styles.container}>
       <Text style={styles.name}>{name}</Text>
-      <View style={[styles.dot, status && {backgroundColor: '#49C661'}]}>
+      <View style={[styles.dot, status && {backgroundColor: COLORS.green}]}>
         <View />
       </View>
     </TouchableOpacity>

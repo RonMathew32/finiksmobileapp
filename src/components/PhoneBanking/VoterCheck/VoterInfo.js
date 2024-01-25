@@ -1,45 +1,45 @@
-import {StyleSheet, Text, View} from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
+import { hp, normalize, wp } from '../../../theme/dimensions';
 import {
-  hp,
-  normalize,
-  wp,
-} from '../../../theme/dimensions';
-import {  MontserratBold,
   MontserratExtraBold,
   MontserratMedium,
-  MontserratSemiBold } from '../../../theme/fonts';
+  MontserratSemiBold,
+} from '../../../theme/fonts';
 import { partyCodes } from '../../../constants/partyCodes';
-import useReduxStore from '../../../hooks/useReduxStore';
 
-const VoterInfo = ({currentVoter}) => {
+const VoterInfo = ({ currentVoter }) => {
+  const { FIRSTNAME, LASTNAME, ADDRESS, SEX, AGE, PARTY_CODE } = currentVoter;
+  const name = `${FIRSTNAME} ${LASTNAME}`;
+
   return (
     <View style={styles.container}>
       <View>
-        <Text style={styles.heading}>Name</Text>
-        <Text
-          style={
-            styles.subheading
-          }>{`${currentVoter?.FIRSTNAME} ${currentVoter?.LASTNAME}`}</Text>
-        <Text style={styles.heading}>Address</Text>
-        <Text style={styles.subheading}>{currentVoter.ADDRESS}</Text>
-        <Text style={styles.heading}>Demographics</Text>
-        <Text style={styles.subheading}>
-          {currentVoter?.SEX == 'F' ? 'Female' : 'Male'}
-          {'     '}|   {currentVoter?.AGE ?? ''} Years Old{'     '}|  {partyCodes[currentVoter?.PARTY_CODE] ?? ''}
-        </Text>
+        {renderInfo('Name', name)}
+        {renderInfo('Address', ADDRESS)}
+        {renderInfo('Demographics', getDemographics(SEX, AGE, PARTY_CODE))}
       </View>
-      <View style={styles.imageback}>
-        <Text
-          style={
-            styles.nametxt
-          }>{`${currentVoter?.FIRSTNAME?.trim()[0]} ${currentVoter?.LASTNAME?.trim()[0]}`}</Text>
+      <View style={styles.imageBack}>
+        <Text style={styles.nameText}>{getInitials(name)}</Text>
       </View>
     </View>
   );
 };
 
-export default VoterInfo;
+const renderInfo = (heading, value) => (
+  <>
+    <Text style={styles.heading}>{heading}</Text>
+    <Text style={styles.subheading}>{value ?? ''}</Text>
+  </>
+);
+
+const getDemographics = (sex, age, partyCode) => {
+  const gender = sex === 'F' ? 'Female' : sex === 'M' ? 'Male' : '';
+  return `${gender}     | ${age ?? ''} Years Old     | ${partyCodes[partyCode] ?? ''}`;
+};
+
+const getInitials = (name) =>
+  `${name ? name.trim()[0] : ''} ${name ? name.trim().split(' ').pop()[0] : ''}`;
 
 const styles = StyleSheet.create({
   container: {
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  imageback: {
+  imageBack: {
     width: wp(18),
     height: wp(18),
     backgroundColor: '#FF914D',
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  nametxt: {
+  nameText: {
     fontFamily: MontserratExtraBold,
     fontSize: normalize(21),
     color: 'white',
@@ -74,3 +74,5 @@ const styles = StyleSheet.create({
     marginTop: hp(0.7),
   },
 });
+
+export default React.memo(VoterInfo);

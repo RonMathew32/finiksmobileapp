@@ -11,9 +11,9 @@ import {plusicon} from '../../../theme/images';
 import {hp, normalize, wp} from '../../../theme/dimensions';
 import {MontserratMedium} from '../../../theme/fonts';
 import TagSelectionModal from '../../GlobalComponent/TagSelectionModal';
-import useVoterCheck from '../../../hooks/useVoterCheck';
 import useReduxStore from '../../../hooks/useReduxStore';
 import { setVotersTag } from '../../../redux/actions/voters.actions';
+import { COLORS } from '../../../theme/colors';
 
 const VoterTags = ({ votersTag , campaignTags, customTags}) => {
   const [visible, setVisible] = useState(false);
@@ -34,7 +34,7 @@ const VoterTags = ({ votersTag , campaignTags, customTags}) => {
         setVisible={setVisible}
         customTags={customTags}
         campaignTags={campaignTags}
-        tags={votersTag}
+        voterTags={votersTag}
         setTags={(tag)=> dispatch(setVotersTag(tag))}
 
       />
@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   card: {
-    backgroundColor: '#D12E2F',
+    backgroundColor: COLORS.orangeReddish,
     borderRadius: wp(7),
     marginRight: wp(3),
   },
@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
     marginVertical: hp(0.6),
   },
   plusbox: {
-    backgroundColor: '#D12E2F',
+    backgroundColor: COLORS.orangeReddish,
     borderRadius: wp(10),
     width: wp(7),
     height: wp(7),
@@ -84,6 +84,6 @@ const styles = StyleSheet.create({
   plusicon: {
     width: wp(4.3),
     height: wp(4.3),
-    tintColor: 'white',
+    tintColor: COLORS.white,
   },
 });

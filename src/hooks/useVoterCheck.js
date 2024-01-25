@@ -19,7 +19,6 @@ import {
   setVoterList,
   setVotersTag,
 } from '../redux/actions/voters.actions';
-import {useSelector} from 'react-redux';
 import {STRINGS} from '../constants/strings';
 import {useNavigation} from '@react-navigation/native';
 

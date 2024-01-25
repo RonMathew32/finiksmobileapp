@@ -1,31 +1,32 @@
-import {
-  FlatList,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {FlatList, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React, {useState} from 'react';
 import ReactNativeModal from 'react-native-modal';
-import {
-  hp,
-  normalize,
-  wp,
-} from '../../theme/dimensions';
-import {  Montserrat,
-  MontserratMedium,
-  MontserratSemiBold} from '../../theme/fonts';
+import {hp, normalize, wp} from '../../theme/dimensions';
+import {MontserratMedium, MontserratSemiBold} from '../../theme/fonts';
+import {COLORS} from '../../theme/colors';
 
 const TagSelectionModal = ({
   visible,
   setVisible,
   customTags,
   campaignTags,
-  tags,
+  voterTags,
   setTags,
 }) => {
   const [type, setType] = useState('custom');
+
+  const onPressToSetTags = item => {
+    if (!voterTags.some(obj => obj?.tagName == item?.tagName)) {
+      setTags([...voterTags, item]);
+    } else {
+      const updatedTags = voterTags.filter(
+        obj => obj?.tagName != item?.tagName,
+      );
+      console.log('Remove ADDED');
+      setTags([...updatedTags]);
+    }
+  };
+
   return (
     <ReactNativeModal
       isVisible={visible}
@@ -46,12 +47,12 @@ const TagSelectionModal = ({
             onPress={() => setType('custom')}
             style={[
               styles.selection,
-              type == 'custom' && {borderBottomColor: '#D12E2F'},
+              type == 'custom' && {borderBottomColor: COLORS.orangeReddish},
             ]}>
             <Text
               style={[
                 styles.selectiontxt,
-                type == 'custom' && {color: '#D12E2F'},
+                type == 'custom' && {color: COLORS.orangeReddish},
               ]}>
               Custom Tags
             </Text>
@@ -60,12 +61,12 @@ const TagSelectionModal = ({
             onPress={() => setType('tags')}
             style={[
               styles.selection,
-              type == 'tags' && {borderBottomColor: '#D12E2F'},
+              type == 'tags' && {borderBottomColor: COLORS.orangeReddish},
             ]}>
             <Text
               style={[
                 styles.selectiontxt,
-                type == 'tags' && {color: '#D12E2F'},
+                type == 'tags' && {color: COLORS.orangeReddish},
               ]}>
               Campaign Tags
             </Text>
@@ -77,10 +78,10 @@ const TagSelectionModal = ({
           style={styles.tagview}
           renderItem={({item, index}) => (
             <TouchableOpacity
-              onPress={() => setTags([...tags, item])}
+              onPress={() => onPressToSetTags(item)}
               style={styles.tagbox}>
               <Text style={styles.tagtxt}>{item.tagName}</Text>
-              <View style={styles.dot} />
+              <View style={styles.dot(voterTags, item)}></View>
             </TouchableOpacity>
           )}
         />
@@ -89,7 +90,7 @@ const TagSelectionModal = ({
   );
 };
 
-export default TagSelectionModal;
+export default React.memo(TagSelectionModal);
 
 const styles = StyleSheet.create({
   modalStyle: {
@@ -98,7 +99,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: wp(3),
   },
   container: {
-    backgroundColor: 'white',
+    backgroundColor: COLORS.white,
     paddingVertical: hp(2),
     borderRadius: wp(3),
   },
@@ -107,7 +108,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: wp(4),
-    backgroundColor: 'white',
+    backgroundColor: COLORS.white,
     paddingBottom: hp(2),
   },
   crossicon: {
@@ -118,13 +119,13 @@ const styles = StyleSheet.create({
     fontFamily: MontserratSemiBold,
     fontSize: normalize(15),
     lineHeight: normalize(15),
-    color: '#545454',
+    color: COLORS.darkGray,
   },
   btntxt: {
     fontFamily: MontserratSemiBold,
     fontSize: normalize(14),
     lineHeight: normalize(14),
-    color: '#D12E2F',
+    color: COLORS.orangeReddish,
   },
   selectionbox: {
     flexDirection: 'row',
@@ -135,13 +136,13 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     borderBottomWidth: 1,
-    borderBottomColor: '#A6A6A6',
+    borderBottomColor: COLORS.lavendarWhiteDark,
   },
   selectiontxt: {
     fontFamily: MontserratMedium,
     fontSize: normalize(12),
     lineHeight: normalize(15),
-    color: '#A6A6A6',
+    color: COLORS.lavendarWhiteDark,
     marginBottom: hp(2),
   },
   tagview: {
@@ -153,7 +154,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginHorizontal: wp(4),
     borderBottomWidth: 1,
-    borderBottomColor: '#D9D9D9',
+    borderBottomColor: COLORS.lavendarWhiteDim,
     paddingVertical: hp(1),
     paddingHorizontal: wp(2),
     paddingRight: wp(4),
@@ -162,21 +163,24 @@ const styles = StyleSheet.create({
     fontFamily: MontserratMedium,
     fontSize: normalize(12),
     lineHeight: normalize(15),
-    color: '#A6A6A6',
+    color: COLORS.lavendarWhiteDark,
   },
-  dot: {
-    width: wp(3),
-    height: wp(3),
-    borderRadius: wp(3) / 2,
-    backgroundColor: '#D9D9D9',
-    shadowColor: '#D9D9D9',
-    shadowOffset: {
-      width: 1,
-      height: 1,
-    },
-    shadowOpacity: 0.29,
-    shadowRadius: 4.65,
-
-    elevation: 5,
+  dot: (voterTags, item) => {
+    return {
+      width: wp(3),
+      height: wp(3),
+      borderRadius: wp(3) / 2,
+      shadowColor: COLORS.lavendarWhiteDim,
+      backgroundColor: voterTags?.some(obj => obj?.tagName == item?.tagName)
+        ? COLORS.green
+        : COLORS.lavendarWhite,
+      shadowOffset: {
+        width: 1,
+        height: 1,
+      },
+      shadowOpacity: 0.29,
+      shadowRadius: 4.65,
+      elevation: 5,
+    };
   },
 });

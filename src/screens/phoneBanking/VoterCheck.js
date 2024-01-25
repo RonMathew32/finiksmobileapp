@@ -1,5 +1,5 @@
 import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {hp, normalize, wp} from '../../theme/dimensions';
 import {MontserratBold} from '../../theme/fonts';
 import VoterTags from '../../components/PhoneBanking/VoterCheck/VoterTags';
@@ -11,17 +11,12 @@ import useVoterCheck from '../../hooks/useVoterCheck';
 import {ToastMessageDark} from '../../components/GlobalComponent/DisplayMessage';
 import LoadingScreen from '../../components/GlobalComponent/LoadingScreen';
 import useReduxStore from '../../hooks/useReduxStore';
-import {
-  setCurrentVoter,
-  setVotersTag,
-} from '../../redux/actions/voters.actions';
 import VoterActions from '../../components/PhoneBanking/VoterCheck/VoterActions';
 import VoterHeader from '../../components/PhoneBanking/VoterCheck/VoterHeader';
 import {COLORS} from '../../theme/colors';
 
 const VoterCheck = ({route, navigation}) => {
   const item = route.params?.item ? route.params.item : null;
-  const {dispatch} = useReduxStore();
   const {votersTag, survey, currentVoter, campaignTags, customTags} =
     useReduxStore(item);
   const {loading} = useVoterCheck(item);
@@ -44,12 +39,8 @@ const VoterCheck = ({route, navigation}) => {
   );
 
   const onNextPress = () => {
-    if (currentVoter == 0) {
-      // navigation.goBack();
+    if (!currentVoter?._id) {
       ToastMessageDark('List Finished');
-    } else {
-      dispatch(setCurrentVoter(current - 1));
-      setSelected('');
     }
   };
 

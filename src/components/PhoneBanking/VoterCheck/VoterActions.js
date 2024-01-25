@@ -28,7 +28,7 @@ const VoterActions = ({navigation, currentVoter}) => {
   const [addToTeamModal, setAddToTeamModal] = useState(false);
   const [type, setType] = useState('Message');
   const isEmailExist = currentVoter?.EMAIL ?? currentVoter?.EMAIL2 ?? currentVoter?.EMAIL3 ?? '';
-  const isPhoneNumberExist = currentVoter?.MOBILE_NUM ?? 0
+  const isPhoneNumberExist = currentVoter?.MOBILE_NUM ?? ''
 
   const OnEMCardPress = val => {
     setType(val);
