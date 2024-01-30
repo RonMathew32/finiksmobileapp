@@ -192,7 +192,7 @@ const VoterCheck = ({route, navigation}) => {
             <VoterTags
               campaignTags={campaignTags}
               customTags={customTags}
-              votersTag={votersTag}
+              voterTags={votersTag}
             />
             <VoterInfo currentVoter={currentVoter} />
           </View>

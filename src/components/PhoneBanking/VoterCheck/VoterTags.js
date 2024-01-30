@@ -1,28 +1,31 @@
-import {
-  Image,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
-import React, {useState} from 'react';
-import {plusicon} from '../../../theme/images';
-import {hp, normalize, wp} from '../../../theme/dimensions';
-import {MontserratMedium} from '../../../theme/fonts';
+import React, { useState } from 'react';
+import { Image, StyleSheet, Text, TouchableOpacity, View, FlatList } from 'react-native';
+import { plusicon } from '../../../theme/images';
+import { hp, normalize, wp } from '../../../theme/dimensions';
+import { MontserratMedium } from '../../../theme/fonts';
 import TagSelectionModal from '../../GlobalComponent/TagSelectionModal';
 import { COLORS } from '../../../theme/colors';
 
-const VoterTags = ({ votersTag , campaignTags, customTags}) => {
+const VoterTags = ({ voterTags, campaignTags, customTags }) => {
   const [visible, setVisible] = useState(false);
-  
+
+  const renderTag = ({ item }) => (
+    <Tags name={item?.tagName} />
+  );
+
   return (
     <View style={styles.container}>
-      <ScrollView style={styles.scrollview} horizontal>
-        {votersTag?.map((item, index) => {
-          return <Tags key={index} name={item.tagName} />;
-        })}
-      </ScrollView>
+      <FlatList
+        data={voterTags}
+        renderItem={renderTag}
+        keyExtractor={(item, index) => index.toString()}
+        horizontal
+      />
+      {!voterTags?.length && (
+        <View style={styles.addTagsPlaceholder}>
+          <Text style={styles.placeholderText}>Add Tags</Text>
+        </View>
+      )}
       <TouchableOpacity onPress={() => setVisible(true)} style={styles.plusbox}>
         <Image source={plusicon} style={styles.plusicon} resizeMode="contain" />
       </TouchableOpacity>
@@ -31,19 +34,17 @@ const VoterTags = ({ votersTag , campaignTags, customTags}) => {
         setVisible={setVisible}
         customTags={customTags}
         campaignTags={campaignTags}
-        voterTags={votersTag}
+        voterTags={voterTags}
       />
     </View>
   );
 };
 
-const Tags = ({name}) => {
-  return (
-    <View style={styles.card}>
-      <Text style={styles.name}>{name}</Text>
-    </View>
-  );
-};
+const Tags = ({ name }) => (
+  <View style={styles.card}>
+    <Text style={styles.name}>{name}</Text>
+  </View>
+);
 
 export default VoterTags;
 
@@ -53,8 +54,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: hp(2.5),
   },
-  scrollview: {
-    flex: 1,
+  addTagsPlaceholder: {
+    width: wp(80),
+    alignItems: 'center',
+  },
+  placeholderText: {
+    color: COLORS.orangeReddish,
+    fontSize: normalize(16),
   },
   card: {
     backgroundColor: COLORS.orangeReddish,
