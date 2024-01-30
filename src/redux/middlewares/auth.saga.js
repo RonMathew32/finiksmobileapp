@@ -10,6 +10,7 @@ function* handleApiRequest({
   verb,
   successMessage,
   successAction,
+  onSuccess,
   navigateToOTP,
   navigationToLogin,
   onOTPFails,
@@ -18,7 +19,9 @@ function* handleApiRequest({
   try {
     if (data?.setLoading) data.setLoading(true);
 
-    const res = yield ApiCall({ body: data?.payload, route, verb });
+    const headers = data?.token? {Authorization: `${data?.role} Bearer ` + data?.token} : {};
+
+    const res = yield ApiCall({ body: data?.payload, route, verb, headers });
     const { status, response } = res;
 
     const handleCommonLogic = () => {
@@ -29,7 +32,7 @@ function* handleApiRequest({
     switch (status) {
       case 200:
         console.log(`${successMessage} SUCCESSFUL`, response);
-        if (successAction) yield put(successAction(response));
+        if (successAction && response?.success) yield put(successAction(response));
 
         if (navigateToOTP && response?.message === STRINGS.TEXT_OTP_SENT_TO_EMAIL) {
           navigateToOTP();
@@ -37,13 +40,15 @@ function* handleApiRequest({
         if (onOTPFails && response?.message === STRINGS.TEXT_OTP_WRONG) {
           onOTPFails(true);
         }
+        if (onSuccess && response?.success) {
+          onSuccess();
+        }
         if (navigationToLogin && response?.message === STRINGS.TEXT_EMAIL_VERIFIED) {
           navigationToLogin();
         }
         if (onSentOTP && response?.message === STRINGS.TEXT_NEW_OTP_SENT) {
           onSentOTP(false);
         }
-
         handleCommonLogic();
         break;
 
@@ -115,4 +120,18 @@ function* newOTPRequest({ data }) {
 
 export function* newOTPRequestSaga() {
   yield takeLatest(ACTION_TYPES.NEW_OTP.GET, newOTPRequest);
+}
+
+function* updateUserProfileRequest({ data }) {
+  yield handleApiRequest({
+    data,
+    route: 'api/campaign/updateprofile',
+    verb: 'POST',
+    successMessage: 'UPDATE PROFILE',
+    onSuccess: data?.onSuccess
+  });
+}
+
+export function* updateUserProfileRequestSaga() {
+  yield takeLatest(ACTION_TYPES.USER_PROFILE.UPDATE, updateUserProfileRequest);
 }

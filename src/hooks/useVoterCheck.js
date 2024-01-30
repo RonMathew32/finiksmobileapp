@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import {useCallback, useEffect, useState} from 'react';
 import {
   ToastMessageDark,
   ToastMessageLight,
@@ -40,13 +40,20 @@ const useVoterCheck = item => {
     GetUsersData();
   }, [item]);
 
+  useEffect(()=>{
+    if(votersList?.length){
+      setData()
+    }
+  },[votersList])
+
+
   const phoneBankFactory = () => {
     dispatch(
       getCampaignTags({
         payload: {id: currentCampaign.campaignId},
         param: STRINGS.TEXT_TAGS_PARAM,
         successAction: setCampaignTags,
-        ToastMessageLight,
+        // ToastMessageLight,
         token,
         setLoading,
         role: user?.role,
@@ -57,7 +64,7 @@ const useVoterCheck = item => {
         payload: {id: currentCampaign.campaignId},
         param: STRINGS.TEXT_SURVEY_PARAM,
         successAction: setSurveyList,
-        ToastMessageLight,
+        // ToastMessageLight,
         token,
         setLoading,
         role: user?.role,
@@ -68,7 +75,7 @@ const useVoterCheck = item => {
         payload: {id: item?.scriptId || scriptId},
         param: STRINGS.TEXT_SCRIPT_PARAM,
         successAction: setScript,
-        ToastMessageLight,
+        // ToastMessageLight,
         token,
         setLoading,
         role: user?.role,
@@ -78,7 +85,7 @@ const useVoterCheck = item => {
       getCustomTags({
         param: STRINGS.TEXT_CUSTOM_TAG_PARAM,
         successAction: setCustomTags,
-        ToastMessageLight,
+        // ToastMessageLight,
         token,
         setLoading,
         role: user?.role,
@@ -86,10 +93,27 @@ const useVoterCheck = item => {
     );
   };
 
+  const setData = useCallback(() =>{
+    if (votersList?.length) {
+      const voters = votersList?.filter(value => !value.voterDone);
+      if(voters?.length){
+        console.log(voters?.length, 'VOTERS UNDONE');
+        console.log('CURRENT VOTER SET');
+        dispatch(setCurrentVoter(voters[0]));
+        dispatch(setUndoneVoters(voters));
+        dispatch(setVotersTag(voters[0]?.voterTags));
+      } else {
+        ToastMessageDark('List Not Found');
+        dispatch(setVoterList({list : {voters : []}}))
+        navigation.goBack();
+      }
+    }
+  },[votersList, dispatch, navigation])
+
   const GetUsersData = val => {
     dispatch(
       getVoterList({
-        payload: {id: item?.list || listId},
+        payload: {id: item?.list },
         param: STRINGS.TEXT_VOTER_LIST_PARAM,
         onSuccess: phoneBankFactory,
         successAction: setVoterList,
@@ -99,16 +123,6 @@ const useVoterCheck = item => {
         role: user?.role,
       }),
     );
-    if (votersList?.length) {
-      const voters = votersList?.filter(value => value.voterDone);
-      console.log('CURRENT VOTER SET');
-      dispatch(setCurrentVoter(voters[1]));
-      dispatch(setUndoneVoters(voters));
-      dispatch(setVotersTag(voters[1].voterTags));
-    } else {
-      ToastMessageDark('Already Finished');
-      navigation.goBack();
-    }
   };
 
   return { GetUsersData, loading, };

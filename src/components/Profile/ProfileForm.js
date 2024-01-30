@@ -1,4 +1,5 @@
 import {
+  Image,
   StyleSheet,
   Text,
   TextInput,
@@ -7,22 +8,51 @@ import {
 } from 'react-native';
 import React, {useState} from 'react';
 import {hp, normalize, wp} from '../../theme/dimensions';
-import { MontserratMedium } from '../../theme/fonts';
+import {MontserratMedium} from '../../theme/fonts';
 import {useDispatch} from 'react-redux';
-import { setLogout } from '../../redux/actions/auth.actions';
+import {setLogout} from '../../redux/actions/auth.actions';
+import {COLORS} from '../../theme/colors';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
-export const CustomInput = ({name, placeholder, value, setValue, keyboardType}) => {
+export const CustomInput = ({
+  name,
+  placeholder,
+  placeholderTextColor = COLORS.lavendarWhiteDim,
+  value,
+  setValue,
+  keyboardType,
+  textInputStyle,
+  containerStyle,
+  editable = true,
+  canvass = false,
+  onPressClearInput
+}) => {
+  const canvassChecks = {
+    flexDirection: canvass ? 'row' : null,
+    justifyContent: canvass ? 'space-between' : null,
+    alignItems: canvass ? 'center' : null,
+  };
+  const canvasChecksInput = {
+    width: canvass ? wp(70) : null,
+  };
   return (
     <View>
       <Text style={styles.nametxt}>{name}</Text>
-      <View style={styles.inputbox}>
+      <View style={[styles.inputbox, containerStyle, canvassChecks]}>
         <TextInput
           placeholder={placeholder}
+          placeholderTextColor={placeholderTextColor}
           value={value}
+          editable={editable}
           onChangeText={setValue}
-          style={styles.textinput}
-          keyboardType={keyboardType?? 'default'}
+          style={[styles.textinput, textInputStyle, canvasChecksInput]}
+          keyboardType={keyboardType ?? 'default'}
         />
+        {canvass ? (
+          <TouchableOpacity onPress={onPressClearInput}>
+            <Icon name="cancel" color={COLORS.orangeReddish} size={hp(3)} />
+          </TouchableOpacity>
+        ) : null}
       </View>
     </View>
   );
@@ -41,6 +71,7 @@ const ProfileForm = () => {
   const onChangeValue = (key, value) => {
     setData({...data, [key]: value});
   };
+
   return (
     <View style={styles.container}>
       <CustomInput
@@ -98,7 +129,8 @@ const styles = StyleSheet.create({
     marginBottom: hp(1),
   },
   inputbox: {
-    backgroundColor: 'white',
+    backgroundColor: COLORS.white,
+    marginBottom: hp(1.5),
     shadowColor: 'rgba(0,0,0,0.5)',
     shadowOffset: {
       width: 1,
@@ -106,12 +138,10 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.29,
     shadowRadius: 4.65,
-
     elevation: 5,
     paddingHorizontal: wp(3),
     paddingVertical: hp(1.4),
     borderRadius: wp(1),
-    marginBottom: hp(1.5),
   },
   textinput: {
     fontFamily: MontserratMedium,

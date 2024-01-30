@@ -18,14 +18,19 @@ export const ACTION_TYPES = {
   VOTER_CHECK_DATA: createAsyncActionTypes('VOTER_CHECK_DATA'),
   VOTER_CHECK_DATA_BY_ADMIN: createAsyncActionTypes('VOTER_CHECK_DATA_BY_ADMIN'),
   VOTER_LIST: createAsyncActionTypes('VOTER_LIST'),
+  WRONG_NUMBER: createAsyncActionTypes('WRONG_NUMBER'),
+  SAVE_INTERACTION: createAsyncActionTypes('SAVE_INTERACTION'),
   CAMPAIGN_TAGS: createAsyncActionTypes('CAMPAIGN_TAGS'),
   CUSTOM_TAGS: createAsyncActionTypes('CUSTOM_TAGS'),
   SURVEY_LIST: createAsyncActionTypes('SURVEY_LIST'),
+  SURVEY_TO_TAKE: createAsyncActionTypes('SURVEY_TO_TAKE'),
   SCRIPT: createAsyncActionTypes('SCRIPT'),
+  RECORD: createAsyncActionTypes('RECORD'),
   SCRIPT_ID: createAsyncActionTypes('SCRIPT_ID'),
   CURRENT_VOTER: createAsyncActionTypes('CURRENT_VOTER'),
   UNDONE_VOTERS: createAsyncActionTypes('UNDONE_VOTERS'),
   VOTERS_TAG: createAsyncActionTypes('VOTERS_TAG'),
   UPDATE_VOTER_INFO: createAsyncActionTypes('UPDATE_VOTER_INFO'),
-  PHONE_BANK_RECORDS: createAsyncActionTypes('PHONE_BANK_RECORDS')
+  PHONE_BANK_RECORDS: createAsyncActionTypes('PHONE_BANK_RECORDS'),
+  USER_PROFILE: createAsyncActionTypes('USER_PROFILE')
 };

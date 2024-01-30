@@ -6,17 +6,16 @@ import {
   Text,
   View,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import Header from '../../components/GlobalComponent/Header';
 import {hp, normalize} from '../../theme/dimensions';
 import {Montserrat} from '../../theme/fonts';
 import useReduxStore from '../../hooks/useReduxStore';
-import {GetPhoneBank} from '../../api/PhoneBankApi';
-import {ToastMessageDark} from '../../components/GlobalComponent/DisplayMessage';
+import {ToastMessageLight} from '../../components/GlobalComponent/DisplayMessage';
 import CompaignCard from '../../components/CompaignSelection/CompaignCard';
 import {
   getPhoneBankRecords,
-  setPhoneBankRecords,
+  setRecord,
 } from '../../redux/actions/phonebank.actions';
 import routes from '../../constants/routes';
 import {setScriptId} from '../../redux/actions/voters.actions';
@@ -33,30 +32,41 @@ const PhoneBankingRecords = ({navigation}) => {
     loading,
   } = useReduxStore();
 
+  const commonAPIPayload = {
+    ToastMessageLight,
+    token,
+    role: user?.role,
+  }
   useEffect(() => {
     getPhoneBank();
   }, []);
 
-  const getPhoneBank = async () => {
+  const getPhoneBank =  useCallback(() => {
     const payload = {
       campaignId: currentCampaign.campaignId,
       teamMemberEmail: user.email,
     };
     dispatch(
       getPhoneBankRecords({
+        ...commonAPIPayload,
         payload,
-        ToastMessageDark,
-        token,
-        role: user?.role,
         setLoading,
       }),
     );
-  };
+  },[currentCampaign, user, setLoading]);
 
-  const navigateToVoterCheck = item => {
-    dispatch(setScriptId(item?.scriptId));
-    navigation.navigate(routes?.VoterCheck, {item});
-  };
+  const navigateToVoterCheck = useMemo(() => item => {
+      if (item) {
+        dispatch(setRecord(item));
+        dispatch(setScriptId(item?.scriptId));
+        navigation.navigate(routes?.VoterCheck, { item });
+      } else {
+        // Handle the case when item is not available or data is not loaded
+        console.error('Data not available');
+      }
+    },
+    [dispatch, navigation, routes?.VoterCheck]);
+
   return (
     <SafeAreaView style={styles.container}>
       <Header />

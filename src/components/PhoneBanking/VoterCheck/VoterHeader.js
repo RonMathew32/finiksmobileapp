@@ -1,10 +1,10 @@
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import React from 'react';
-import {chevronleft, homeicon} from '../../../theme/images';
-import {hp, normalize, wp} from '../../../theme/dimensions';
-import {MontserratMedium, MontserratSemiBold} from '../../../theme/fonts';
-import {useNavigation} from '@react-navigation/native';
-import {COLORS} from '../../../theme/colors';
+import React, { useMemo, useCallback } from 'react';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { chevronleft, homeicon } from '../../../theme/images';
+import { hp, normalize, wp } from '../../../theme/dimensions';
+import { MontserratMedium, MontserratSemiBold } from '../../../theme/fonts';
+import { useNavigation } from '@react-navigation/native';
+import { COLORS } from '../../../theme/colors';
 
 const VoterHeader = ({
   leftTitle,
@@ -13,54 +13,72 @@ const VoterHeader = ({
   rightTitle,
   onPressRight,
   paddingBottom,
+  enableBack= false
 }) => {
   const navigation = useNavigation();
-  const onPressLeftHandle = () => {
-    onPressLeft && leftTitle ? onPressLeft() : navigation.canGoBack() && navigation.goBack();
-  };
 
-  const onPressRightHandle = () => {
+  const onPressLeftHandle = useCallback(() => {
+    if (onPressLeft || leftTitle) {
+      onPressLeft && enableBack==false? onPressLeft() : navigation.canGoBack() && navigation.goBack();
+    }
+  }, [onPressLeft, leftTitle, navigation, enableBack]);
+
+  const onPressRightHandle = useCallback(() => {
     onPressRight ? onPressRight() : console.log('Right');
-  };
+  }, [onPressRight]);
+
+  const leftComponent = useMemo(() => {
+    if (leftTitle) {
+      return <Text style={styles.leftTitle}>{leftTitle}</Text>;
+    } else {
+      return (
+        <Image
+          source={chevronleft}
+          style={styles.icon('L')}
+          resizeMode="contain"
+        />
+      );
+    }
+  }, [leftTitle]);
+
+  const rightComponent = useMemo(() => {
+    if (rightTitle) {
+      return <Text style={styles.savetxt}>{rightTitle}</Text>;
+    } else {
+      return (
+        <Image
+          source={homeicon}
+          style={styles.icon('R')}
+          resizeMode="contain"
+        />
+      );
+    }
+  }, [rightTitle]);
+
   return (
-    <View style={{overflow: 'hidden', paddingBottom: paddingBottom ?? 4}}>
+    <View style={{ overflow: 'hidden', paddingBottom: paddingBottom ?? 4 }}>
       <View style={styles.container}>
         <TouchableOpacity
           disabled={leftTitle || onPressLeft ? false : true}
           style={styles.savebox}
           onPress={onPressLeftHandle}>
-          {leftTitle ? (
-            <Text style={styles.leftTitle}>{leftTitle}</Text>
-          ) : (
-            <Image
-              source={chevronleft}
-              style={styles.icon('L')}
-              resizeMode="contain"
-            />
-          )}
+          {leftComponent}
         </TouchableOpacity>
 
-        <Text style={styles.nametxt}>{title}</Text>
+        <Text style={[styles.nametxt, { marginLeft: -wp(6) }]}>{title}</Text>
+        
         <TouchableOpacity
           disabled={rightTitle || onPressRight ? false : true}
           style={styles.savebox}
           onPress={onPressRightHandle}>
-          {rightTitle ? (
-            <Text style={styles.savetxt}>Save</Text>
-          ) : (
-            <Image
-              source={homeicon}
-              style={styles.icon('R')}
-              resizeMode="contain"
-            />
-          )}
+          {rightComponent}
         </TouchableOpacity>
       </View>
     </View>
   );
 };
 
-export default VoterHeader;
+export default React.memo(VoterHeader);
 
 const styles = StyleSheet.create({
   leftTitle: {
@@ -76,12 +94,12 @@ const styles = StyleSheet.create({
     height: hp(6),
     backgroundColor: COLORS.white,
     shadowColor: COLORS.darkGray,
-    shadowOffset: {width: 1, height: 1},
+    shadowOffset: { width: 1, height: 1 },
     shadowOpacity: 0.4,
     shadowRadius: 3,
     elevation: 5,
   },
-  icon: val => {
+  icon: (val) => {
     return {
       width: wp(6),
       height: wp(6),

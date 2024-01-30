@@ -22,6 +22,10 @@ export default Object.freeze({
     PhoneBank: 'PhoneBank',
     PhoneBankingRecords: 'Phone Banking Records',
     VoterCheck: 'Voter Check',
-    TotalVoters: 'Total Voters'
+    TotalVoters: 'Total Voters',
+
+    //Canvass
+    CanvassStack: 'CanvassStack',
+    VoterDetails: 'Voter Details'
   });
   

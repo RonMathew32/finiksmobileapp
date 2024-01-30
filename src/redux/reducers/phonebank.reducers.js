@@ -2,6 +2,7 @@ import {ACTION_TYPES} from '../actions/actionTypes';
 
 const initialState = {
   phoneBankRecords: [],
+  currentRecord: {}
 };
 
 const PhoneBankRecordsReducer = (state = initialState, action) => {
@@ -12,6 +13,12 @@ const PhoneBankRecordsReducer = (state = initialState, action) => {
       return {
         ...state,
         phoneBankRecords: data.records,
+      };
+
+      case ACTION_TYPES.RECORD.SET:
+      return {
+        ...state,
+        currentRecord: data,
       };
 
     default:

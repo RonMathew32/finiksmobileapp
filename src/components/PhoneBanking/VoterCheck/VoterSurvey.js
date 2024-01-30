@@ -1,91 +1,105 @@
-import {
-  FlatList,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
-import React, {useState} from 'react';
-import {hp, normalize, wp} from '../../../theme/dimensions';
-import {
-  MontserratExtraBold,
-  MontserratMedium,
-  MontserratSemiBold,
-} from '../../../theme/fonts';
-import VoterTags from './VoterTags';
-import ReactNativeModal from 'react-native-modal';
+import React, { useState, useCallback, memo } from 'react';
+import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { hp, normalize, wp } from '../../../theme/dimensions';
+import { MontserratMedium } from '../../../theme/fonts';
+import useReduxStore from '../../../hooks/useReduxStore';
+import { COLORS } from '../../../theme/colors';
+import { setSurveyList } from '../../../redux/actions/voters.actions';
+import SurveyModal from '../../Modals/SurveyModal';
 
-const VoterSurvey = ({data, tags}) => {
-  const [survey, setSurvey] = useState({});
+const VoterSurvey = ({ data }) => {
+  const { currentVoter } = useReduxStore();
+  const { dispatch } = useReduxStore();
+  const [surveyItem, setSurveyItem] = useState({});
   const [visible, setVisible] = useState(false);
+  const [selectedAnswer, setSelectedAnswer] = useState('');
+
+  const getSurveyData = useCallback(
+    (val, targetSurveyId) => {
+      const updatedData = data?.map(item => {
+        if (item.surveyId === targetSurveyId) {
+          return {
+            ...item,
+            voterAnswer: {
+              surveyId: item?.surveyId,
+              surveyQuestion: item?.surveyQuestion,
+              surveyName: 'survey ',
+              surveyPreview: 'survey preview',
+              answer: val,
+              voterId: currentVoter?._id,
+              voterName: currentVoter?.FIRSTNAME,
+              date: new Date(),
+              time: new Date(),
+            },
+          };
+        }
+        return item;
+      });
+      const payload = {
+        survey: {
+          surveyQuestions: updatedData,
+        },
+      };
+      dispatch(setSurveyList(payload));
+    },
+    [data, currentVoter, dispatch]
+  );
+
+  const renderItem = useCallback(
+    ({ item, index }) => (
+      <TouchableOpacity
+        onPress={() => {
+          setSurveyItem(item);
+          setVisible(true);
+        }}
+        style={{
+          ...styles.card,
+          backgroundColor: item?.voterAnswer?.answer ? COLORS.lavendarWhiteDark : item?.color.code,
+        }}
+      >
+        <Text style={styles.cardtxt}>{item?.surveyQuestion}</Text>
+      </TouchableOpacity>
+    ),
+    []
+  );
+
+  const keyExtractor = useCallback((item, index) => index.toString(), []);
 
   return (
     <View style={styles.container}>
       <FlatList
-        style={{height: hp(54)}}
-        contentContainerStyle={styles.flatlist}
-        ListHeaderComponent={<VoterTags />}
-        columnWrapperStyle={{columnGap: wp(1), marginTop: wp(1)}}
-        ListHeaderComponentStyle={{marginBottom: hp(3)}}
+        style={styles.flatlist}
+        contentContainerStyle={styles.contentContainer}
         numColumns={2}
         data={data}
-        renderItem={({item, inndex}) => (
-          <TouchableOpacity
-            onPress={() => {
-              setSurvey(item);
-              setVisible(true);
-            }}
-            style={{...styles.card, backgroundColor: item.color.code}}>
-            <Text style={styles.cardtxt}>{item.surveyQuestion}</Text>
-          </TouchableOpacity>
-        )}
-        keyExtractor={(item, index) => index.toString()}
+        renderItem={renderItem}
+        keyExtractor={keyExtractor}
       />
-      <SurveyModal visible={visible} setVisible={setVisible} survey={survey} />
+      <SurveyModal
+        visible={visible}
+        setVisible={setVisible}
+        survey={surveyItem}
+        selectedAnswer={selectedAnswer}
+        setSelectedAnswer={val => setSelectedAnswer(val)}
+        onPressAnswer={(val, id) => getSurveyData(val, id)}
+      />
     </View>
   );
 };
 
-const SurveyModal = ({visible, setVisible, survey}) => {
-  return (
-    <ReactNativeModal
-      isVisible={visible}
-      onBackdropPress={() => setVisible(false)}
-      onBackButtonPress={() => setVisible(false)}
-      style={{margin: 0, padding: 0}}>
-      <View style={styles.modalbox}>
-        <Text style={styles.heading}>{survey?.surveyName}</Text>
-        <Text style={styles.surveyquestion}>{survey?.surveyQuestion}?</Text>
-        <View style={styles.line} />
-        <ScrollView>
-          {survey?.surveyAnswers?.map((item, index) => (
-            <TouchableOpacity key={index} style={styles.answerbox}>
-              <Text style={styles.answertxt}>{item}</Text>
-            </TouchableOpacity>
-          ))}
-        </ScrollView>
-        <TouchableOpacity
-          onPress={() => setVisible(false)}
-          style={styles.btnbox}>
-          <Text style={styles.btntxt}>Save Answer</Text>
-        </TouchableOpacity>
-      </View>
-    </ReactNativeModal>
-  );
-};
-
-
-export default VoterSurvey;
+export default memo(VoterSurvey);
 
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
+    height: hp(55),
   },
   flatlist: {
-    backgroundColor: '#00000029',
-    paddingHorizontal: wp(4),
     flex: 1,
+    backgroundColor: '#00000029',
+  },
+  contentContainer: {
+    paddingHorizontal: wp(4),
+    paddingTop: hp(3),
   },
   card: {
     flex: 1,
@@ -93,6 +107,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#FF914D',
     borderRadius: wp(4),
+    margin: wp(1),
   },
   cardtxt: {
     fontFamily: MontserratMedium,
@@ -101,77 +116,5 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginHorizontal: wp(4),
     marginVertical: hp(4),
-  },
-  modalbox: {
-    backgroundColor: 'white',
-    paddingVertical: hp(2),
-  },
-  heading: {
-    fontFamily: MontserratMedium,
-    fontSize: normalize(18),
-    textAlign: 'center',
-  },
-  surveyquestion: {
-    fontFamily: MontserratExtraBold,
-    fontSize: normalize(20),
-    color: '#D12E2F',
-    textAlign: 'center',
-    width: '80%',
-    alignSelf: 'center',
-    marginTop: hp(2),
-  },
-  line: {
-    width: '100%',
-    borderBottomWidth: 1,
-    borderBottomColor: '#A6A6A630',
-    marginVertical: hp(3),
-  },
-  answerbox: {
-    marginVertical: hp(1),
-    width: '60%',
-    alignSelf: 'center',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'white',
-    shadowColor: '#000000',
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.2,
-    shadowRadius: 3,
-
-    elevation: 3,
-    borderRadius: wp(1),
-  },
-  answertxt: {
-    fontFamily: MontserratSemiBold,
-    fontSize: normalize(18),
-    color: '#545454',
-    marginVertical: hp(1),
-  },
-  btnbox: {
-    marginTop: hp(4),
-    width: '90%',
-    alignSelf: 'center',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#D12E2F',
-    shadowColor: '#000000',
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.2,
-    shadowRadius: 3,
-
-    elevation: 3,
-    borderRadius: wp(1),
-  },
-  btntxt: {
-    fontFamily: MontserratExtraBold,
-    fontSize: normalize(18),
-    color: 'white',
-    marginVertical: hp(1),
   },
 });

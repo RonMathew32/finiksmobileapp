@@ -10,6 +10,7 @@ import Chat from '../screens/chat/Chat';
 import LeaderBoard from '../screens/leadBoard/LeaderBoard';
 import PhoneBankingStack from './PhoneBankingStack';
 import Canvass from '../screens/canvass/Canvass';
+import CanvassStack from './CanvassStack';
 
 const Tab = createBottomTabNavigator();
 
@@ -34,7 +35,7 @@ const screenOptions = ({ route }) => ({
       case routes.PhoneBankingStack:
         iconName = 'phone';
         break;
-      case routes.Canvass:
+      case routes.CanvassStack:
         iconName = 'map-marker-alt';
         break;
       default:
@@ -69,8 +70,8 @@ const AuthNavigation = () => {
         options={{ tabBarLabel: routes.PhoneBank }}
       />
       <Tab.Screen
-        name={routes.Canvass}
-        component={Canvass}
+        name={routes.CanvassStack}
+        component={CanvassStack}
         options={{ tabBarLabel: routes.Canvass }}
       />
     </Tab.Navigator>

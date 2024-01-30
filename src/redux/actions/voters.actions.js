@@ -34,3 +34,5 @@ export const updateVoterInfo = data => ({ type: ACTION_TYPES.UPDATE_VOTER_INFO.G
 
 
 
+
+

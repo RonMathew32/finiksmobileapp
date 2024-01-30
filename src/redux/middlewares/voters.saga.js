@@ -4,7 +4,7 @@ import { ApiCall } from '../../utils/apiService';
 
 function* handleCommonLogic(data, response) {
   if (data?.setLoading) data.setLoading(false);
-  if (data?.ToastMessageLight) data.ToastMessageLight(response?.message);
+  if (data?.ToastMessageLight && response?.messsage) data.ToastMessageLight(response?.message);
 }
 
 function* handleApiRequest({
@@ -27,9 +27,8 @@ function* handleApiRequest({
         console.log(`${successMessage} SUCCESSFUL`, response);
         if (successAction && response?.success) yield put(successAction(response));
         if (onSuccess && response?.success) onSuccess();
-        if (data?.ToastMessageLight) data.ToastMessageLight('Voter data updated');
         if (data?.setLoading) data.setLoading(false);
-        // yield handleCommonLogic(data, response);
+        yield handleCommonLogic(data, response);
         break;
 
       default:
@@ -122,7 +121,7 @@ function* updateVoterInfoRequest({data}) {
     route: 'api/teammember/updatevoterinfo',
     verb: 'POST',
     successMessage: 'VOTER INFO UPDATE',
-    onSuccess: data?.onSuccess
+  onSuccess: data?.onSuccess
   });
 }
 

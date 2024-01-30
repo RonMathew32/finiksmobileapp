@@ -7,5 +7,7 @@ export const COLORS = {
     lavendarWhiteDark: '#A6A6A6',
     darkGray: '#545454',
     orangeReddish: '#D12E2F',
-    green: '#49C661'
+    green: '#49C661',
+    orange: "#FF914D",
+    powderblue: '#3498db'
   };

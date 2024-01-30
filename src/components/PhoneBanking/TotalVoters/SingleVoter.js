@@ -1,46 +1,61 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
-import {
-  hp,
-  normalize,
-  wp,
-} from '../../../theme/dimensions';
-import {  Montserrat,
-  MontserratSemiBold } from '../../../theme/fonts';
+import {hp, normalize, wp} from '../../../theme/dimensions';
+import {Montserrat, MontserratSemiBold} from '../../../theme/fonts';
+import {COLORS} from '../../../theme/colors';
+import { getRandomColor } from '../../../utils/GetRandomColor';
 
-const SingleVoter = () => {
+const SingleVoter = ({onPressVoter, item}) => {
   return (
-    <View style={styles.container}>
-      <Text style={styles.nametxt}>Bilbo Baggins</Text>
-      <Text style={styles.addresstxt}>1 Bag End, The Shire, Middle Earth:</Text>
-      <Text style={styles.description}>
-        {`M     |     102    |      Independent`}
-      </Text>
-    </View>
+    <TouchableOpacity onPress={onPressVoter} style={styles.container}>
+      <View style={styles.contentContainer}>
+        <Text style={styles.nametxt}>{item?.name}</Text>
+        <Text style={styles.addresstxt}>
+          {item?.address}:
+        </Text>
+        <Text style={styles.description}>
+          {`${item?.sex}    |     ${item?.age}    |      ${item?.partyCode}`}
+        </Text>
+      </View>
+      <View style={styles.sideBar(getRandomColor())}></View>
+    </TouchableOpacity>
   );
 };
 
-export default SingleVoter;
+export default React.memo(SingleVoter);
 
 const styles = StyleSheet.create({
-  container: {
+  sideBar: color => {
+    return {
+      width: 10,
+      height: '100%',
+      borderRadius: 20,
+      backgroundColor: color,
+    };
+  },
+  contentContainer: {
     paddingHorizontal: wp(7.5),
     paddingVertical: hp(1),
+  },
+  container: {
     borderBottomWidth: 1,
-    borderBottomColor: '#D9D9D9',
+    borderBottomColor: COLORS.lavendarWhiteDim,
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    flexDirection: 'row',
   },
   nametxt: {
     fontFamily: MontserratSemiBold,
     fontSize: normalize(17),
     lineHeight: normalize(17),
-    color: '#D12E2F',
+    color: COLORS.orangeReddish,
     marginTop: hp(1),
   },
   addresstxt: {
     fontFamily: Montserrat,
     fontSize: normalize(15),
     lineHeight: normalize(15),
-    color: '#545454',
+    color: COLORS.darkGray,
     marginLeft: wp(7.5),
     marginTop: hp(1),
   },
@@ -48,7 +63,7 @@ const styles = StyleSheet.create({
     fontFamily: Montserrat,
     fontSize: normalize(15),
     lineHeight: normalize(15),
-    color: '#545454',
+    color: COLORS.darkGray,
     marginLeft: wp(7.5),
     marginTop: hp(1),
   },

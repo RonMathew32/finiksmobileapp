@@ -4,10 +4,11 @@ import {
   loginRequestSaga,
   registerdRequestSaga,
   newOTPRequestSaga,
+  updateUserProfileRequestSaga,
 } from './auth.saga';
 import {joinCampaignRequestSaga, joinedCampaignRequestSaga} from './campaign.saga';
 import { getCampaignTagsRequestSaga, getCustomTagsRequestSaga, getScriptRequestSaga, getSurveyListRequestSaga, getVoterCheckDataByAdminRequestSaga, getVoterCheckDataRequestSaga, getVoterListRequestSaga, updateVoterInfoRequestSaga } from './voters.saga';
-import { getPhoneBankRecordsRequestSaga } from './phonebank.saga';
+import { getPhoneBankRecordsRequestSaga, getWrongNumberRequestSaga, getSaveInteractionRequestSaga, getSurveyToTakeRequestSaga } from './phonebank.saga';
 
 export function* rootSaga() {
   yield all([
@@ -15,6 +16,7 @@ export function* rootSaga() {
     registerdRequestSaga(),
     verifyOTPRequestSaga(),
     newOTPRequestSaga(),
+    updateUserProfileRequestSaga(),
     joinCampaignRequestSaga(),
     joinedCampaignRequestSaga(),
     getVoterListRequestSaga(),
@@ -23,6 +25,9 @@ export function* rootSaga() {
     getScriptRequestSaga(),
     getCustomTagsRequestSaga(),
     updateVoterInfoRequestSaga(),
-    getPhoneBankRecordsRequestSaga()    
+    getPhoneBankRecordsRequestSaga(),
+    getWrongNumberRequestSaga(),
+    getSaveInteractionRequestSaga(),
+    getSurveyToTakeRequestSaga(),
   ]);
 }

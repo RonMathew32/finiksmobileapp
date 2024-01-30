@@ -1,45 +1,55 @@
-import { StyleSheet, Text, View } from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import { hp, normalize, wp } from '../../../theme/dimensions';
+import {hp, normalize, wp} from '../../../theme/dimensions';
 import {
   MontserratExtraBold,
   MontserratMedium,
   MontserratSemiBold,
 } from '../../../theme/fonts';
-import { partyCodes } from '../../../constants/partyCodes';
+import {partyCodes} from '../../../constants/partyCodes';
 
-const VoterInfo = ({ currentVoter }) => {
-  const { FIRSTNAME, LASTNAME, ADDRESS, SEX, AGE, PARTY_CODE } = currentVoter;
-  const name = `${FIRSTNAME} ${LASTNAME}`;
+const VoterInfo = ({currentVoter, canvass = false}) => {
+  const {FIRSTNAME, LASTNAME, ADDRESS, SEX, AGE, PARTY_CODE} = currentVoter;
+  const name = FIRSTNAME ? `${FIRSTNAME} ${LASTNAME}` : '';
 
   return (
     <View style={styles.container}>
       <View>
-        {renderInfo('Name', name)}
-        {renderInfo('Address', ADDRESS)}
-        {renderInfo('Demographics', getDemographics(SEX, AGE, PARTY_CODE))}
+        {canvass ? null : renderInfo('Name', name, canvass)}
+        {renderInfo('Address', ADDRESS, canvass)}
+        {renderInfo(
+          'Demographics',
+          getDemographics(SEX, AGE, PARTY_CODE),
+          canvass,
+        )}
       </View>
-      <View style={styles.imageBack}>
-        <Text style={styles.nameText}>{getInitials(name)}</Text>
-      </View>
+      {canvass ? null : (
+        <View style={styles.imageBack}>
+          <Text style={styles.nameText}>{getInitials(name)}</Text>
+        </View>
+      )}
     </View>
   );
 };
 
-const renderInfo = (heading, value) => (
+const renderInfo = (heading, value, canvass) => (
   <>
-    <Text style={styles.heading}>{heading}</Text>
+    {canvass ? null : <Text style={styles.heading}>{heading}</Text>}
     <Text style={styles.subheading}>{value ?? ''}</Text>
   </>
 );
 
 const getDemographics = (sex, age, partyCode) => {
   const gender = sex === 'F' ? 'Female' : sex === 'M' ? 'Male' : '';
-  return `${gender}     | ${age ?? ''} Years Old     | ${partyCodes[partyCode] ?? ''}`;
+  return `${gender}     | ${age ?? ''} Years Old     | ${
+    partyCodes[partyCode] ?? ''
+  }`;
 };
 
-const getInitials = (name) =>
-  `${name ? name.trim()[0] : ''} ${name ? name.trim().split(' ').pop()[0] : ''}`;
+const getInitials = name =>
+  `${name ? name.trim()[0] : ''} ${
+    name ? name.trim().split(' ').pop()[0] : ''
+  }`;
 
 const styles = StyleSheet.create({
   container: {

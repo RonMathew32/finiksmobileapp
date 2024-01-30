@@ -1,8 +1,9 @@
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import {hp, normalize, wp} from '../../theme/dimensions';
 import {MontserratSemiBold} from '../../theme/fonts';
 import {
+  addusericon,
   bellicon,
   calendericon,
   chevrondown,
@@ -10,19 +11,33 @@ import {
 } from '../../theme/images';
 import useReduxStore from '../../hooks/useReduxStore';
 
-const Header = () => {
+const Header = ({canvass, onPressAddVoter}) => {
   const {currentCampaign} = useReduxStore();
   return (
     <View style={{overflow: 'hidden', paddingBottom: 4}}>
       <View style={styles.container}>
-        <View style={styles.leftbox}>
+        {canvass ? (
+          <TouchableOpacity onPress={onPressAddVoter}>
           <Image
-            source={calendericon}
-            style={styles.icon}
+            source={addusericon}
+            style={[styles.icon, {marginLeft: wp(3)}]}
             resizeMode="contain"
           />
-          <Image source={bellicon} style={styles.icon2} resizeMode="contain" />
-        </View>
+          </TouchableOpacity>
+        ) : (
+          <View style={styles.leftbox}>
+            <Image
+              source={calendericon}
+              style={styles.icon}
+              resizeMode="contain"
+            />
+            <Image
+              source={bellicon}
+              style={styles.icon2}
+              resizeMode="contain"
+            />
+          </View>
+        )}
 
         <View style={styles.rightbox}>
           <Image

@@ -11,13 +11,10 @@ import {plusicon} from '../../../theme/images';
 import {hp, normalize, wp} from '../../../theme/dimensions';
 import {MontserratMedium} from '../../../theme/fonts';
 import TagSelectionModal from '../../GlobalComponent/TagSelectionModal';
-import useReduxStore from '../../../hooks/useReduxStore';
-import { setVotersTag } from '../../../redux/actions/voters.actions';
 import { COLORS } from '../../../theme/colors';
 
 const VoterTags = ({ votersTag , campaignTags, customTags}) => {
   const [visible, setVisible] = useState(false);
-  const { dispatch } = useReduxStore()
   
   return (
     <View style={styles.container}>
@@ -35,8 +32,6 @@ const VoterTags = ({ votersTag , campaignTags, customTags}) => {
         customTags={customTags}
         campaignTags={campaignTags}
         voterTags={votersTag}
-        setTags={(tag)=> dispatch(setVotersTag(tag))}
-
       />
     </View>
   );

@@ -23,7 +23,7 @@ import routes from '../../../constants/routes';
 import { COLORS } from '../../../theme/colors';
 import { makePhoneCall } from '../../../utils/CommunicationUtils';
 
-const VoterActions = ({navigation, currentVoter}) => {
+const VoterActions = ({navigation, currentVoter, canvass = false}) => {
   const [messageModal, setMessageModal] = useState(false);
   const [addToTeamModal, setAddToTeamModal] = useState(false);
   const [type, setType] = useState('Message');
@@ -79,7 +79,7 @@ const VoterActions = ({navigation, currentVoter}) => {
           />
           <Card
             icon={dotsicon}
-            name="Update"
+            name={canvass? "Contacted" :  "Update"}
             valueExist={true}
             onPress={() => OnCardPress('Update')}
             iconstyle={styles.dotsIcon}

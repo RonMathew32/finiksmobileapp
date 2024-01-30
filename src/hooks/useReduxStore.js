@@ -6,7 +6,7 @@ const useReduxStore = () => {
   const dispatch = useDispatch();
   const {token, user} = useSelector(state => state.authRed);
   const {allCampaign, currentCampaign} = useSelector(state => state?.campRed);
-  const {phoneBankRecords} = useSelector(state => state?.phoneBankRed);
+  const {phoneBankRecords, currentRecord} = useSelector(state => state?.phoneBankRed);
   const {
     votersList,
     customTags,
@@ -43,6 +43,7 @@ const useReduxStore = () => {
     votersTag,
     listName,
     listId,
+    currentRecord
   };
 };
 

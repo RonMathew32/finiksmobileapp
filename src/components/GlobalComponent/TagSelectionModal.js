@@ -1,9 +1,11 @@
 import {FlatList, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import React, {useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import ReactNativeModal from 'react-native-modal';
 import {hp, normalize, wp} from '../../theme/dimensions';
 import {MontserratMedium, MontserratSemiBold} from '../../theme/fonts';
 import {COLORS} from '../../theme/colors';
+import {setVotersTag} from '../../redux/actions/voters.actions';
+import useReduxStore from '../../hooks/useReduxStore';
 
 const TagSelectionModal = ({
   visible,
@@ -11,21 +13,31 @@ const TagSelectionModal = ({
   customTags,
   campaignTags,
   voterTags,
-  setTags,
 }) => {
   const [type, setType] = useState('custom');
+  const [selectTags, setSelectTags] = useState(voterTags);
+  const {dispatch} = useReduxStore();
 
-  const onPressToSetTags = item => {
-    if (!voterTags.some(obj => obj?.tagName == item?.tagName)) {
-      setTags([...voterTags, item]);
+  const onPressToSetTags = useCallback(item => {
+    if (!selectTags.some(obj => obj?.tagName == item?.tagName)) {
+      setSelectTags([...selectTags, item]);
     } else {
-      const updatedTags = voterTags.filter(
+      const updatedTags = selectTags?.filter(
         obj => obj?.tagName != item?.tagName,
       );
-      console.log('Remove ADDED');
-      setTags([...updatedTags]);
+      setSelectTags([...updatedTags]);
     }
-  };
+  },[selectTags]);
+
+  const onPressSave = useCallback(() => {
+    setVisible(false);
+    dispatch(setVotersTag(selectTags));
+  }, [dispatch, selectTags]);
+
+  useEffect(() => {
+    setType('custom')
+  }, [])
+  
 
   return (
     <ReactNativeModal
@@ -38,7 +50,7 @@ const TagSelectionModal = ({
             <Text style={styles.btntxt}>Cancel</Text>
           </TouchableOpacity>
           <Text style={styles.headertxt}>Tags</Text>
-          <TouchableOpacity onPress={() => setVisible(false)}>
+          <TouchableOpacity onPress={onPressSave}>
             <Text style={styles.btntxt}>Save</Text>
           </TouchableOpacity>
         </View>
@@ -81,7 +93,7 @@ const TagSelectionModal = ({
               onPress={() => onPressToSetTags(item)}
               style={styles.tagbox}>
               <Text style={styles.tagtxt}>{item.tagName}</Text>
-              <View style={styles.dot(voterTags, item)}></View>
+              <View style={styles.dot(selectTags, item)}></View>
             </TouchableOpacity>
           )}
         />

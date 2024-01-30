@@ -1,65 +1,97 @@
-import {Image, SafeAreaView, StyleSheet, Text, View} from 'react-native';
-import React, {useEffect, useState} from 'react';
-// import PhotoPicker from '../../components/Profile/PhotoPicker';
+import React, {useState, useMemo, useCallback} from 'react';
+import {Image, SafeAreaView, StyleSheet} from 'react-native';
 import VoterProfileForm from '../../components/Profile/VoterProfileForm';
-import {hp, wp} from '../../theme/dimensions';
-import {logo} from '../../theme/images';
 import VoterHeader from '../../components/PhoneBanking/VoterCheck/VoterHeader';
 import useReduxStore from '../../hooks/useReduxStore';
-import {setCurrentVoter, updateVoterInfo} from '../../redux/actions/voters.actions';
+import {
+  setCurrentVoter,
+  updateVoterInfo,
+} from '../../redux/actions/voters.actions';
 import {ToastMessageLight} from '../../components/GlobalComponent/DisplayMessage';
 import LoadingScreen from '../../components/GlobalComponent/LoadingScreen';
-
+import {hp, wp} from '../../theme/dimensions';
+import {logo} from '../../theme/images';
+import {useRoute} from '@react-navigation/native';
+import {COLORS} from '../../theme/colors';
+import KeyboardAvoidingViewWrapper from '../../components/KeyboardAvoidingViewWrapper';
 
 const UpdateVoterInfo = () => {
-  const [voterInfo, setVoterInfo] = useState({});
-  const {dispatch, loading, setLoading, token, user, currentVoter} = useReduxStore();
+  const {params} = useRoute();
+  const {dispatch, loading, setLoading, token, user, currentVoter} =
+    useReduxStore();
 
-  const onPressSave = () => {
-    dispatch(
-      updateVoterInfo({
-        payload: voterInfo,
-        setLoading,
-        token,
-        ToastMessageLight,
-        role: user?.role,
-      }),
-    );
-    dispatch(setCurrentVoter({
-      ...currentVoter,
-      FIRSTNAME: voterInfo?.firstName,
-      LASTNAME: voterInfo?.lastName,
-      ADDRESS: voterInfo?.address,
-      PHONE_NUM: voterInfo?.phoneNumber,
-      MOBILE_NUM: voterInfo?.mobileNumber,
-      EMAIL: voterInfo?.email,
-    }))
-  };
-  
+  const [voterInfo, setVoterInfo] = useState({});
+
+  const onPressSave = useCallback(() => {
+    if (!params?.canvass) {
+      delete voterInfo?.preferredName;
+      dispatch(
+        updateVoterInfo({
+          payload: voterInfo,
+          setLoading,
+          token,
+          ToastMessageLight,
+          role: user?.role,
+        }),
+      );
+      dispatch(
+        setCurrentVoter({
+          ...currentVoter,
+          FIRSTNAME: voterInfo?.firstName,
+          LASTNAME: voterInfo?.lastName,
+          ADDRESS: voterInfo?.address,
+          PHONE_NUM: voterInfo?.phoneNumber,
+          MOBILE_NUM: voterInfo?.mobileNumber,
+          EMAIL: voterInfo?.email,
+        }),
+      );
+    }
+  }, [
+    params?.canvass,
+    voterInfo,
+    dispatch,
+    setLoading,
+    token,
+    ToastMessageLight,
+    user?.role,
+    currentVoter,
+  ]);
+
+  const headerTitle = useMemo(
+    () => (params?.canvass ? 'Add New Voter' : 'Update Voter Info'),
+    [params?.canvass],
+  );
+
   return loading ? (
     <LoadingScreen />
   ) : (
     <SafeAreaView style={styles.container}>
       <VoterHeader
-        title="Update Voter Info"
+        title={headerTitle}
         rightTitle="Save"
         paddingBottom={0}
         onPressRight={onPressSave}
-        onPressLeft={true}
+        onPressLeft={() => console.log('onPressLeft')}
+        enableBack={true}
       />
-      {/* <PhotoPicker /> */}
-      <VoterProfileForm onSaveData={setVoterInfo} />
-      <Image source={logo} style={styles.logo} resizeMode="contain" />
+      <KeyboardAvoidingViewWrapper>
+        <VoterProfileForm
+          onSaveData={setVoterInfo}
+          userData={currentVoter}
+          canvass={params?.canvass}
+        />
+        <Image source={logo} style={styles.logo} resizeMode="contain" />
+      </KeyboardAvoidingViewWrapper>
     </SafeAreaView>
   );
 };
 
-export default React.memo(UpdateVoterInfo);
+export default UpdateVoterInfo;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: COLORS.white,
   },
   logo: {
     width: wp(19),

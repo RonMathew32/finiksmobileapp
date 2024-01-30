@@ -19,7 +19,7 @@ function* handleApiRequest({
 
     const handleCommonLogic = () => {
       if (data?.setLoading) data.setLoading(false);
-      if (data?.ToastMessageDark) data.ToastMessageDark(response?.message);
+      if (data?.ToastMessageLight) data.ToastMessageLight(response?.message);
     };
 
     switch (status) {
@@ -52,4 +52,44 @@ function* getPhoneBankRecordsRequest({data}) {
 
 export function* getPhoneBankRecordsRequestSaga() {
   yield takeLatest(ACTION_TYPES.PHONE_BANK_RECORDS.GET, getPhoneBankRecordsRequest);
+}
+
+function* getWrongNumberRequest({data}) {
+  yield handleApiRequest({
+    data,
+    route: 'api/survey/wrongnumber',
+    verb: 'POST',
+    successMessage: 'WRONG NUMBER',
+  });
+}
+
+export function* getWrongNumberRequestSaga() {
+  yield takeLatest(ACTION_TYPES.WRONG_NUMBER.GET, getWrongNumberRequest);
+}
+
+function* getSaveInteractionRequest({data}) {
+  yield handleApiRequest({
+    data,
+    route: 'api/survey/saveinteraction',
+    verb: 'POST',
+    successMessage: 'SAVE NTERACTION',
+    onSuccess: data?.onSuccess
+  });
+}
+
+export function* getSaveInteractionRequestSaga() {
+  yield takeLatest(ACTION_TYPES.SAVE_INTERACTION.GET, getSaveInteractionRequest);
+}
+
+function* getSurveyToTakeRequest({data}) {
+  yield handleApiRequest({
+    data,
+    route: 'api/survey/takesurvey',
+    verb: 'POST',
+    successMessage: 'SURVEY_TO_TAKE',
+  });
+}
+
+export function* getSurveyToTakeRequestSaga() {
+  yield takeLatest(ACTION_TYPES.SURVEY_TO_TAKE.GET, getSurveyToTakeRequest);
 }

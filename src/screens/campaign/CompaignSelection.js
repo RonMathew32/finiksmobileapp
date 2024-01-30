@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, {useEffect} from 'react';
 import {
   Image,
   SafeAreaView,
@@ -11,11 +11,11 @@ import {
 import CompaignHeader from '../../components/CompaignSelection/CompaignHeader';
 import ProfileView from '../../components/GlobalComponent/ProfileView';
 import CompaignCard from '../../components/CompaignSelection/CompaignCard';
-import { ToastMessageLight } from '../../components/GlobalComponent/DisplayMessage';
-import { hp, normalize, wp } from '../../theme/dimensions';
-import { COLORS } from '../../theme/colors';
-import { Montserrat } from '../../theme/fonts';
-import { logo, plusicon } from '../../theme/images';
+import {ToastMessageLight} from '../../components/GlobalComponent/DisplayMessage';
+import {hp, normalize, wp} from '../../theme/dimensions';
+import {COLORS} from '../../theme/colors';
+import {Montserrat} from '../../theme/fonts';
+import {logo, plusicon} from '../../theme/images';
 import routes from '../../constants/routes';
 import useReduxStore from '../../hooks/useReduxStore';
 import {
@@ -24,9 +24,19 @@ import {
   setJoinedCampaign,
 } from '../../redux/actions/campaings.actions';
 import LoadingScreen from '../../components/GlobalComponent/LoadingScreen';
+import {useRoute} from '@react-navigation/native';
 
-const CompaignSelection = ({ navigation }) => {
-  const { dispatch, user, allCampaign, currentCampaign, token, loading, setLoading} = useReduxStore();
+const CompaignSelection = ({navigation}) => {
+  const {params} = useRoute();
+  const {
+    dispatch,
+    user,
+    allCampaign,
+    currentCampaign,
+    token,
+    loading,
+    setLoading,
+  } = useReduxStore();
   const payload = {
     id: user?.id,
     role: user?.role,
@@ -43,43 +53,51 @@ const CompaignSelection = ({ navigation }) => {
         ToastMessageLight,
         setJoinedCampaign,
         token,
-        setLoading
+        setLoading,
       }),
     );
   };
 
-  const navigateTo = (item) => {
+  const navigateTo = item => {
     dispatch(setCurrentCampaign(item));
     navigation.navigate(routes.AuthNavigation);
   };
 
   const onPressJoinNewCampaign = () => {
-    navigation.navigate(routes.OtpVerify, { type: 'campaign', data: user });
+    navigation.navigate(routes.OtpVerify, {type: 'campaign', data: user});
   };
 
   return (
     <SafeAreaView style={styles.container}>
-      <CompaignHeader />
+      <CompaignHeader enableBackButton={params?.enableBackButton ?? false} />
       <ProfileView />
       <View style={styles.ongoingBox}>
         <Text style={styles.ongoingText}>Ongoing Campaigns</Text>
       </View>
-     {loading? <LoadingScreen /> : <ScrollView contentContainerStyle={styles.compaignBox}>
-        {allCampaign?.map((item) => (
-          <CompaignCard
-            key={item.campaignId}
-            name={item.campaignName}
-            status={currentCampaign?.campaignId === item.campaignId}
-            onPress={() => navigateTo(item)}
-          />
-        ))}
-      </ScrollView>}
+      {loading ? (
+        <LoadingScreen />
+      ) : (
+        <ScrollView contentContainerStyle={styles.compaignBox}>
+          {allCampaign?.map(item => (
+            <CompaignCard
+              key={item.campaignId}
+              name={item.campaignName}
+              status={currentCampaign?.campaignId === item.campaignId}
+              onPress={() => navigateTo(item)}
+            />
+          ))}
+        </ScrollView>
+      )}
       <View style={styles.bottomBox}>
         <Text style={styles.joinText}>Join A New Campaign</Text>
         <TouchableOpacity
           onPress={onPressJoinNewCampaign}
           style={styles.plusBox}>
-          <Image style={styles.plusIcon} source={plusicon} resizeMode="contain" />
+          <Image
+            style={styles.plusIcon}
+            source={plusicon}
+            resizeMode="contain"
+          />
         </TouchableOpacity>
         <Image source={logo} style={styles.logo} resizeMode="contain" />
       </View>
