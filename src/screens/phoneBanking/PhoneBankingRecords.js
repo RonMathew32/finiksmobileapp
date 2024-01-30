@@ -115,5 +115,6 @@ const styles = StyleSheet.create({
   compaignBox: {
     alignItems: 'center',
     marginTop: hp(5),
+    padding: hp(1),
   },
 });

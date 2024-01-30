@@ -9,6 +9,7 @@ function* handleApiRequest({
   verb,
   successMessage,
   successAction,
+  onSuccess
 }) {
   try {
     if (data?.setLoading) data.setLoading(true);
@@ -26,6 +27,7 @@ function* handleApiRequest({
       case 200:
         console.log(`${successMessage} SUCCESSFUL`, response);
         if (successAction && response?.success) yield put(successAction(response));
+        if (onSuccess && response?.success) onSuccess();
         handleCommonLogic();
         break;
 
@@ -87,6 +89,7 @@ function* getSurveyToTakeRequest({data}) {
     route: 'api/survey/takesurvey',
     verb: 'POST',
     successMessage: 'SURVEY_TO_TAKE',
+    onSuccess: data?.onSuccess
   });
 }
 

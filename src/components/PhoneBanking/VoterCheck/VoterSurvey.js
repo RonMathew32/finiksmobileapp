@@ -57,7 +57,7 @@ const VoterSurvey = ({ data }) => {
           backgroundColor: item?.voterAnswer?.answer ? COLORS.lavendarWhiteDark : item?.color.code,
         }}
       >
-        <Text style={styles.cardtxt}>{item?.surveyQuestion}</Text>
+        <Text style={styles.cardtxt}>{item?.surveyPreview}</Text>
       </TouchableOpacity>
     ),
     []

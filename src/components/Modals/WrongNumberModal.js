@@ -3,7 +3,8 @@ import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import Modal from 'react-native-modal';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {COLORS} from '../../theme/colors';
-import {normalize, wp} from '../../theme/dimensions';
+import {hp, normalize, wp} from '../../theme/dimensions';
+import IconClose from 'react-native-vector-icons/Entypo';
 
 const WrongNumberModal = ({isVisible, onClose, onSave, voter}) => {
   const [checkedOne, setCheckedOne] = useState(false);
@@ -26,9 +27,13 @@ const WrongNumberModal = ({isVisible, onClose, onSave, voter}) => {
     <Modal isVisible={isVisible}>
       <View style={styles.modalContainer}>
         <View style={styles.content}>
-          <Text style={styles.title}>
-            Please select which number is incorrect
-          </Text>
+        <View style={styles.titleContainer}>
+            <Text></Text>
+            <Text style={styles.title}>Please select which number is incorrect</Text>
+            <TouchableOpacity  onPress={onClose}>
+              <IconClose name="cross" color={COLORS.white} size={hp(3)} />
+            </TouchableOpacity>
+          </View>
           <View style={styles.checkContent}>
             {[{id: 'MOBILE_NUM', name : 'Mobile Number'}, {id: 'PHONE_NUM', name : 'Phone Number'}].map((numberType, index) => (
               <TouchableOpacity
@@ -78,6 +83,15 @@ const WrongNumberModal = ({isVisible, onClose, onSave, voter}) => {
 };
 
 const styles = StyleSheet.create({
+  titleContainer: {
+    backgroundColor: COLORS.orange,
+    paddingHorizontal: wp(4),
+    paddingVertical: hp(2),
+    borderTopRightRadius: 10,
+    borderTopLeftRadius: 10,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
   modalContainer: {
     flex: 1,
     justifyContent: 'center',
@@ -91,16 +105,12 @@ const styles = StyleSheet.create({
     padding: 30,
   },
   title: {
-    fontSize: normalize(16),
+    fontSize: normalize(14),
     fontWeight: 'bold',
-    marginBottom: 10,
     color: COLORS.white,
-    backgroundColor: COLORS.orange,
-    padding: 10,
-    paddingHorizontal: wp(10),
-    borderTopRightRadius: 10,
-    borderTopLeftRadius: 10,
-    textAlign: 'center',
+    width: wp(60),
+    marginLeft: wp(6),
+    textAlign: 'center'
   },
   checkbox: {
     flexDirection: 'row',

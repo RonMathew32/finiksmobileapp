@@ -1,31 +1,24 @@
-import {StyleSheet, Text, View} from 'react-native';
-import React from 'react';
-import {
-  hp,
-  normalize,
-  wp,
-} from '../../../theme/dimensions';
+import {ScrollView, StyleSheet, Text, View} from 'react-native';
+import React, {useMemo} from 'react';
+import {hp, normalize, wp} from '../../../theme/dimensions';
 import {MontserratSemiBold} from '../../../theme/fonts';
 
-const VoterDescription = () => {
+const VoterDescription = ({script}) => {
+
+  const scriptDesc = useMemo(() => (script ? script : ''),[script]);
+
   return (
     <View style={styles.parent}>
       <View style={styles.container}>
-        <View>
-          <Text style={styles.text}>
-            Hello, is Frodo available? Hi, my name’s John and I’m with the
-            Hannah Jacobs for Congress campaign. I am just calling to let you
-            know about the election coming up on July 18th. It's going to be
-            extremely important that we all get out and vote. Do you have a few
-            minutes for me to ask you a couple questions?
-          </Text>
-        </View>
+        <ScrollView style={{flex: 1}}>
+          <Text style={styles.text}>{scriptDesc}</Text>
+        </ScrollView>
       </View>
     </View>
   );
 };
 
-export default VoterDescription;
+export default React.memo(VoterDescription);
 
 const styles = StyleSheet.create({
   parent: {
@@ -37,12 +30,13 @@ const styles = StyleSheet.create({
   },
   container: {
     backgroundColor: '#D9D9D9',
-
     shadowColor: '#545454',
     shadowOffset: {width: 1, height: 1},
     shadowOpacity: 0.4,
     shadowRadius: 3,
     elevation: 5,
+    height: hp(25),
+    padding: 5,
   },
   text: {
     marginHorizontal: wp(4),

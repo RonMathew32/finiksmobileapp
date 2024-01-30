@@ -7,7 +7,7 @@ const initialState = {
   survey: [],
   script: [],
   campaignOwnerID: null,
-  currentVoter: '',
+  currentVoter: {},
   unDoneVoters: [],
   votersTag: [],
   listId: '',

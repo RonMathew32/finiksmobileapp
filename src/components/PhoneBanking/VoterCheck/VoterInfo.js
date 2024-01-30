@@ -9,14 +9,14 @@ import {
 import {partyCodes} from '../../../constants/partyCodes';
 
 const VoterInfo = ({currentVoter, canvass = false}) => {
-  const {FIRSTNAME, LASTNAME, ADDRESS, SEX, AGE, PARTY_CODE} = currentVoter;
+  const {FIRSTNAME, LASTNAME, ADDRESS, SEX, AGE, PARTY_CODE, CITY, STATE} = currentVoter;
   const name = FIRSTNAME ? `${FIRSTNAME} ${LASTNAME}` : '';
 
   return (
     <View style={styles.container}>
       <View>
         {canvass ? null : renderInfo('Name', name, canvass)}
-        {renderInfo('Address', ADDRESS, canvass)}
+        {renderInfo('Address', `${CITY}, ${STATE}`, canvass)}
         {renderInfo(
           'Demographics',
           getDemographics(SEX, AGE, PARTY_CODE),

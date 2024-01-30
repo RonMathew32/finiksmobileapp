@@ -103,7 +103,7 @@ const useVoterCheck = item => {
         dispatch(setCurrentVoter(voters[0]));
         dispatch(setVotersTag(voters[0]?.voterTags));
       } else {
-        ToastMessageDark('List Not Found');
+        ToastMessageDark('List is completed');
         dispatch(setVoterList({list : {voters : []}}))
         navigation.goBack();
       }

@@ -14,7 +14,7 @@ import VoterTags from '../../components/PhoneBanking/VoterCheck/VoterTags';
 import VoterInfo from '../../components/PhoneBanking/VoterCheck/VoterInfo';
 import VoterDescription from '../../components/PhoneBanking/VoterCheck/VoterDescription';
 import SelectionButton from '../../components/PhoneBanking/VoterCheck/SelectionButton';
-import WrongNumberModal from '../../components/Modals/WrongNumber';
+import WrongNumberModal from '../../components/Modals/WrongNumberModal';
 import DoNotCallModal from '../../components/Modals/DoNotCallModal';
 import {COLORS} from '../../theme/colors';
 import {formattedDate} from '../../utils/FormatedDate';
@@ -30,7 +30,11 @@ import {
   filteredSurveyAnswerByVoter,
   filteredSurveyIds,
 } from '../../utils/FilterArray';
-import {setCurrentVoter} from '../../redux/actions/voters.actions';
+import {
+  setCurrentVoter,
+  setSurveyList,
+  setVotersTag,
+} from '../../redux/actions/voters.actions';
 
 const VoterCheck = ({route, navigation}) => {
   const item = route.params?.item ?? null;
@@ -47,6 +51,7 @@ const VoterCheck = ({route, navigation}) => {
     user,
     listId,
     unDoneVoters,
+    script,
   } = useReduxStore();
 
   const {loading} = useVoterCheck(item);
@@ -78,45 +83,7 @@ const VoterCheck = ({route, navigation}) => {
     if (!currentVoter?._id) {
       ToastMessageDark('List Finished');
     } else {
-      if (filteredSurveyIds(survey)?.length) {
-        const payload = {
-          campaignId: currentCampaign?.campaignId,
-          campaignName: currentCampaign?.campaignName,
-          voterId: currentVoter?._id,
-          voterName: currentVoter?.FIRSTNAME,
-          surveyData: filteredSurveyIds(survey),
-          voterAnswers: filteredSurveyAnswerByVoter(survey),
-          recordType: 'phonebanking',
-          geoLocation: '',
-          date: new Date(),
-          time: new Date(),
-          subUserId: user?.id,
-          subUserName: user?.username,
-          actions: {
-            votersInfluenced: true,
-            doorsKnocked: false,
-            votersSurveyed: true,
-            votersMessaged: false,
-            phonesCalled: true,
-          },
-          contactedWay: 'Phone Call',
-          tags: extractTagIdAndName(votersTag),
-          list: currentRecord?.list,
-          recordId: currentRecord?._id,
-          totalNumbers: currentRecord?.totalNumbers,
-          interaction: 'surveyTaken',
-        };
-        dispatch(
-          getSurveyToTake({
-            ...commonAPIData,
-            payload,
-            setLoading: setNextVoterloader,
-            onSuccess: navigation.goBack(),
-          }),
-        );
-      } else {
-        setSelected('next')
-      }
+      setSelected('next');
     }
   }, [currentVoter, votersTag, currentRecord, user, survey, dispatch]);
 
@@ -154,36 +121,100 @@ const VoterCheck = ({route, navigation}) => {
         ...commonPayloadData,
         interaction: val,
       };
-
       dispatch(
         getSaveInteraction({
           ...commonAPIData,
           payload,
-          onSuccess: closeDoNotCallModal,
+          onSuccess: onSuccessSaveInteraction
         }),
       );
-      if(selected == 'next'){
-        onPressYesToNextVoter()
-      }
     },
     [commonPayloadData, commonAPIData, dispatch],
   );
 
-  const onPressYesToNextVoter = useCallback(() => {
+  const onSuccessSaveInteraction = useCallback(() => {
+    console.log('onSuccessSaveInteraction');
+    closeDoNotCallModal();
+      filteredSurveyIds(survey)?.length
+        ? onPressYesToNextVoter()
+        : changeVoter();
+  },[survey])
+
+  const changeVoter = useCallback(() => {
+    console.log('Change Voter');
     const currentIndex = unDoneVoters.findIndex(
-      item => item._id === currentVoter._id,
-    );
+      item => item._id === currentVoter._id);
     const nextIndex = (currentIndex + 1) % unDoneVoters?.length;
     const isLastItem = currentIndex === unDoneVoters.length - 1;
 
     if (isLastItem) {
       ToastMessageLight('This was the last voter');
-      navigation.goBack()
+      navigation.goBack();
     } else {
       dispatch(setCurrentVoter(unDoneVoters[nextIndex]));
+      dispatch(setVotersTag(unDoneVoters[nextIndex]?.voterTags));
+      const updatedSurvey = survey?.map(item => {
+        const {voterAnswer, ...rest} = item;
+        return rest;
+      });
+      dispatch(
+        setSurveyList({
+          survey: {
+            surveyQuestions: updatedSurvey,
+          },
+        }),
+      );
     }
-    setIsVisibleDoNotCallModal(false)
-  }, [unDoneVoters, currentVoter, dispatch, ToastMessageLight]);
+    setIsVisibleDoNotCallModal(false);
+  }, [unDoneVoters, currentVoter, ToastMessageLight, navigation, survey]);
+
+  const onPressYesToNextVoter = useCallback(() => {
+    if (filteredSurveyIds(survey)?.length) {
+      const payload = {
+        campaignId: currentCampaign?.campaignId,
+        campaignName: currentCampaign?.campaignName,
+        voterId: currentVoter?._id,
+        voterName: currentVoter?.FIRSTNAME,
+        surveyData: filteredSurveyIds(survey),
+        voterAnswers: filteredSurveyAnswerByVoter(survey),
+        recordType: 'phonebanking',
+        geoLocation: '',
+        date: new Date(),
+        time: new Date(),
+        subUserId: user?.id,
+        subUserName: user?.username,
+        actions: {
+          votersInfluenced: true,
+          doorsKnocked: false,
+          votersSurveyed: true,
+          votersMessaged: false,
+          phonesCalled: true,
+        },
+        contactedWay: 'Phone Call',
+        tags: extractTagIdAndName(votersTag),
+        list: currentRecord?.list,
+        recordId: currentRecord?._id,
+        totalNumbers: currentRecord?.totalNumbers,
+        interaction: 'surveyTaken',
+      };
+      dispatch(
+        getSurveyToTake({
+          ...commonAPIData,
+          payload,
+          setLoading: setNextVoterloader,
+          onSuccess: changeVoter,
+        }),
+      );
+    }
+  }, [
+    user,
+    votersTag,
+    currentRecord,
+    currentVoter,
+    dispatch,
+    survey,
+    currentCampaign,
+  ]);
 
   const closeDoNotCallModal = () => {
     setIsVisibleDoNotCallModal(false);
@@ -198,7 +229,11 @@ const VoterCheck = ({route, navigation}) => {
   useEffect(() => {
     if (selected === 'wrong') {
       setIsVisibleWrongModal(true);
-    } else if (selected === 'donot' || 'contact' || 'next') {
+    } else if (
+      selected === 'donot' ||
+      selected === 'contact' ||
+      selected === 'next'
+    ) {
       setIsVisibleDoNotCallModal(true);
     }
   }, [selected]);
@@ -224,7 +259,7 @@ const VoterCheck = ({route, navigation}) => {
             />
             <VoterInfo currentVoter={currentVoter} />
           </View>
-          <VoterDescription />
+          <VoterDescription script={script?.script} />
         </>
       )}
 
@@ -244,7 +279,9 @@ const VoterCheck = ({route, navigation}) => {
             selected={selected}
           />
         )}
-        {(selected === 'donot' || 'contact' || 'next') && (
+        {(selected === 'donot' ||
+          selected === 'contact' ||
+          selected === 'next') && (
           <DoNotCallModal
             isVisible={isVisibleDoNotCallModal}
             onClose={closeDoNotCallModal}

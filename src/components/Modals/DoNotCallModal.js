@@ -5,7 +5,8 @@ import {COLORS} from '../../theme/colors';
 import {hp, normalize, wp} from '../../theme/dimensions';
 import AppButton from '../AppButton';
 import useReduxStore from '../../hooks/useReduxStore';
-import { toCamelCase } from '../../utils/FilterArray';
+import {toCamelCase} from '../../utils/FilterArray';
+import Icon from 'react-native-vector-icons/Entypo';
 
 const DoNotCallModal = ({isVisible, onClose, onSave, selected}) => {
   const {listId, currentVoter} = useReduxStore();
@@ -24,8 +25,11 @@ const DoNotCallModal = ({isVisible, onClose, onSave, selected}) => {
   }, [listId, currentVoter, selectInteraction]);
 
   useEffect(() => {
-    if (recordInteration === 'Connected') setSelectInteraction(selected == 'donot'? "Do Not Call" : "Contact Later");
-    if (recordInteration === 'No Answer') setSelectInteraction('None')
+    if (recordInteration === 'Connected')
+      setSelectInteraction(
+        selected == 'donot' ? 'Do Not Call' : 'Contact Later',
+      );
+    if (recordInteration === 'No Answer') setSelectInteraction('None');
   }, [recordInteration]);
 
   const RadioButton = ({title, index}) => (
@@ -44,7 +48,11 @@ const DoNotCallModal = ({isVisible, onClose, onSave, selected}) => {
 
   const renderRadioButtons = useCallback(() => {
     if (recordInteration === 'Connected') {
-      return <RadioButton title={selected == 'donot'? "Do Not Call" : "Contact Later"}/>;
+      return selected == 'next' ? null : (
+        <RadioButton
+          title={selected == 'donot' ? 'Do Not Call' : 'Contact Later'}
+        />
+      );
     } else {
       return interactionOptions.map((item, index) => (
         <RadioButton key={index} title={item} index={index} />
@@ -56,7 +64,14 @@ const DoNotCallModal = ({isVisible, onClose, onSave, selected}) => {
     <Modal isVisible={isVisible}>
       <View style={styles.modalContainer}>
         <View style={styles.content}>
-          <Text style={styles.title}>Record Interaction</Text>
+          <View style={styles.titleContainer}>
+            <Text></Text>
+            <Text style={styles.title}>Record Interaction</Text>
+            <TouchableOpacity onPress={onClose}>
+              <Icon name="cross" color={COLORS.white} size={hp(3)} />
+            </TouchableOpacity>
+          </View>
+
           <View style={styles.checkContent}>
             <Text style={styles.heading}>
               Are You Finished Calling This Voter?
@@ -127,6 +142,16 @@ const DoNotCallModal = ({isVisible, onClose, onSave, selected}) => {
 };
 
 const styles = StyleSheet.create({
+  titleContainer: {
+    backgroundColor: COLORS.orange,
+    paddingHorizontal: wp(4),
+    paddingVertical: hp(2),
+    borderTopRightRadius: 10,
+    borderTopLeftRadius: 10,
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
   doNotCallContainer: {alignItems: 'center', marginVertical: hp(3)},
   nextVoterBtn: {
     width: wp(60),
@@ -141,7 +166,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     width: wp(40),
-    marginBottom: hp(1)
+    marginBottom: hp(1),
   },
   radioCircle: {
     height: 20,
@@ -204,14 +229,8 @@ const styles = StyleSheet.create({
   title: {
     fontSize: normalize(16),
     fontWeight: 'bold',
-    marginBottom: 10,
     color: COLORS.white,
-    backgroundColor: COLORS.orange,
-    padding: 10,
-    paddingHorizontal: wp(10),
-    borderTopRightRadius: 10,
-    borderTopLeftRadius: 10,
-    textAlign: 'center',
+    marginLeft: wp(5),
   },
   checkbox: {
     flexDirection: 'row',
