@@ -99,8 +99,8 @@ const useVoterCheck = item => {
       if(voters?.length){
         console.log(voters?.length, 'VOTERS UNDONE');
         console.log('CURRENT VOTER SET');
+        dispatch(setUndoneVoters({voters}));
         dispatch(setCurrentVoter(voters[0]));
-        dispatch(setUndoneVoters(voters));
         dispatch(setVotersTag(voters[0]?.voterTags));
       } else {
         ToastMessageDark('List Not Found');

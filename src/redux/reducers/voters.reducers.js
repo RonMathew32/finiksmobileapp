@@ -8,7 +8,7 @@ const initialState = {
   script: [],
   campaignOwnerID: null,
   currentVoter: '',
-  undoneVoters: [],
+  unDoneVoters: [],
   votersTag: [],
   listId: '',
   scriptId: '',
@@ -60,9 +60,10 @@ const VotersReducer = (state = initialState, action) => {
       };
 
     case ACTION_TYPES.UNDONE_VOTERS.SET:
+      console.log(data.voters, 'data.voters');
         return {
           ...state,
-          undoneVoters: data,
+          unDoneVoters: data.voters,
         };
         
     case ACTION_TYPES.VOTERS_TAG.SET:
