@@ -54,7 +54,7 @@ const VoterCheck = ({route, navigation}) => {
     script,
   } = useReduxStore();
 
-  const {loading} = useVoterCheck(item);
+  const {loading, GetUsersData} = useVoterCheck(item);
   const [selected, setSelected] = useState('');
   const [isVisibleWrongModal, setIsVisibleWrongModal] = useState(false);
   const [isVisibleDoNotCallModal, setIsVisibleDoNotCallModal] = useState(false);
@@ -141,15 +141,14 @@ const VoterCheck = ({route, navigation}) => {
   },[survey])
 
   const changeVoter = useCallback(() => {
-    console.log('Change Voter');
-    const currentIndex = unDoneVoters.findIndex(
-      item => item._id === currentVoter._id);
+    console.log('Change Voter:', currentVoter?.FIRSTNAME);
+    const currentIndex = unDoneVoters?.findIndex(
+      item => item._id === currentVoter?._id);
     const nextIndex = (currentIndex + 1) % unDoneVoters?.length;
-    const isLastItem = currentIndex === unDoneVoters.length - 1;
+    const isLastItem = currentIndex === unDoneVoters?.length - 1;
 
     if (isLastItem) {
-      ToastMessageLight('This was the last voter');
-      navigation.goBack();
+      GetUsersData()
     } else {
       dispatch(setCurrentVoter(unDoneVoters[nextIndex]));
       dispatch(setVotersTag(unDoneVoters[nextIndex]?.voterTags));

@@ -11,6 +11,8 @@ export const ACTION_TYPES = {
   NEW_OTP: createAsyncActionTypes('NEW_OTP'),
   BIOMETRICS: createAsyncActionTypes('BIOMETRICS'),
   USER_DATA: createAsyncActionTypes('USER_DATA'),
+  USER_PROFILE: createAsyncActionTypes('USER_PROFILE'),
+  USER_PASSWORD: createAsyncActionTypes('USER_PASSWORD'),
   LOGOUT: createAsyncActionTypes('LOGOUT'),
   JOIN_CAMPAIGN: createAsyncActionTypes('JOIN_CAMPAIGN'),
   JOINED_CAMPAIGN: createAsyncActionTypes('JOINED_CAMPAIGN'),
@@ -32,5 +34,4 @@ export const ACTION_TYPES = {
   VOTERS_TAG: createAsyncActionTypes('VOTERS_TAG'),
   UPDATE_VOTER_INFO: createAsyncActionTypes('UPDATE_VOTER_INFO'),
   PHONE_BANK_RECORDS: createAsyncActionTypes('PHONE_BANK_RECORDS'),
-  USER_PROFILE: createAsyncActionTypes('USER_PROFILE')
 };

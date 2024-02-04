@@ -34,19 +34,19 @@ function* handleApiRequest({
         console.log(`${successMessage} SUCCESSFUL`, response);
         if (successAction && response?.success) yield put(successAction(response));
 
-        if (navigateToOTP && response?.message === STRINGS.TEXT_OTP_SENT_TO_EMAIL) {
+        if (navigateToOTP && response?.message === STRINGS.TEXT_OTP_SENT_TO_EMAIL && response?.success) {
           navigateToOTP();
         }
-        if (onOTPFails && response?.message === STRINGS.TEXT_OTP_WRONG) {
+        if (onOTPFails && response?.message === STRINGS.TEXT_OTP_WRONG && response?.success) {
           onOTPFails(true);
         }
         if (onSuccess && response?.success) {
           onSuccess();
         }
-        if (navigationToLogin && response?.message === STRINGS.TEXT_EMAIL_VERIFIED) {
+        if (navigationToLogin && response?.message === STRINGS.TEXT_EMAIL_VERIFIED && response?.success) {
           navigationToLogin();
         }
-        if (onSentOTP && response?.message === STRINGS.TEXT_NEW_OTP_SENT) {
+        if (onSentOTP && response?.message === STRINGS.TEXT_NEW_OTP_SENT && response?.success) {
           onSentOTP(false);
         }
         handleCommonLogic();
@@ -134,4 +134,18 @@ function* updateUserProfileRequest({ data }) {
 
 export function* updateUserProfileRequestSaga() {
   yield takeLatest(ACTION_TYPES.USER_PROFILE.UPDATE, updateUserProfileRequest);
+}
+
+function* updateUserPasswordRequest({ data }) {
+  yield handleApiRequest({
+    data,
+    route: 'api/teammember/updatepassword',
+    verb: 'POST',
+    successMessage: 'UPDATE PASSWORD',
+    onSuccess: data?.onSuccess
+  });
+}
+
+export function* updateUserPasswordRequestSaga() {
+  yield takeLatest(ACTION_TYPES.USER_PASSWORD.UPDATE, updateUserPasswordRequest);
 }

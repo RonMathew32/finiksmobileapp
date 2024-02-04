@@ -5,7 +5,7 @@ const useReduxStore = () => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const {token, user} = useSelector(state => state.authRed);
-  const {allCampaign, currentCampaign} = useSelector(state => state?.campRed);
+  const {allCampaign, currentCampaign, campaignId} = useSelector(state => state?.campRed);
   const {phoneBankRecords, currentRecord} = useSelector(state => state?.phoneBankRed);
   const {
     votersList,
@@ -18,7 +18,7 @@ const useReduxStore = () => {
     currentVoter,
     unDoneVoters,
     votersTag,
-    listName,
+    listDone,
     listId,
   } = useSelector(state => state?.voteRed);
 
@@ -41,9 +41,10 @@ const useReduxStore = () => {
     currentVoter,
     unDoneVoters,
     votersTag,
-    listName,
     listId,
-    currentRecord
+    listDone,
+    currentRecord,
+    campaignId
   };
 };
 

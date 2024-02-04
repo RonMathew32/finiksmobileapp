@@ -18,6 +18,8 @@ export const updateBiometrics = data => ({ type: ACTION_TYPES.BIOMETRICS.UPDATE,
 
 export const updateUserProfile = data => ({ type: ACTION_TYPES.USER_PROFILE.UPDATE, data });
 
+export const updateUserPassword = data => ({ type: ACTION_TYPES.USER_PASSWORD.UPDATE, data });
+
 export const setLogout = data => ({ type: ACTION_TYPES.LOGOUT.SET, data });
 
 

@@ -3,6 +3,7 @@ import { ACTION_TYPES } from "../actions/actionTypes";
 const initialState = {
     allCampaign: [],
     currentCampaign: {},
+    campaignId: null
   };
 
 const CampaignReducer = (state = initialState, action) => {
@@ -13,6 +14,7 @@ const CampaignReducer = (state = initialState, action) => {
         return {
           ...state,
           allCampaign: data.joinedCampaigns.campaignJoined,
+          campaignId: data.joinedCampaigns._id
         };
 
         case ACTION_TYPES.CURRENT_CAMPAIGN.SET:

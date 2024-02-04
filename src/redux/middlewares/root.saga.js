@@ -5,6 +5,7 @@ import {
   registerdRequestSaga,
   newOTPRequestSaga,
   updateUserProfileRequestSaga,
+  updateUserPasswordRequestSaga,
 } from './auth.saga';
 import {joinCampaignRequestSaga, joinedCampaignRequestSaga} from './campaign.saga';
 import { getCampaignTagsRequestSaga, getCustomTagsRequestSaga, getScriptRequestSaga, getSurveyListRequestSaga, getVoterCheckDataByAdminRequestSaga, getVoterCheckDataRequestSaga, getVoterListRequestSaga, updateVoterInfoRequestSaga } from './voters.saga';
@@ -17,6 +18,7 @@ export function* rootSaga() {
     verifyOTPRequestSaga(),
     newOTPRequestSaga(),
     updateUserProfileRequestSaga(),
+    updateUserPasswordRequestSaga(),
     joinCampaignRequestSaga(),
     joinedCampaignRequestSaga(),
     getVoterListRequestSaga(),
@@ -29,5 +31,6 @@ export function* rootSaga() {
     getWrongNumberRequestSaga(),
     getSaveInteractionRequestSaga(),
     getSurveyToTakeRequestSaga(),
+
   ]);
 }

@@ -1,23 +1,43 @@
-import React, { useState, useCallback } from 'react';
-import { Image, SafeAreaView, StyleSheet, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
+import React, {useState, useCallback} from 'react';
+import {
+  Image,
+  SafeAreaView,
+  StyleSheet,
+  TouchableOpacity,
+  Text,
+} from 'react-native';
 import VoterHeader from '../../components/PhoneBanking/VoterCheck/VoterHeader';
 import PhotoPicker from '../../components/Profile/PhotoPicker';
 import VoterProfileForm from '../../components/Profile/VoterProfileForm';
 import useReduxStore from '../../hooks/useReduxStore';
-import { logo } from '../../theme/images';
-import { hp, wp } from '../../theme/dimensions';
-import { setLogout, setUserData, updateUserProfile } from '../../redux/actions/auth.actions';
-import { ToastMessageLight } from '../../components/GlobalComponent/DisplayMessage';
+import {logo} from '../../theme/images';
+import {hp, normalize, wp} from '../../theme/dimensions';
+import {
+  setLogout,
+  setUserData,
+  updateUserPassword,
+  updateUserProfile,
+} from '../../redux/actions/auth.actions';
+import {ToastMessageLight} from '../../components/GlobalComponent/DisplayMessage';
 import LoadingScreen from '../../components/GlobalComponent/LoadingScreen';
 import AppButton from '../../components/AppButton';
 import KeyboardAvoidingViewWrapper from '../../components/KeyboardAvoidingViewWrapper';
-import { COLORS } from '../../theme/colors';
+import {COLORS} from '../../theme/colors';
+import UpdatePassword from '../../components/Modals/UpdatePassword';
 
 const Profile = () => {
-  const { user, dispatch, token, loading, setLoading } = useReduxStore();
+  const {user, dispatch, token, loading, setLoading, campaignId} =
+    useReduxStore();
   const [userInfo, setUserInfo] = useState({});
   const [userImage, setUserImage] = useState(user?.campaignLogo);
-
+  const [isVisisbleChangePass, setIsVisisbleChangePass] = useState(false);
+  const [errorMsg, setErrorMsg] = useState('');
+  const [passLoading, setPassLoading] = useState(false);
+  const commonAPIPayload = {
+    role: user?.role,
+    ToastMessageLight,
+    token,
+  };
   const onPressSave = useCallback(() => {
     const {
       preferredName,
@@ -32,22 +52,66 @@ const Profile = () => {
     filteredUserInfo.campaignLogo = userImage ?? '';
     dispatch(
       updateUserProfile({
+        ...commonAPIPayload,
         payload: filteredUserInfo,
-        token,
         setLoading,
-        role: user?.role,
-        ToastMessageLight,
         onSuccess: () => onSuccess(filteredUserInfo),
       }),
     );
-  }, [userInfo, user, userImage, token, setLoading, dispatch, ToastMessageLight]);
+  }, [
+    userInfo,
+    user,
+    userImage,
+    token,
+    setLoading,
+    dispatch,
+    ToastMessageLight,
+  ]);
 
-  const onSuccess = useCallback((updatedData) => {
-    dispatch(setUserData({
-      ...user,
-      ...updatedData,
-    }));
-  }, [dispatch, user]);
+  const onSuccess = useCallback(
+    updatedData => {
+      dispatch(
+        setUserData({
+          ...user,
+          ...updatedData,
+        }),
+      );
+    },
+    [dispatch, user],
+  );
+
+  const onSaveToUpdatePass = useCallback(
+    val => {
+      if (val?.oldPassword == '') {
+        setErrorMsg('Field must not be empty!');
+      } else if (val?.oldPassword?.length < 8) {
+        setErrorMsg('Old Password length must be greater than 8 characters');
+      } else if (val?.newPassword == '') {
+        setErrorMsg('Field must not be empty!');
+      } else if (val?.newPassword?.length < 8) {
+        setErrorMsg('New Password length must be greater than 8 characters');
+      } else {
+        const payload = {
+          id: campaignId,
+          passwordUpdate: {
+            oldPassword: val?.oldPassword,
+            newPassword: val?.newPassword,
+          },
+          teamLogin: user?.teamLogin,
+        };
+        console.log(payload, 'payload');
+        dispatch(
+          updateUserPassword({
+            ...commonAPIPayload,
+            payload,
+            setLoading: setPassLoading,
+            onSuccess: ()=>setIsVisisbleChangePass(false)
+          }),
+        );
+      }
+    },
+    [dispatch, user, token, campaignId],
+  );
 
   return loading ? (
     <LoadingScreen />
@@ -60,12 +124,25 @@ const Profile = () => {
         onPressLeft={() => console.log('onPressLeft')}
         enableBack={true}
       />
-        <PhotoPicker setImage={setUserImage} user={user} />
-        <KeyboardAvoidingViewWrapper>
+      <PhotoPicker setImage={setUserImage} user={user} />
+      <KeyboardAvoidingViewWrapper>
         <VoterProfileForm onSaveData={setUserInfo} userData={user} />
+        <TouchableOpacity onPress={() => setIsVisisbleChangePass(true)}>
+          <Text style={styles.changePass}>Change Password</Text>
+        </TouchableOpacity>
         <AppButton title="Logout" onPress={() => dispatch(setLogout(null))} />
         <Image source={logo} style={styles.logo} resizeMode="contain" />
-        </KeyboardAvoidingViewWrapper>
+      </KeyboardAvoidingViewWrapper>
+      {isVisisbleChangePass && (
+        <UpdatePassword
+          isVisible={isVisisbleChangePass}
+          onClose={() => setIsVisisbleChangePass(false)}
+          onSave={onSaveToUpdatePass}
+          errorMsg={errorMsg}
+          setErrorMsg={setErrorMsg}
+          loading={passLoading}
+        />
+      )}
     </SafeAreaView>
   );
 };
@@ -73,6 +150,13 @@ const Profile = () => {
 export default Profile;
 
 const styles = StyleSheet.create({
+  changePass: {
+    color: COLORS.orangeReddish,
+    textAlign: 'center',
+    marginTop: hp(2),
+    padding: 5,
+    fontSize: normalize(14),
+  },
   container: {
     flex: 1,
     backgroundColor: COLORS.white,

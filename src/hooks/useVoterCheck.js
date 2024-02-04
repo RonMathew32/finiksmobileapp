@@ -32,6 +32,7 @@ const useVoterCheck = item => {
     votersList,
     scriptId,
     listId,
+    listDone,
     loading,
     setLoading
   } = useReduxStore();
@@ -95,13 +96,13 @@ const useVoterCheck = item => {
 
   const setData = useCallback(() =>{
     if (votersList?.length) {
-      const voters = votersList?.filter(value => !value.voterDone);
-      if(voters?.length){
-        console.log(voters?.length, 'VOTERS UNDONE');
+      const unDoneVoters = votersList?.filter(value => !value.voterDone);
+      console.log(unDoneVoters?.length, 'undone voters', listDone);
+      if(unDoneVoters?.length && listDone == false){
         console.log('CURRENT VOTER SET');
-        dispatch(setUndoneVoters({voters}));
-        dispatch(setCurrentVoter(voters[0]));
-        dispatch(setVotersTag(voters[0]?.voterTags));
+        dispatch(setUndoneVoters(unDoneVoters));
+        dispatch(setCurrentVoter(unDoneVoters[0]));
+        dispatch(setVotersTag(unDoneVoters[0]?.voterTags));
       } else {
         ToastMessageDark('List is completed');
         dispatch(setVoterList({list : {voters : []}}))
@@ -110,10 +111,10 @@ const useVoterCheck = item => {
     }
   },[votersList, dispatch, navigation])
 
-  const GetUsersData = val => {
+  const GetUsersData = () => {
     dispatch(
       getVoterList({
-        payload: {id: item?.list },
+        payload: {id: item?.list || listId },
         param: STRINGS.TEXT_VOTER_LIST_PARAM,
         onSuccess: phoneBankFactory,
         successAction: setVoterList,
