@@ -1,25 +1,36 @@
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import React from 'react';
+import React, {useMemo} from 'react';
 import {arrowright} from '../../theme/images';
-import {
-  hp,
-  normalize,
-  wp,
-} from '../../theme/dimensions';
-import {  Montserrat,
-  MontserratBold} from '../../theme/fonts';
+import {hp, normalize, wp} from '../../theme/dimensions';
+import {Montserrat, MontserratBold} from '../../theme/fonts';
 import {useNavigation} from '@react-navigation/native';
+import routes from '../../constants/routes';
+import useReduxStore from '../../hooks/useReduxStore';
+import {COLORS} from '../../theme/colors';
 
 const ProfileView = () => {
   const navigation = useNavigation();
+  const {user} = useReduxStore();
+  const onPressToNavigate = () => navigation.navigate(routes?.Profile);
+  const name = useMemo(
+    () => (user?.firstName ? user?.firstName : ''),
+    [user?.firstName],
+  );
+
   return (
-    <TouchableOpacity
-      onPress={() => navigation.navigate('Profile')}
-      style={styles.container}>
+    <TouchableOpacity onPress={onPressToNavigate} style={styles.container}>
       <View style={styles.roundbox}>
-        <Text style={styles.shortname}>AC</Text>
+        {user?.campaignLogo ? (
+          <Image
+            source={{uri: user?.campaignLogo}}
+            style={styles.imageStyle}
+            resizeMode="contain"
+          />
+        ) : (
+          <Text style={styles.shortname}>AC</Text>
+        )}
       </View>
-      <Text style={styles.name}>Adam Christensen</Text>
+      <Text style={styles.name}>{name}</Text>
       <View style={styles.roundbox}>
         <Image source={arrowright} style={styles.arrow} resizeMode="contain" />
       </View>
@@ -53,7 +64,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
   },
   roundbox: {
-    backgroundColor: '#FF914D',
+    backgroundColor: COLORS.orange,
     height: wp(9),
     width: wp(9),
     borderRadius: wp(9) / 2,
@@ -63,15 +74,20 @@ const styles = StyleSheet.create({
   shortname: {
     fontFamily: MontserratBold,
     fontSize: normalize(13),
-    color: 'white',
+    color: COLORS.white,
   },
   name: {
     fontFamily: Montserrat,
     fontSize: normalize(21),
-    color: '#545454',
+    color: COLORS.darkGray,
+  },
+  imageStyle: {
+    height: wp(9),
+    width: wp(9),
+    borderRadius: 50
   },
   arrow: {
-    height: wp(5),
-    width: wp(5),
+    height: wp(4),
+    width: wp(4),
   },
 });

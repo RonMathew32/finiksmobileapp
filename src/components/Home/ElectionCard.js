@@ -1,37 +1,33 @@
-import {Image, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
+import { Image, StyleSheet, Text, View } from 'react-native';
+import { hp, normalize, wp } from '../../theme/dimensions';
 import {
-  hp,
-  normalize,
-  wp,
-} from '../../theme/dimensions';
-import {  Montserrat,
+  Montserrat,
   MontserratBold,
-  MontserratMedium,
-  MontserratSemiBold} from '../../theme/fonts';
+  MontserratSemiBold,
+} from '../../theme/fonts';
+import { COLORS } from '../../theme/colors';
 
 const ElectionCard = () => {
   return (
     <View style={styles.container}>
       <Image
-        source={{uri: 'https://i.dawn.com/primary/2023/06/6498adddf30da.jpg'}}
-        style={styles.mainimage}
+        source={{ uri: 'https://i.dawn.com/primary/2023/06/6498adddf30da.jpg' }}
+        style={styles.mainImage}
         resizeMode="cover"
       />
-      <View style={styles.carddescbox}>
-        <Text style={styles.cardheading}>Election: 4/25/2021</Text>
-        <Text style={styles.carddesctxt}>Early voting begins in 64 days</Text>
+      <View style={styles.cardDescBox}>
+        <Text style={styles.cardHeading}>Election: 4/25/2021</Text>
+        <Text style={styles.cardDescText}>Early voting begins in 64 days</Text>
       </View>
-      <View style={styles.bottombox}>
+      <View style={styles.bottomBox}>
         <View style={styles.button}>
           <Text style={styles.title}>Days Until Election</Text>
           <Text style={styles.subtitle}>142</Text>
         </View>
-        <View style={[styles.button, {backgroundColor: '#D12E2F'}]}>
-          <Text style={{...styles.title, color: 'white'}}>
-            Voters Contacted
-          </Text>
-          <Text style={{...styles.subtitle, color: 'white'}}>214</Text>
+        <View style={[styles.button, styles.whiteButton]}>
+          <Text style={styles.whiteTitle}>Voters Contacted</Text>
+          <Text style={styles.whiteSubtitle}>214</Text>
         </View>
       </View>
     </View>
@@ -43,9 +39,8 @@ export default ElectionCard;
 const styles = StyleSheet.create({
   container: {
     marginHorizontal: wp(5),
-    backgroundColor: 'white',
+    backgroundColor: COLORS.white,
     borderRadius: wp(4),
-    // overflow: 'hidden',
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -53,34 +48,33 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.22,
     shadowRadius: 2.22,
-
     elevation: 3,
   },
-  mainimage: {
+  mainImage: {
     width: '100%',
     height: hp(23),
     borderTopLeftRadius: wp(4),
     borderTopRightRadius: wp(4),
   },
-  carddescbox: {
+  cardDescBox: {
     marginTop: hp(2),
     marginBottom: hp(3),
     marginHorizontal: wp(5),
   },
-  cardheading: {
+  cardHeading: {
     fontFamily: MontserratSemiBold,
     fontSize: normalize(18),
     lineHeight: normalize(18),
-    color: '#545454',
+    color: COLORS.darkGray,
   },
-  carddesctxt: {
+  cardDescText: {
     fontFamily: Montserrat,
     fontSize: normalize(14),
     lineHeight: normalize(14),
-    color: '#545454',
+    color: COLORS.darkGray,
     marginTop: hp(1),
   },
-  bottombox: {
+  bottomBox: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     columnGap: wp(3),
@@ -94,9 +88,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: wp(1.5),
-    backgroundColor: 'white',
-
-    //shadow
+    backgroundColor: COLORS.white,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -104,18 +96,31 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.22,
     shadowRadius: 2.22,
-
     elevation: 1,
+  },
+  whiteButton: {
+    backgroundColor: COLORS.orangeReddish,
   },
   title: {
     fontFamily: MontserratSemiBold,
     fontSize: normalize(13),
-    color: '#D12E2F',
+    color: COLORS.orangeReddish,
   },
   subtitle: {
     fontFamily: MontserratBold,
     fontSize: normalize(31),
-    color: '#D12E2F',
+    color: COLORS.orangeReddish,
+    marginTop: hp(1),
+  },
+  whiteTitle: {
+    fontFamily: MontserratSemiBold,
+    fontSize: normalize(13),
+    color: COLORS.white,
+  },
+  whiteSubtitle: {
+    fontFamily: MontserratBold,
+    fontSize: normalize(31),
+    color: COLORS.white,
     marginTop: hp(1),
   },
 });

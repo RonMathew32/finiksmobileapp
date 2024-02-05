@@ -1,11 +1,12 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {wp} from '../../theme/dimensions';
+import {COLORS} from '../../theme/colors';
 
 const HomeHeader = () => {
   return (
     <View style={styles.container}>
-      <Text>HJ For Congress</Text>
+      <Text style={styles.text}>HJ For Congress</Text>
     </View>
   );
 };
@@ -17,5 +18,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     paddingHorizontal: wp(5),
     borderBottomWidth: 1,
+  },
+  text: {
+    color: COLORS.orangeReddish,
   },
 });

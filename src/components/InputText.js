@@ -1,11 +1,11 @@
-import {StyleSheet, Text, View, TextInput} from 'react-native';
-import React from 'react';
-import {hp, normalize, wp} from '../theme/dimensions';
+import { StyleSheet, View, TextInput } from 'react-native';
+import React, { useMemo } from 'react';
+import { hp, normalize, wp } from '../theme/dimensions';
 
 const InputText = ({
   placeholder,
-  containerstyle,
-  textinputstyle,
+  containerStyle,
+  textInputStyle,
   value,
   onChangeText,
   LeftComponent,
@@ -15,13 +15,18 @@ const InputText = ({
   maxLength,
   secureTextEntry,
 }) => {
+  const inputTextStyle = useMemo(
+    () => [styles.textInput, textInputStyle],
+    [textInputStyle]
+  );
+
   return (
-    <View style={[styles.container, containerstyle]}>
+    <View style={[styles.container, containerStyle]}>
       {LeftComponent && <LeftComponent />}
       <TextInput
         placeholder={placeholder}
         placeholderTextColor="rgba(154, 159, 165, 1)"
-        style={[styles.textinput, textinputstyle]}
+        style={inputTextStyle}
         value={value}
         onChangeText={onChangeText}
         onChange={onChange}
@@ -33,8 +38,6 @@ const InputText = ({
     </View>
   );
 };
-
-export default InputText;
 
 const styles = StyleSheet.create({
   container: {
@@ -49,7 +52,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: hp(1.5),
   },
-  textinput: {
+  textInput: {
     padding: 0,
     margin: 0,
     height: hp(4),
@@ -58,3 +61,5 @@ const styles = StyleSheet.create({
     color: 'rgba(151, 151, 151, 1)',
   },
 });
+
+export default React.memo(InputText);

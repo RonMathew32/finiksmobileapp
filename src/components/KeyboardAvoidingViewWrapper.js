@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet, View } from 'react-native';
+import { hp } from '../theme/dimensions';
 
 const KeyboardAvoidingViewWrapper = ({ children }) => {
-  const behavior = Platform.OS === 'ios' ? 'padding' : 'height';
-  const keyboardVerticalOffset = Platform.OS === 'ios' ? 40 : 0;
+  const behavior = useMemo(() => (Platform.OS === 'ios' ? 'padding' : 'height'), []);
+  const keyboardVerticalOffset = useMemo(() => (Platform.OS === 'ios' ? 40 : 0), []);
 
   return (
     <KeyboardAvoidingView
@@ -12,7 +13,7 @@ const KeyboardAvoidingViewWrapper = ({ children }) => {
       keyboardVerticalOffset={keyboardVerticalOffset}
     >
       <ScrollView>
-      <View style={styles.innerContainer}>{children}</View>
+        <View style={styles.innerContainer}>{children}</View>
       </ScrollView>
     </KeyboardAvoidingView>
   );
@@ -21,10 +22,11 @@ const KeyboardAvoidingViewWrapper = ({ children }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    marginTop: hp(1)
   },
   innerContainer: {
     flex: 1,
   },
 });
 
-export default KeyboardAvoidingViewWrapper;
+export default React.memo(KeyboardAvoidingViewWrapper);

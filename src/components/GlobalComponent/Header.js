@@ -10,9 +10,14 @@ import {
   squareicon,
 } from '../../theme/images';
 import useReduxStore from '../../hooks/useReduxStore';
+import { useNavigation } from '@react-navigation/native';
+import routes from '../../constants/routes';
 
 const Header = ({canvass, onPressAddVoter}) => {
   const {currentCampaign} = useReduxStore();
+  const navigation = useNavigation();
+  const onPressOnCampaign = () => navigation.navigate(routes?.CompaignSelection)
+
   return (
     <View style={{overflow: 'hidden', paddingBottom: 4}}>
       <View style={styles.container}>
@@ -39,7 +44,7 @@ const Header = ({canvass, onPressAddVoter}) => {
           </View>
         )}
 
-        <View style={styles.rightbox}>
+        <TouchableOpacity onPress={onPressOnCampaign} style={styles.rightbox}>
           <Image
             source={chevrondown}
             style={styles.chevron}
@@ -51,7 +56,7 @@ const Header = ({canvass, onPressAddVoter}) => {
             style={styles.square}
             resizeMode="contain"
           />
-        </View>
+        </TouchableOpacity>
       </View>
     </View>
   );

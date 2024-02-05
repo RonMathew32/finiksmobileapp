@@ -1,5 +1,4 @@
 import {
-  Image,
   StyleSheet,
   Text,
   TextInput,
@@ -68,9 +67,13 @@ const ProfileForm = () => {
     address: '',
   });
 
-  const onChangeValue = (key, value) => {
-    setData({...data, [key]: value});
-  };
+  const onChangeValue = useCallback((key, value) => {
+    setData((prevData) => ({ ...prevData, [key]: value }));
+  }, []);
+
+  const handleLogout = useCallback(() => {
+    dispatch(setLogout(null));
+  }, [dispatch]);
 
   return (
     <View style={styles.container}>
@@ -105,7 +108,7 @@ const ProfileForm = () => {
         setValue={val => onChangeValue('address', val)}
       />
       <TouchableOpacity
-        onPress={() => dispatch(setLogout(null))}
+        onPress={handleLogout}
         style={styles.button}>
         <Text style={styles.buttontxt}>Log Out</Text>
       </TouchableOpacity>

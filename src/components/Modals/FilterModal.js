@@ -1,23 +1,35 @@
-import React from 'react';
-import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
+import React, { useMemo } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import Modal from 'react-native-modal';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {COLORS} from '../../theme/colors';
+import { COLORS } from '../../theme/colors';
 
 const filterOptions = [
-  {icon: 'sort-amount-desc', text: 'Relevance'},
-  {icon: 'sort-alpha-asc', text: 'A to Z'},
-  {icon: 'sort-alpha-desc', text: 'Z to A'},
+  { icon: 'sort-amount-desc', text: 'Relevance' },
+  { icon: 'sort-alpha-asc', text: 'A to Z' },
+  { icon: 'sort-alpha-desc', text: 'Z to A' },
 ];
 
-const FilterModal = ({isVisible, onClose, onOptionPress, active}) => {
+const FilterModal = ({ isVisible, onClose, onOptionPress, active }) => {
+
+  const modalContainerStyle = useMemo(() => [
+      styles.modalContainer,
+      {
+        backgroundColor: COLORS.white,
+        borderColor: COLORS.orangeReddish,
+      },
+    ],
+    []
+  );
+
   return (
     <Modal
       animationIn="fadeIn"
       backdropOpacity={0}
       isVisible={isVisible}
-      onBackdropPress={onClose}>
-      <View style={styles.modalContainer}>
+      onBackdropPress={onClose}
+      style={styles.modal}>
+      <View style={modalContainerStyle}>
         {filterOptions.map((option, index) => (
           <TouchableOpacity
             key={index}
@@ -53,7 +65,6 @@ const styles = StyleSheet.create({
     margin: 15,
   },
   modalContainer: {
-    backgroundColor: 'white',
     padding: 20,
     borderRadius: 10,
     width: '60%',
@@ -61,6 +72,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 40,
     right: 0,
+    borderWidth: 1,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,

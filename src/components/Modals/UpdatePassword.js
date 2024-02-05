@@ -1,8 +1,7 @@
-import React, {useCallback, useState} from 'react';
-import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
+import React, {useCallback, useState, useMemo} from 'react';
+import {View, Text, StyleSheet} from 'react-native';
 import Modal from 'react-native-modal';
 import {COLORS} from '../../theme/colors';
-import IconClose from 'react-native-vector-icons/Entypo';
 import {hp, normalize, wp} from '../../theme/dimensions';
 import {CustomInput} from '../Profile/ProfileForm';
 import AppButton from '../AppButton';
@@ -22,10 +21,60 @@ const UpdatePassword = ({
 
   const onChangeValue = useCallback(
     (key, value) => {
-      setData({...data, [key]: value});
+      setData(prevData => ({...prevData, [key]: value}));
       setErrorMsg('');
     },
-    [data],
+    [setErrorMsg],
+  );
+
+  const styles = useMemo(
+    () =>
+      StyleSheet.create({
+        errorTxt: {
+          color: 'red',
+          marginTop: hp(3),
+        },
+        btnStyle: {
+          width: wp(35),
+          height: hp(5),
+          borderRadius: 5,
+        },
+        buttonContainer: {
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          marginBottom: hp(3),
+        },
+        innerContent: {
+          paddingHorizontal: wp(4),
+        },
+        heading: {
+          color: COLORS.darkGray,
+          marginVertical: hp(2),
+        },
+        titleContainer: {
+          backgroundColor: COLORS.orange,
+          paddingHorizontal: wp(4),
+          paddingVertical: hp(2),
+          borderTopRightRadius: 10,
+          borderTopLeftRadius: 10,
+        },
+        modalContainer: {
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'center',
+        },
+        content: {
+          backgroundColor: COLORS.white,
+          borderRadius: 10,
+        },
+        title: {
+          fontSize: normalize(14),
+          fontWeight: 'bold',
+          color: COLORS.white,
+          textAlign: 'center',
+        },
+      }),
+    []
   );
 
   return (
@@ -71,51 +120,5 @@ const UpdatePassword = ({
     </Modal>
   );
 };
-
-const styles = StyleSheet.create({
-  errorTxt: {
-    color: 'red',
-    marginTop: hp(3),
-  },
-  btnStyle: {
-    width: wp(35),
-    height: hp(5),
-    borderRadius: 5,
-  },
-  buttonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: hp(3),
-  },
-  innerContent: {
-    paddingHorizontal: wp(4),
-  },
-  heading: {
-    color: COLORS.darkGray,
-    marginVertical: hp(2),
-  },
-  titleContainer: {
-    backgroundColor: COLORS.orange,
-    paddingHorizontal: wp(4),
-    paddingVertical: hp(2),
-    borderTopRightRadius: 10,
-    borderTopLeftRadius: 10,
-  },
-  modalContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  content: {
-    backgroundColor: COLORS.white,
-    borderRadius: 10,
-  },
-  title: {
-    fontSize: normalize(14),
-    fontWeight: 'bold',
-    color: COLORS.white,
-    textAlign: 'center',
-  },
-});
 
 export default React.memo(UpdatePassword);

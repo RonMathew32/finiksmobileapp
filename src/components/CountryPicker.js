@@ -1,5 +1,5 @@
+import React, { useState, useMemo } from 'react';
 import {
-  ActivityIndicator,
   FlatList,
   Image,
   StyleSheet,
@@ -7,12 +7,11 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {memo, useMemo, useState} from 'react';
 import Modal from 'react-native-modal';
 import CountryData from '../../utils/CountryData';
-import {hp, normalize, wp} from '../theme/dimensions';
-import {Belleza} from '../theme/fonts';
-import {arrowdown, crossicon} from '../theme/images';
+import { hp, normalize, wp } from '../theme/dimensions';
+import { Belleza } from '../theme/fonts';
+import { arrowdown, crossicon } from '../theme/images';
 
 const CountryPicker = () => {
   const [country, setCountry] = useState({
@@ -27,8 +26,9 @@ const CountryPicker = () => {
     setCountry(item);
     setVisible(false);
   };
-  const CountryItem = ({item, index}) => {
-    return (
+
+  const CountryItem = useMemo(
+    () => ({ item }) => (
       <TouchableOpacity
         onPress={() => onItemPress(item)}
         style={styles.itembox}>
@@ -37,8 +37,9 @@ const CountryPicker = () => {
           {item.name} {item.dial_code}
         </Text>
       </TouchableOpacity>
-    );
-  };
+    ),
+    []
+  );
 
   return (
     <View>
@@ -82,8 +83,6 @@ const CountryPicker = () => {
   );
 };
 
-export default CountryPicker;
-
 const styles = StyleSheet.create({
   container: {},
   pickerbox: {
@@ -110,7 +109,7 @@ const styles = StyleSheet.create({
     marginHorizontal: wp(3),
     borderColor: '#F0F0F0',
   },
-  modalbox: {marginHorizontal: wp(2)},
+  modalbox: { marginHorizontal: wp(2) },
   modalcontainer: {
     backgroundColor: 'white',
     borderRadius: wp(4),
@@ -140,3 +139,5 @@ const styles = StyleSheet.create({
     marginBottom: hp(1),
   },
 });
+
+export default React.memo(CountryPicker);

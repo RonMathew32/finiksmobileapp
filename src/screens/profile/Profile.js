@@ -84,8 +84,6 @@ const Profile = () => {
     val => {
       if (val?.oldPassword == '') {
         setErrorMsg('Field must not be empty!');
-      } else if (val?.oldPassword?.length < 8) {
-        setErrorMsg('Old Password length must be greater than 8 characters');
       } else if (val?.newPassword == '') {
         setErrorMsg('Field must not be empty!');
       } else if (val?.newPassword?.length < 8) {
@@ -97,7 +95,7 @@ const Profile = () => {
             oldPassword: val?.oldPassword,
             newPassword: val?.newPassword,
           },
-          teamLogin: user?.teamLogin,
+          teamLogin: 'true',
         };
         console.log(payload, 'payload');
         dispatch(

@@ -26,12 +26,12 @@ const screenOptions = ({ route }) => ({
       case routes.Home:
         iconName = 'home';
         break;
-      case routes.Chat:
-        iconName = 'comments';
-        break;
-      case routes.LeaderBoard:
-        iconName = 'chart-bar';
-        break;
+      // case routes.Chat:
+      //   iconName = 'comments';
+      //   break;
+      // case routes.LeaderBoard:
+      //   iconName = 'chart-bar';
+      //   break;
       case routes.PhoneBankingStack:
         iconName = 'phone';
         break;
@@ -54,7 +54,7 @@ const AuthNavigation = () => {
         component={Home}
         options={{ tabBarLabel: routes.Home }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name={routes.Chat}
         component={Chat}
         options={{ tabBarLabel: routes.Chat }}
@@ -63,7 +63,7 @@ const AuthNavigation = () => {
         name={routes.LeaderBoard}
         component={LeaderBoard}
         options={{ tabBarLabel: routes.LeaderBoard }}
-      />
+      /> */}
       <Tab.Screen
         name={routes.PhoneBankingStack}
         component={PhoneBankingStack}

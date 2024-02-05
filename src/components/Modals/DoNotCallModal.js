@@ -1,23 +1,23 @@
-import React, {useEffect, useState, useMemo, useCallback} from 'react';
-import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
+import React, { useEffect, useState, useMemo, useCallback } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import Modal from 'react-native-modal';
-import {COLORS} from '../../theme/colors';
-import {hp, normalize, wp} from '../../theme/dimensions';
+import { COLORS } from '../../theme/colors';
+import { hp, normalize, wp } from '../../theme/dimensions';
 import AppButton from '../AppButton';
 import useReduxStore from '../../hooks/useReduxStore';
-import {toCamelCase} from '../../utils/FilterArray';
+import { toCamelCase } from '../../utils/FilterArray';
 import Icon from 'react-native-vector-icons/Entypo';
 
-const DoNotCallModal = ({isVisible, onClose, onSave, selected}) => {
-  const {listId, currentVoter} = useReduxStore();
-  const [recordInteration, setRecordInteration] = useState('Connected');
+const DoNotCallModal = ({ isVisible, onClose, onSave, selected }) => {
+  const { listId, currentVoter } = useReduxStore();
+  const [recordInteraction, setRecordInteraction] = useState('Connected');
   const [selectInteraction, setSelectInteraction] = useState(
-    recordInteration === 'Connected' ? 'Do Not Call' : 'None',
+    recordInteraction === 'Connected' ? 'Do Not Call' : 'None'
   );
 
   const interactionOptions = useMemo(
     () => ['None', 'Sent Text', 'Left Voicemail', 'Sent Email', 'Hung up'],
-    [],
+    []
   );
 
   const onPressNextVoter = useCallback(() => {
@@ -25,40 +25,35 @@ const DoNotCallModal = ({isVisible, onClose, onSave, selected}) => {
   }, [listId, currentVoter, selectInteraction]);
 
   useEffect(() => {
-    if (recordInteration === 'Connected')
-      setSelectInteraction(
-        selected == 'donot' ? 'Do Not Call' : 'Contact Later',
-      );
-    if (recordInteration === 'No Answer') setSelectInteraction('None');
-  }, [recordInteration]);
+    if (recordInteraction === 'Connected')
+      setSelectInteraction(selected == 'donot' ? 'Do Not Call' : 'Contact Later');
+    if (recordInteraction === 'No Answer') setSelectInteraction('None');
+  }, [recordInteraction]);
 
-  const RadioButton = ({title, index}) => (
+  const RadioButton = ({ title, index }) => (
     <TouchableOpacity
       key={index}
       onPress={() => setSelectInteraction(title)}
-      style={styles.radioButton}>
+      style={styles.radioButton}
+    >
       <View style={styles.radioCircle}>
-        {title === selectInteraction && (
-          <View style={styles.selectedRadioCircle} />
-        )}
+        {title === selectInteraction && <View style={styles.selectedRadioCircle} />}
       </View>
       <Text style={[styles.btnTxtStyle(COLORS.darkGray)]}>{title}</Text>
     </TouchableOpacity>
   );
 
-  const renderRadioButtons = useCallback(() => {
-    if (recordInteration === 'Connected') {
+  const renderRadioButtons = useMemo(() => {
+    if (recordInteraction === 'Connected') {
       return selected == 'next' ? null : (
-        <RadioButton
-          title={selected == 'donot' ? 'Do Not Call' : 'Contact Later'}
-        />
+        <RadioButton title={selected == 'donot' ? 'Do Not Call' : 'Contact Later'} />
       );
     } else {
       return interactionOptions.map((item, index) => (
         <RadioButton key={index} title={item} index={index} />
       ));
     }
-  }, [recordInteration, interactionOptions, selectInteraction]);
+  }, [recordInteraction, interactionOptions, selectInteraction]);
 
   return (
     <Modal isVisible={isVisible}>
@@ -73,9 +68,7 @@ const DoNotCallModal = ({isVisible, onClose, onSave, selected}) => {
           </View>
 
           <View style={styles.checkContent}>
-            <Text style={styles.heading}>
-              Are You Finished Calling This Voter?
-            </Text>
+            <Text style={styles.heading}>Are You Finished Calling This Voter?</Text>
             <View style={styles.alignBtn}>
               <AppButton style={styles.btnStyle(COLORS.orange)} title="Yes" />
               <AppButton
@@ -91,40 +84,32 @@ const DoNotCallModal = ({isVisible, onClose, onSave, selected}) => {
             <View style={styles.alignBtn}>
               <AppButton
                 style={styles.btnStyle(
-                  recordInteration === 'Connected'
-                    ? COLORS.orange
-                    : COLORS.white,
+                  recordInteraction === 'Connected' ? COLORS.orange : COLORS.white
                 )}
                 textStyle={styles.btnRecTxtStyle(
-                  recordInteration === 'Connected'
-                    ? COLORS.white
-                    : COLORS.darkGray,
+                  recordInteraction === 'Connected' ? COLORS.white : COLORS.darkGray
                 )}
-                title="Called , Connected"
-                onPress={() => setRecordInteration('Connected')}
+                title="Called, Connected"
+                onPress={() => setRecordInteraction('Connected')}
               />
               <AppButton
                 style={styles.btnStyle(
-                  recordInteration === 'No Answer'
-                    ? COLORS.orange
-                    : COLORS.white,
+                  recordInteraction === 'No Answer' ? COLORS.orange : COLORS.white
                 )}
                 textStyle={[
                   styles.btnTxtStyle(
-                    recordInteration === 'No Answer'
-                      ? COLORS.white
-                      : COLORS.darkGray,
+                    recordInteraction === 'No Answer' ? COLORS.white : COLORS.darkGray
                   ),
                   styles.btnRecTxtStyle,
-                  {fontSize: normalize(10)},
+                  { fontSize: normalize(10) },
                 ]}
-                title="Called , No Answer"
-                onPress={() => setRecordInteration('No Answer')}
+                title="Called, No Answer"
+                onPress={() => setRecordInteraction('No Answer')}
               />
             </View>
             <View style={styles.doNotCallContainer}>
-              <View style={{alignItems: 'center', marginLeft: wp(10)}}>
-                {renderRadioButtons()}
+              <View style={{ alignItems: 'center', marginLeft: wp(10) }}>
+                {renderRadioButtons}
               </View>
 
               <AppButton
@@ -152,7 +137,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  doNotCallContainer: {alignItems: 'center', marginVertical: hp(3)},
+  doNotCallContainer: { alignItems: 'center', marginVertical: hp(3) },
   nextVoterBtn: {
     width: wp(60),
   },
@@ -178,19 +163,19 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginRight: wp(3),
   },
-  btnRecTxtStyle: color => ({
+  btnRecTxtStyle: (color) => ({
     fontSize: normalize(10),
     color: color,
   }),
   subHeading: {
     marginTop: hp(5),
   },
-  btnTxtStyle: color => ({
+  btnTxtStyle: (color) => ({
     color: color,
     fontSize: normalize(16),
     fontWeight: '500',
   }),
-  btnStyle: color => ({
+  btnStyle: (color) => ({
     backgroundColor: color,
     width: wp(35),
     height: hp(5),
@@ -232,28 +217,6 @@ const styles = StyleSheet.create({
     color: COLORS.white,
     marginLeft: wp(5),
   },
-  checkbox: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginVertical: 10,
-  },
-  buttonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: 20,
-  },
-  button: {
-    flex: 1,
-    backgroundColor: COLORS.orangeReddish,
-    padding: 10,
-    borderRadius: 5,
-    marginHorizontal: 5,
-    alignItems: 'center',
-  },
-  buttonText: {
-    color: COLORS.white,
-    fontWeight: 'bold',
-  },
 });
 
-export default DoNotCallModal;
+export default React.memo(DoNotCallModal);
