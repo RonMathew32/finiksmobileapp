@@ -17,6 +17,7 @@ import useReduxStore from '../../hooks/useReduxStore';
 import AppButton from '../../components/AppButton';
 import { COLORS } from '../../theme/colors';
 import routes from '../../constants/routes';
+import KeyboardAvoidingViewWrapper from '../../components/KeyboardAvoidingViewWrapper';
 
 const Register = ({navigation}) => {
   const {dispatch, loading, setLoading} = useReduxStore();
@@ -78,6 +79,7 @@ const Register = ({navigation}) => {
 
   return (
     <SafeAreaView style={styles.container}>
+      <KeyboardAvoidingViewWrapper>
       <View style={styles.innerbox}>
         <Image source={logo} style={styles.logo} resizeMode="contain" />
         <View style={styles.inputsbox}>
@@ -86,24 +88,24 @@ const Register = ({navigation}) => {
             value={form.firstName}
             multiline={false}
             onChangeText={val => onChangeValue('firstName', val)}
-            containerstyle={styles.containerstyle}
-            textinputstyle={styles.textinputstyle}
+            containerStyle={styles.containerStyle}
+            textInputStyle={styles.textInputStyle}
           />
           <InputText
             placeholder="Last Name"
             value={form.lastName}
             multiline={false}
             onChangeText={val => onChangeValue('lastName', val)}
-            containerstyle={styles.containerstyle}
-            textinputstyle={styles.textinputstyle}
+            containerStyle={styles.containerStyle}
+            textInputStyle={styles.textInputStyle}
           />
           <InputText
             placeholder="Email"
             value={form.email}
             multiline={false}
             onChangeText={val => onChangeValue('email', val)}
-            containerstyle={styles.containerstyle}
-            textinputstyle={styles.textinputstyle}
+            containerStyle={styles.containerStyle}
+            textInputStyle={styles.textInputStyle}
           />
           <InputText
             placeholder="Password"
@@ -111,16 +113,16 @@ const Register = ({navigation}) => {
             multiline={false}
             secureTextEntry={true}
             onChangeText={val => onChangeValue('password', val)}
-            containerstyle={styles.containerstyle}
-            textinputstyle={styles.textinputstyle}
+            containerStyle={styles.containerStyle}
+            textInputStyle={styles.textInputStyle}
           />
           <InputText
             placeholder="Address"
             value={form.address}
             multiline={false}
             onChangeText={val => onChangeValue('address', val)}
-            containerstyle={styles.containerstyle}
-            textinputstyle={styles.textinputstyle}
+            containerStyle={styles.containerStyle}
+            textInputStyle={styles.textInputStyle}
           />
           <InputText
             placeholder="Phone Number"
@@ -128,8 +130,8 @@ const Register = ({navigation}) => {
             multiline={false}
             type={'phone-pad'}
             onChangeText={val => onChangeValue('phoneNumber', val)}
-            containerstyle={styles.containerstyle}
-            textinputstyle={styles.textinputstyle}
+            containerStyle={styles.containerStyle}
+            textInputStyle={styles.textInputStyle}
           />
 
           <AppButton
@@ -148,6 +150,7 @@ const Register = ({navigation}) => {
           </Text>
         </View>
       </View>
+      </KeyboardAvoidingViewWrapper>
     </SafeAreaView>
   );
 };
@@ -155,6 +158,9 @@ const Register = ({navigation}) => {
 export default Register;
 
 const styles = StyleSheet.create({
+  textInputStyle: {
+    paddingTop: hp(0)
+  },
   container: {
     flex: 1,
     backgroundColor: COLORS.background,
@@ -174,8 +180,8 @@ const styles = StyleSheet.create({
     width: '100%',
     marginTop: hp(3),
   },
-  containerstyle: {
-    height: hp(6.3),
+  containerStyle: {
+    height: hp(6.5),
     width: '100%',
     marginBottom: hp(2),
     flex: 0,

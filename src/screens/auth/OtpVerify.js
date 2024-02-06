@@ -114,8 +114,8 @@ const OtpVerify = ({route, navigation}) => {
           multiline={false}
           maxLength={6}
           onChangeText={val => onChangeValue('code', val)}
-          containerstyle={styles.containerstyle}
-          textinputstyle={styles.textinputstyle}
+          containerStyle={styles.containerStyle}
+          inputTextStyle={styles.textinputstyle}
           type={true}
         />
         {resendOTP ? (
@@ -189,7 +189,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: hp(2),
   },
-  containerstyle: {
+  containerStyle: {
     height: hp(6.3),
     marginBottom: hp(2),
     flex: 0,

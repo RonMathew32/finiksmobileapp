@@ -50,7 +50,7 @@ const Login = ({navigation}) => {
           value={data.email}
           multiline={false}
           onChangeText={val => onChangeValue('email', val)}
-          containerstyle={styles.containerstyle}
+          containerStyle={styles.containerStyle}
           textinputstyle={styles.textinputstyle}
         />
         <InputText
@@ -59,7 +59,7 @@ const Login = ({navigation}) => {
           multiline={false}
           onChangeText={val => onChangeValue('password', val)}
           secureTextEntry={true}
-          containerstyle={styles.containerstyle}
+          containerStyle={styles.containerStyle}
           textinputstyle={styles.textinputstyle}
         />
         <Text style={styles.forgottxt}>Forgot Password?</Text>
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
     marginHorizontal: wp(5),
     marginTop: hp(3),
   },
-  containerstyle: {
+  containerStyle: {
     height: hp(6.3),
     marginBottom: hp(2),
     flex: 0,
