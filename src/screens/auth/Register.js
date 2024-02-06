@@ -21,13 +21,21 @@ import routes from '../../constants/routes';
 const Register = ({navigation}) => {
   const {dispatch, loading, setLoading} = useReduxStore();
   const [form, setForm] = useState({
-    email: 'ramek85847@konican.com',
-    password: 'donnn123$',
-    firstName: 'vloun2',
-    lastName: 'acc',
-    address: 'this is address',
-    phoneNumber: '123456788',
+    email: '',
+    password: '',
+    firstName: '',
+    lastName: '',
+    address: '',
+    phoneNumber: '',
   });
+
+  // email: 'ramek85847@konican.com',
+  // password: 'donnn123$',
+  // firstName: 'vloun2',
+  // lastName: 'acc',
+  // address: 'this is address',
+  // phoneNumber: '123456788',
+
   const onChangeValue = (key, value) => {
     setForm({...form, [key]: value});
   };

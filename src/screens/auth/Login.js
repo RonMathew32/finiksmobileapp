@@ -23,9 +23,12 @@ import AppButton from '../../components/AppButton';
 const Login = ({navigation}) => {
   const {dispatch, loading, setLoading, user, token} = useReduxStore();
   const [data, setData] = useState({
-    email: 'aidataronofficial@gmail.com',
-    password: 'donnn123$',
+    email: '',
+    password: '',
   });
+
+  // email: 'aidataronofficial@gmail.com',
+  // password: 'donnn123$',
 
   const onChangeValue = (key, value) => {
     setData({...data, [key]: value});
