@@ -50,7 +50,6 @@ const CampaignSelection = ({navigation}) => {
     dispatch(
       getJoinedCampaign({
         payload,
-        ToastMessageLight,
         setJoinedCampaign,
         token,
         setLoading,

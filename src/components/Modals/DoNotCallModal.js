@@ -180,6 +180,8 @@ const styles = StyleSheet.create({
     width: wp(35),
     height: hp(5),
     borderRadius: 5,
+    borderColor: COLORS.lavendarWhite,
+    borderWidth: 0.2,
     shadowColor: 'rgba(0,0,0,0.5)',
     shadowOffset: {
       width: 0,

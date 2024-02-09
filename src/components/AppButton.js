@@ -3,7 +3,7 @@ import { ActivityIndicator, StyleSheet, Text, TouchableOpacity } from 'react-nat
 import { hp, normalize, wp } from '../theme/dimensions';
 import { COLORS } from '../theme/colors';
 
-const AppButton = ({ loading, onPress, loaderSize = 'small', loaderColor = COLORS.white, title = '', style, textStyle }) => {
+const AppButton = ({ loading, onPress, loaderSize = 'small', loaderColor = COLORS.hardCodeWhite, title = '', style, textStyle }) => {
   const buttonContent = loading ? (
     <ActivityIndicator size={loaderSize} color={loaderColor} />
   ) : (
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
   buttontxt: {
     fontSize: normalize(16),
     fontWeight: '700',
-    color: 'white',
+    color: COLORS.hardCodeWhite,
   },
 });
 

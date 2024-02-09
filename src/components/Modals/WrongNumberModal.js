@@ -84,7 +84,7 @@ const WrongNumberModal = ({ isVisible, onClose, onSave, voter }) => {
           alignItems: 'center',
         },
         buttonText: {
-          color: COLORS.white,
+          color: COLORS.hardCodeWhite,
           fontWeight: 'bold',
         },
       }),

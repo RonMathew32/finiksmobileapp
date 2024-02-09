@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
   name: {
     fontFamily: MontserratMedium,
     fontSize: normalize(14),
-    color: 'white',
+    color: COLORS.hardCodeWhite,
     marginHorizontal: wp(5),
     marginVertical: hp(0.6),
   },

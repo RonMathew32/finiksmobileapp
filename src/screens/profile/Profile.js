@@ -119,6 +119,7 @@ const Profile = () => {
     dispatch(setEmptyPhoneBank())
     dispatch(setEmptyVoters());
     dispatch(setLogout())
+    ToastMessageLight('Logout Successfully')
   },[dispatch])
 
   return loading ? (
