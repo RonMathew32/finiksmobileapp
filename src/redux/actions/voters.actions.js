@@ -30,6 +30,8 @@ export const setVotersTag = data => ({ type: ACTION_TYPES.VOTERS_TAG.SET, data }
 
 export const updateVoterInfo = data => ({ type: ACTION_TYPES.UPDATE_VOTER_INFO.GET, data });
 
+export const setEmptyVoters = data => ({ type: ACTION_TYPES.EMPTY_VOTERS.SET, data });
+
 
 
 

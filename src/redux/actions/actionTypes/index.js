@@ -13,7 +13,6 @@ export const ACTION_TYPES = {
   USER_DATA: createAsyncActionTypes('USER_DATA'),
   USER_PROFILE: createAsyncActionTypes('USER_PROFILE'),
   USER_PASSWORD: createAsyncActionTypes('USER_PASSWORD'),
-  LOGOUT: createAsyncActionTypes('LOGOUT'),
   JOIN_CAMPAIGN: createAsyncActionTypes('JOIN_CAMPAIGN'),
   JOINED_CAMPAIGN: createAsyncActionTypes('JOINED_CAMPAIGN'),
   CURRENT_CAMPAIGN: createAsyncActionTypes('CURRENT_CAMPAIGN'),
@@ -34,4 +33,10 @@ export const ACTION_TYPES = {
   VOTERS_TAG: createAsyncActionTypes('VOTERS_TAG'),
   UPDATE_VOTER_INFO: createAsyncActionTypes('UPDATE_VOTER_INFO'),
   PHONE_BANK_RECORDS: createAsyncActionTypes('PHONE_BANK_RECORDS'),
+
+  //CLEAR
+  LOGOUT: createAsyncActionTypes('LOGOUT'),
+  EMPTY_CAMPAIGN: createAsyncActionTypes('EMPTY_CAMPAIGN'),
+  EMPTY_PHONE_BANK: createAsyncActionTypes('EMPTY_PHONE_BANK'),
+  EMPTY_VOTERS: createAsyncActionTypes('EMPTY_VOTERS'),
 };

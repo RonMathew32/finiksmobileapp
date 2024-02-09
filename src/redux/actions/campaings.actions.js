@@ -10,3 +10,5 @@ export const setJoinedCampaign = data => ({ type: ACTION_TYPES.JOINED_CAMPAIGN.S
 
 export const setCurrentCampaign = data => ({ type: ACTION_TYPES.CURRENT_CAMPAIGN.SET, data });
 
+export const setEmptyCampaign = data => ({ type: ACTION_TYPES.EMPTY_CAMPAIGN.SET, data });
+

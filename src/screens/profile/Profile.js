@@ -24,6 +24,9 @@ import AppButton from '../../components/AppButton';
 import KeyboardAvoidingViewWrapper from '../../components/KeyboardAvoidingViewWrapper';
 import {COLORS} from '../../theme/colors';
 import UpdatePassword from '../../components/Modals/UpdatePassword';
+import { setCurrentCampaign, setEmptyCampaign, setJoinCampaign } from '../../redux/actions/campaings.actions';
+import { setEmptyPhoneBank, setPhoneBankRecords, setRecord } from '../../redux/actions/phonebank.actions';
+import { setCampaignTags, setCurrentVoter, setCustomTags, setEmptyVoters, setScript, setScriptId, setSurveyList, setUndoneVoters, setVoterList, setVotersTag } from '../../redux/actions/voters.actions';
 
 const Profile = () => {
   const {user, dispatch, token, loading, setLoading, campaignId} =
@@ -111,6 +114,13 @@ const Profile = () => {
     [dispatch, user, token, campaignId],
   );
 
+  const onPressLogout = useCallback(()=>{
+    dispatch(setEmptyCampaign())
+    dispatch(setEmptyPhoneBank())
+    dispatch(setEmptyVoters());
+    dispatch(setLogout())
+  },[dispatch])
+
   return loading ? (
     <LoadingScreen />
   ) : (
@@ -128,7 +138,7 @@ const Profile = () => {
         <TouchableOpacity onPress={() => setIsVisisbleChangePass(true)}>
           <Text style={styles.changePass}>Change Password</Text>
         </TouchableOpacity>
-        <AppButton title="Logout" onPress={() => dispatch(setLogout(null))} />
+        <AppButton title="Logout" onPress={onPressLogout} />
         <Image source={logo} style={styles.logo} resizeMode="contain" />
       </KeyboardAvoidingViewWrapper>
       {isVisisbleChangePass && (

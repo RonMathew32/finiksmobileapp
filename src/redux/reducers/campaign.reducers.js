@@ -22,6 +22,12 @@ const CampaignReducer = (state = initialState, action) => {
             ...state,
             currentCampaign: data,
           };
+
+          case ACTION_TYPES.EMPTY_CAMPAIGN.SET:
+            return {
+              ...state,
+              ...initialState
+            };
   
       default:
         return state;

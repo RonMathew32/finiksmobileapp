@@ -70,10 +70,17 @@ const VotersReducer = (state = initialState, action) => {
           ...state,
           votersTag: data,
         };
+
     case ACTION_TYPES.SCRIPT_ID.SET:
         return {
           ...state,
           scriptId: data,
+        };
+
+    case ACTION_TYPES.EMPTY_VOTERS.SET:
+        return {
+          ...state,
+          ...initialState,
         };
 
     default:

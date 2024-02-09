@@ -21,6 +21,12 @@ const PhoneBankRecordsReducer = (state = initialState, action) => {
         currentRecord: data,
       };
 
+      case ACTION_TYPES.EMPTY_PHONE_BANK.SET:
+      return {
+        ...state,
+        ...initialState
+      };
+
     default:
       return state;
   }

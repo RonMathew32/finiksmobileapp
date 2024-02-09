@@ -12,3 +12,5 @@ export const getSaveInteraction = data => ({ type: ACTION_TYPES.SAVE_INTERACTION
 
 export const getSurveyToTake = data => ({ type: ACTION_TYPES.SURVEY_TO_TAKE.GET, data });
 
+export const setEmptyPhoneBank = data => ({ type: ACTION_TYPES.EMPTY_PHONE_BANK.SET, data });
+
