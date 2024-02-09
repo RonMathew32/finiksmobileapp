@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import TotalVotersInfo from '../../components/PhoneBanking/TotalVoters/TotalVotersInfo';
 import SingleVoter from '../../components/PhoneBanking/TotalVoters/SingleVoter';
 import routes from '../../constants/routes';
+import { COLORS } from '../../theme/colors';
 
 const TotalVoters = ({navigation}) => {
   const onPressVoter = () => navigation.navigate(routes?.VoterDetails)
@@ -37,7 +38,7 @@ const TotalVoters = ({navigation}) => {
   const [data, setData] = useState([...totalVotersData])
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styles.container}>
       <TotalVotersInfo navigation={navigation} data={data} setData={setData}  totalVotersData={totalVotersData} />
       <FlatList
         data={data}
@@ -52,4 +53,9 @@ const TotalVoters = ({navigation}) => {
 
 export default TotalVoters;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: COLORS.white
+  }
+});

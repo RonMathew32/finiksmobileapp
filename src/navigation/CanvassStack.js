@@ -5,6 +5,8 @@ import routes from '../constants/routes';
 import Canvass from '../screens/canvass/Canvass';
 import VoterDetails from '../screens/canvass/VoterDetails';
 import UpdateVoterInfo from '../screens/phoneBanking/UpdateVoterInfo';
+import CampaignSelection from '../screens/campaign/CampaignSelection';
+import Contacted from '../screens/canvass/Contacted';
 
 const Stack = createNativeStackNavigator();
 
@@ -12,7 +14,9 @@ const CanvassStack = () => {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name={routes.Canvass} component={Canvass} />
+      <Stack.Screen name={routes.CampaignSelection} component={CampaignSelection} />
       <Stack.Screen name={routes.UpdateVoterInfo} component={UpdateVoterInfo} />
+      <Stack.Screen name={routes.Contacted} component={Contacted} />
       <Stack.Screen name={routes.TotalVoters} component={TotalVoters} />
       <Stack.Screen name={routes.VoterDetails} component={VoterDetails} />
 

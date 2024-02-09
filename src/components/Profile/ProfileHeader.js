@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingHorizontal: wp(5),
-    backgroundColor: COLORS.white,
+    backgroundColor: COLORS.background,
     shadowColor: COLORS.darkGray,
     shadowOffset: {width: 1, height: 1},
     shadowOpacity: 0.4,
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
   icon: {
     width: wp(6.5),
     height: wp(6.5),
-    tintColor: COLORS.orangeReddish,
+    tintColor: COLORS.primary,
   },
   nametxt: {
     fontFamily: MontserratSemiBold,
@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
   savetxt: {
     fontFamily: MontserratMedium,
     fontSize: normalize(15),
-    color: COLORS.orangeReddish,
+    color: COLORS.primary,
   },
 });
 

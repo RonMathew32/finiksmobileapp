@@ -61,7 +61,9 @@ const styles = StyleSheet.create({
 
     elevation: 7,
     // background color must be set
-    backgroundColor: '#FFFFFF',
+    backgroundColor: COLORS.white,
+    borderColor: COLORS.lavendarWhite,
+    borderWidth: 0.3
   },
   roundbox: {
     backgroundColor: COLORS.orange,

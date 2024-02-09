@@ -4,6 +4,7 @@ import ElectionCard from '../../components/Home/ElectionCard';
 import {hp} from '../../theme/dimensions';
 import HomeHeader from '../../components/Home/HomeHeader';
 import Header from '../../components/GlobalComponent/Header';
+import { COLORS } from '../../theme/colors';
 
 const Home = () => {
   return (
@@ -25,7 +26,7 @@ export default Home;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: COLORS.white,
   },
   flatlist: {
     paddingTop: hp(3),

@@ -92,6 +92,8 @@ export default memo(VoterSurvey);
 const styles = StyleSheet.create({
   container: {
     height: hp(55),
+    borderBlockColor: COLORS.lavendarWhite,
+    borderWidth: 0.4
   },
   flatlist: {
     flex: 1,
@@ -105,14 +107,14 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#FF914D',
+    backgroundColor: COLORS.orange,
     borderRadius: wp(4),
     margin: wp(1),
   },
   cardtxt: {
     fontFamily: MontserratMedium,
     fontSize: normalize(24),
-    color: 'white',
+    color: COLORS.white,
     textAlign: 'center',
     marginHorizontal: wp(4),
     marginVertical: hp(4),

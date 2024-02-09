@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
   btn: {
     width: 'auto',
     padding: 10,
-    backgroundColor: COLORS.orangeReddish,
+    backgroundColor: COLORS.primary,
     borderRadius: 20,
     alignItems: 'center',
     justifyContent: 'center',
@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
   imageBack: {
     width: wp(25),
     height: wp(25),
-    backgroundColor: COLORS.orangeReddish,
+    backgroundColor: COLORS.primary,
     borderRadius: wp(25) / 2,
     alignItems: 'center',
     justifyContent: 'center',
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
   nameText: {
     fontFamily: MontserratBold,
     fontSize: normalize(30),
-    color: 'white',
+    color: COLORS.white,
   },
   selectionBox: {
     flexDirection: 'row',

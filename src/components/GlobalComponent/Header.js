@@ -12,11 +12,12 @@ import {
 import useReduxStore from '../../hooks/useReduxStore';
 import { useNavigation } from '@react-navigation/native';
 import routes from '../../constants/routes';
+import { COLORS } from '../../theme/colors';
 
 const Header = ({canvass, onPressAddVoter}) => {
   const {currentCampaign} = useReduxStore();
   const navigation = useNavigation();
-  const onPressOnCampaign = () => navigation.navigate(routes?.CompaignSelection)
+  const onPressOnCampaign = () => navigation.navigate(routes?.CampaignSelection)
 
   return (
     <View style={{overflow: 'hidden', paddingBottom: 4}}>
@@ -69,10 +70,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    backgroundColor: 'white',
+    backgroundColor: COLORS.background,
     paddingVertical: hp(1.6),
 
-    shadowColor: '#545454',
+    shadowColor: COLORS.darkGray,
     shadowOffset: {width: 1, height: 1},
     shadowOpacity: 0.4,
     shadowRadius: 3,
@@ -86,7 +87,7 @@ const styles = StyleSheet.create({
   icon: {
     width: wp(7.5),
     height: wp(7.5),
-    tintColor: '#D12E2F',
+    tintColor: COLORS.primary,
   },
   icon2: {
     width: wp(7.5),
@@ -102,18 +103,18 @@ const styles = StyleSheet.create({
   chevron: {
     width: wp(4),
     height: wp(4),
-    tintColor: '#D12E2F',
+    tintColor: COLORS.primary,
     marginRight: wp(1.5),
   },
   nammetxt: {
     fontFamily: MontserratSemiBold,
     fontSize: normalize(16),
-    color: '#545454',
+    color: COLORS.darkGray,
   },
   square: {
     width: wp(5),
     height: wp(5),
-    tintColor: '#D12E2F',
+    tintColor: COLORS.primary,
     marginLeft: wp(2),
   },
 });

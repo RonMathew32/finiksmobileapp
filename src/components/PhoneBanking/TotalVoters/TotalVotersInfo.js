@@ -47,7 +47,7 @@ const TotalVotersInfo = ({ navigation, data, setData, totalVotersData }) => {
       <TouchableOpacity onPress={() => navigation.goBack()} style={styles.leftView}>
         <Icon
           name="arrow-back-ios"
-          color={COLORS.orangeReddish}
+          color={COLORS.primary}
           size={hp(2)}
           style={styles.icon}
         />
@@ -81,6 +81,7 @@ const styles = StyleSheet.create({
     padding: wp(4),
     borderBottomWidth: 1,
     borderBottomColor: COLORS.lavendarWhiteDim,
+    backgroundColor: COLORS.background
   },
   leftView: {
     flexDirection: 'row',
@@ -89,7 +90,7 @@ const styles = StyleSheet.create({
   chevBack: {
     width: wp(2.7),
     height: wp(2.7),
-    tintColor: COLORS.orangeReddish,
+    tintColor: COLORS.primary,
     marginRight: wp(1),
   },
   nameText: {
@@ -110,14 +111,14 @@ const styles = StyleSheet.create({
   filterText: {
     fontFamily: MontserratBold,
     fontSize: normalize(16),
-    color: COLORS.orangeReddish,
+    color: COLORS.primary,
     marginRight: wp(2),
   },
   filterView: {
     width: wp(6),
     height: wp(6),
     borderRadius: wp(6) / 2,
-    backgroundColor: COLORS.orangeReddish,
+    backgroundColor: COLORS.primary,
     alignItems: 'center',
     justifyContent: 'center',
   },

@@ -12,7 +12,7 @@ import {hp, normalize} from '../../theme/dimensions';
 import {Montserrat} from '../../theme/fonts';
 import useReduxStore from '../../hooks/useReduxStore';
 import {ToastMessageLight} from '../../components/GlobalComponent/DisplayMessage';
-import CompaignCard from '../../components/CompaignSelection/CompaignCard';
+import CampaignCard from '../../components/CampaignSelection/CampaignCard';
 import {
   getPhoneBankRecords,
   setRecord,
@@ -20,6 +20,7 @@ import {
 import routes from '../../constants/routes';
 import {setScriptId} from '../../redux/actions/voters.actions';
 import LoadingScreen from '../../components/GlobalComponent/LoadingScreen';
+import { COLORS } from '../../theme/colors';
 
 const PhoneBankingRecords = ({navigation}) => {
   const {
@@ -78,7 +79,7 @@ const PhoneBankingRecords = ({navigation}) => {
       ) : (
         <ScrollView contentContainerStyle={styles.compaignBox}>
           {phoneBankRecords?.map((item, index) => (
-            <CompaignCard
+            <CampaignCard
               key={index}
               name={item.recordName}
               status={item.active == 'Active'}
@@ -96,24 +97,25 @@ export default PhoneBankingRecords;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: COLORS.white,
   },
   ongingbox: {
     borderBottomWidth: 1,
     alignSelf: 'center',
     paddingBottom: hp(1.5),
     marginTop: hp(9),
-    borderBottomColor: '#D9D9D9',
+    borderBottomColor: COLORS.lavendarWhiteDim,
     width: '45%',
     alignItems: 'center',
   },
   ongoingtxt: {
     fontFamily: Montserrat,
     fontSize: normalize(18),
-    color: '#A6A6A6',
+    color: COLORS.lavendarWhiteDark,
   },
   compaignBox: {
     alignItems: 'center',
     padding: hp(1),
+    marginVertical: hp(2)
   },
 });

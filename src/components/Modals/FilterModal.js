@@ -16,7 +16,7 @@ const FilterModal = ({ isVisible, onClose, onOptionPress, active }) => {
       styles.modalContainer,
       {
         backgroundColor: COLORS.white,
-        borderColor: COLORS.orangeReddish,
+        borderColor: COLORS.primary,
       },
     ],
     []
@@ -40,7 +40,7 @@ const FilterModal = ({ isVisible, onClose, onOptionPress, active }) => {
               size={20}
               color={
                 active === index
-                  ? COLORS.orangeReddish
+                  ? COLORS.primary
                   : COLORS.lavendarWhiteDark
               }
             />
@@ -48,7 +48,7 @@ const FilterModal = ({ isVisible, onClose, onOptionPress, active }) => {
               style={{
                 color:
                   active === index
-                    ? COLORS.orangeReddish
+                    ? COLORS.primary
                     : COLORS.lavendarWhiteDark,
               }}>
               {option.text}
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     top: 40,
     right: 0,
     borderWidth: 1,
-    shadowColor: '#000',
+    shadowColor: COLORS.black,
     shadowOffset: {
       width: 0,
       height: 2,

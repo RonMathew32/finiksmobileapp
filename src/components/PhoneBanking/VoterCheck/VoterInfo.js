@@ -1,5 +1,5 @@
 import {StyleSheet, Text, View} from 'react-native';
-import React from 'react';
+import React, {useMemo} from 'react';
 import {hp, normalize, wp} from '../../../theme/dimensions';
 import {
   MontserratExtraBold,
@@ -7,22 +7,33 @@ import {
   MontserratSemiBold,
 } from '../../../theme/fonts';
 import {partyCodes} from '../../../constants/partyCodes';
+import {COLORS} from '../../../theme/colors';
 
 const VoterInfo = ({currentVoter, canvass = false}) => {
-  const {FIRSTNAME, LASTNAME, ADDRESS, SEX, AGE, PARTY_CODE, CITY, STATE} = currentVoter;
-  const name = FIRSTNAME ? `${FIRSTNAME} ${LASTNAME}` : '';
+  const {FIRSTNAME, LASTNAME, ADDRESS, SEX, AGE, PARTY_CODE, CITY, STATE} =
+    currentVoter;
+  const name = useMemo(
+    () => (FIRSTNAME ? `${FIRSTNAME} ${LASTNAME}` : ''),
+    [FIRSTNAME, LASTNAME],
+  );
+  const address = useMemo(
+    () => (CITY ? `${CITY}, ${STATE}` : ''),
+    [CITY, STATE],
+  );
 
   return (
     <View style={styles.container}>
-      <View>
-        {canvass ? null : renderInfo('Name', name, canvass)}
-        {renderInfo('Address', `${CITY}, ${STATE}`, canvass)}
-        {renderInfo(
-          'Demographics',
-          getDemographics(SEX, AGE, PARTY_CODE),
-          canvass,
-        )}
-      </View>
+      {address || SEX || AGE || PARTY_CODE ? (
+        <View>
+          {canvass ? null : renderInfo('Name', name, canvass)}
+          {renderInfo('Address', address, canvass)}
+          {renderInfo(
+            'Demographics',
+            getDemographics(SEX, AGE, PARTY_CODE),
+            canvass,
+          )}
+        </View>
+      ) : null}
       {canvass ? null : (
         <View style={styles.imageBack}>
           <Text style={styles.nameText}>{getInitials(name)}</Text>
@@ -41,9 +52,11 @@ const renderInfo = (heading, value, canvass) => (
 
 const getDemographics = (sex, age, partyCode) => {
   const gender = sex === 'F' ? 'Female' : sex === 'M' ? 'Male' : '';
-  return `${gender}     | ${age ?? ''} Years Old     | ${
-    partyCodes[partyCode] ?? ''
-  }`;
+  return sex || age || partyCode
+    ? `${gender}     | ${age ?? ''} Years Old     | ${
+        partyCodes[partyCode] ?? ''
+      }`
+    : null;
 };
 
 const getInitials = name =>
@@ -60,7 +73,7 @@ const styles = StyleSheet.create({
   imageBack: {
     width: wp(18),
     height: wp(18),
-    backgroundColor: '#FF914D',
+    backgroundColor: COLORS.orange,
     borderRadius: wp(18) / 2,
     alignItems: 'center',
     justifyContent: 'center',
@@ -68,18 +81,18 @@ const styles = StyleSheet.create({
   nameText: {
     fontFamily: MontserratExtraBold,
     fontSize: normalize(21),
-    color: 'white',
+    color: COLORS.white,
   },
   heading: {
     fontFamily: MontserratSemiBold,
     fontSize: normalize(12),
-    color: '#D12E2F',
+    color: COLORS.primary,
     marginTop: hp(0.7),
   },
   subheading: {
     fontFamily: MontserratMedium,
     fontSize: normalize(12),
-    color: '#545454',
+    color: COLORS.darkGray,
     marginLeft: wp(4),
     marginTop: hp(0.7),
   },

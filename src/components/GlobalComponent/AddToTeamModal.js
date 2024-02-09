@@ -17,6 +17,7 @@ import {
 import {  Montserrat,
   MontserratBold } from '../../theme/fonts';
 import InputText from '../InputText';
+import { COLORS } from '../../theme/colors';
 
 const AddToTeamModal = ({visible, setVisible}) => {
   const [email, setEmail] = useState('');
@@ -64,7 +65,7 @@ export default AddToTeamModal;
 const styles = StyleSheet.create({
   modalStyle: {margin: 0, padding: 0},
   container: {
-    backgroundColor: 'white',
+    backgroundColor: COLORS.white,
   },
   headerbox: {overflow: 'hidden', paddingBottom: 4},
   header: {
@@ -72,10 +73,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: wp(4),
-    backgroundColor: 'white',
+    backgroundColor: COLORS.white,
     paddingVertical: hp(2),
 
-    shadowColor: '#545454',
+    shadowColor: COLORS.darkGray,
     shadowOffset: {width: 1, height: 1},
     shadowOpacity: 0.4,
     shadowRadius: 3,
@@ -89,12 +90,12 @@ const styles = StyleSheet.create({
     fontFamily: Montserrat,
     fontSize: normalize(12),
     lineHeight: normalize(15),
-    color: '#545454',
+    color: COLORS.darkGray,
   },
   btntxt: {
     fontFamily: Montserrat,
     fontSize: normalize(14),
-    color: '#D12E2F',
+    color: COLORS.primary,
   },
   invitebox: {
     marginHorizontal: wp(4),
@@ -105,7 +106,7 @@ const styles = StyleSheet.create({
     fontFamily: MontserratBold,
     fontSize: normalize(14),
     lineHeight: normalize(18),
-    color: '#D12E2F',
+    color: COLORS.primary,
     marginLeft: wp(2),
   },
   containerstyle: {
@@ -116,6 +117,6 @@ const styles = StyleSheet.create({
     marginTop: hp(0.5),
   },
   textinputstyle: {
-    color: 'black',
+    color: COLORS.black,
   },
 });

@@ -20,7 +20,7 @@ const Canvass = ({navigation}) => {
   }, [data]);
 
   const onPressLocationByList = useCallback(() => {
-    navigation.navigate(routes.CompaignSelection, {enableBackButton: true});
+    navigation.navigate(routes.CampaignSelection, {enableBackButton: true});
   }, [navigation]);
 
   const onPressLocationByVoter = useCallback(() => {
@@ -35,7 +35,7 @@ const Canvass = ({navigation}) => {
     <SafeAreaView style={styles.container}>
       <Header canvass={true} onPressAddVoter={onPressAddVoter}/>
       <View style={styles.layout}>
-        <Text style={styles.heading(COLORS.orangeReddish)}>Search</Text>
+        <Text style={styles.heading(COLORS.primary)}>Search</Text>
         <Text style={styles.searchBy}>By Voter:</Text>
 
         <Pressable onPress={onPressLocationByVoter}>
@@ -70,7 +70,7 @@ const Canvass = ({navigation}) => {
         </Pressable>
         <Icon
           name="search-circle"
-          color={COLORS.orangeReddish}
+          color={COLORS.primary}
           size={hp(10)}
           style={styles.iconStyle}
         />
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
     marginVertical: hp(3),
   },
   searchBy: {
-    color: COLORS.orangeReddish,
+    color: COLORS.primary,
     fontWeight: 'bold',
     fontSize: normalize(16),
   },

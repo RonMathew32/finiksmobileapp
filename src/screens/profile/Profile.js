@@ -149,7 +149,7 @@ export default Profile;
 
 const styles = StyleSheet.create({
   changePass: {
-    color: COLORS.orangeReddish,
+    color: COLORS.primary,
     textAlign: 'center',
     marginTop: hp(2),
     padding: 5,

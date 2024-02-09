@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     fontFamily: MontserratSemiBold,
     fontSize: normalize(17),
     lineHeight: normalize(17),
-    color: COLORS.orangeReddish,
+    color: COLORS.primary,
     marginTop: hp(1),
   },
   addresstxt: {

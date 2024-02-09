@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     marginHorizontal: wp(5),
     backgroundColor: COLORS.white,
     borderRadius: wp(4),
-    shadowColor: '#000',
+    shadowColor: COLORS.black,
     shadowOffset: {
       width: 0,
       height: 3,
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: wp(1.5),
     backgroundColor: COLORS.white,
-    shadowColor: '#000',
+    shadowColor: COLORS.black,
     shadowOffset: {
       width: 0,
       height: 2,
@@ -99,17 +99,17 @@ const styles = StyleSheet.create({
     elevation: 1,
   },
   whiteButton: {
-    backgroundColor: COLORS.orangeReddish,
+    backgroundColor: COLORS.primary,
   },
   title: {
     fontFamily: MontserratSemiBold,
     fontSize: normalize(13),
-    color: COLORS.orangeReddish,
+    color: COLORS.primary,
   },
   subtitle: {
     fontFamily: MontserratBold,
     fontSize: normalize(31),
-    color: COLORS.orangeReddish,
+    color: COLORS.primary,
     marginTop: hp(1),
   },
   whiteTitle: {

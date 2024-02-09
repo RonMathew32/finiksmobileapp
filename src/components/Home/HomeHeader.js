@@ -18,8 +18,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     paddingHorizontal: wp(5),
     borderBottomWidth: 1,
+    backgroundColor: COLORS.background
   },
   text: {
-    color: COLORS.orangeReddish,
+    color: COLORS.primary,
   },
 });

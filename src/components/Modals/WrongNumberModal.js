@@ -46,6 +46,8 @@ const WrongNumberModal = ({ isVisible, onClose, onSave, voter }) => {
         content: {
           backgroundColor: COLORS.white,
           borderRadius: 10,
+          borderWidth: 0.3, 
+          borderColor: COLORS.lavendarWhite 
         },
         checkContent: {
           padding: 30,
@@ -75,7 +77,7 @@ const WrongNumberModal = ({ isVisible, onClose, onSave, voter }) => {
         },
         button: {
           flex: 1,
-          backgroundColor: COLORS.orangeReddish,
+          backgroundColor: COLORS.primary,
           padding: 10,
           borderRadius: 5,
           marginHorizontal: 5,

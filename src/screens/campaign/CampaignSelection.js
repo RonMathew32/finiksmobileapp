@@ -8,9 +8,9 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import CompaignHeader from '../../components/CompaignSelection/CompaignHeader';
+import CampaignHeader from '../../components/CampaignSelection/CampaignHeader';
 import ProfileView from '../../components/GlobalComponent/ProfileView';
-import CompaignCard from '../../components/CompaignSelection/CompaignCard';
+import CampaignCard from '../../components/CampaignSelection/CampaignCard';
 import {ToastMessageLight} from '../../components/GlobalComponent/DisplayMessage';
 import {hp, normalize, wp} from '../../theme/dimensions';
 import {COLORS} from '../../theme/colors';
@@ -26,7 +26,7 @@ import {
 import LoadingScreen from '../../components/GlobalComponent/LoadingScreen';
 import {useRoute} from '@react-navigation/native';
 
-const CompaignSelection = ({navigation}) => {
+const CampaignSelection = ({navigation}) => {
   const {params} = useRoute();
   const {
     dispatch,
@@ -69,7 +69,7 @@ const CompaignSelection = ({navigation}) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <CompaignHeader enableBackButton={params?.enableBackButton ?? false} />
+      <CampaignHeader enableBackButton={params?.enableBackButton ?? false} />
       <ProfileView />
       <View style={styles.ongoingBox}>
         <Text style={styles.ongoingText}>Ongoing Campaigns</Text>
@@ -79,7 +79,7 @@ const CompaignSelection = ({navigation}) => {
       ) : (
         <ScrollView contentContainerStyle={styles.compaignBox}>
           {allCampaign?.map(item => (
-            <CompaignCard
+            <CampaignCard
               key={item.campaignId}
               name={item.campaignName}
               status={currentCampaign?.campaignId === item.campaignId}
@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
     color: COLORS.lavendarWhiteDark,
   },
   plusBox: {
-    backgroundColor: COLORS.orangeReddish,
+    backgroundColor: COLORS.primary,
     height: wp(10),
     width: wp(10),
     alignItems: 'center',
@@ -156,4 +156,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CompaignSelection;
+export default CampaignSelection;

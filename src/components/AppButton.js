@@ -27,11 +27,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: hp(3),
+    borderColor: COLORS.lavendarWhite,
   },
   buttontxt: {
     fontSize: normalize(16),
     fontWeight: '700',
-    color: COLORS.white,
+    color: 'white',
   },
 });
 

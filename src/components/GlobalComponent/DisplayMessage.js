@@ -1,11 +1,12 @@
 import Toast from 'react-native-root-toast';
+import { COLORS } from '../../theme/colors';
 
 export const ToastMessageLight = msg => {
   Toast.show(msg, {
     duration: Toast.durations.LONG,
     position: Toast.positions.BOTTOM,
-    backgroundColor: 'white',
-    textColor: 'black',
+    backgroundColor: COLORS.white,
+    textColor: COLORS.black,
     shadow: true,
     animation: true,
     hideOnPress: true,
@@ -17,8 +18,8 @@ export const ToastMessageDark = msg => {
   Toast.show(msg, {
     duration: Toast.durations.LONG,
     position: Toast.positions.BOTTOM,
-    backgroundColor: 'black',
-    textColor: 'white',
+    backgroundColor: COLORS.black,
+    textColor: COLORS.white,
     shadow: true,
     animation: true,
     hideOnPress: true,

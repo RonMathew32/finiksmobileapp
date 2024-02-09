@@ -23,8 +23,8 @@ import AppButton from '../../components/AppButton';
 const Login = ({navigation}) => {
   const {dispatch, loading, setLoading, user, token} = useReduxStore();
   const [data, setData] = useState({
-    email: '',
-    password: '',
+  email: 'aidataronofficial@gmail.com',
+  password: 'donnn123$',
   });
 
   // email: 'aidataronofficial@gmail.com',
@@ -84,14 +84,14 @@ export default Login;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLORS.background,
+    backgroundColor: '#1A1A1A',
   },
   backimg: {
     width: '100%',
     height: hp(30),
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: hp(7),
+    // marginTop: hp(7),
   },
   logo: {
     width: wp(70),
@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
   forgottxt: {
     fontSize: normalize(14),
     fontWeight: '400',
-    color: 'white',
+    color: COLORS.black,
     alignSelf: 'flex-end',
     marginTop: -hp(1),
     marginRight: wp(2),
@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
   donttxt: {
     fontSize: normalize(14),
     fontWeight: '400',
-    color: 'white',
+    color: COLORS.black,
     marginTop: hp(4),
     alignSelf: 'center',
   },

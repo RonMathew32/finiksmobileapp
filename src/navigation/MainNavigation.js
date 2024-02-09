@@ -2,7 +2,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Login from '../screens/auth/Login';
 import Register from '../screens/auth/Register';
 import AuthNavigation from './AuthNavigation';
-import CompaignSelection from '../screens/campaign/CompaignSelection';
+import CampaignSelection from '../screens/campaign/CampaignSelection';
 import Profile from '../screens/profile/Profile';
 import OtpVerify from '../screens/auth/OtpVerify';
 import { useSelector } from 'react-redux';
@@ -21,7 +21,7 @@ const MainNavigation = () => {
       screenOptions={{ headerShown: false }}>
       {token ? (
         <Stack.Group navigationKey={token ? 'user' : 'none'}>
-          <Stack.Screen component={CompaignSelection} name={routes.CompaignSelection} />
+          <Stack.Screen component={CampaignSelection} name={routes.CampaignSelection} />
           <Stack.Screen component={Profile} name={routes.Profile} />
           <Stack.Screen component={AuthNavigation} name={routes.AuthNavigation} />
           <Stack.Screen component={UpdateVoterInfo} name={routes.UpdateVoterInfo} />

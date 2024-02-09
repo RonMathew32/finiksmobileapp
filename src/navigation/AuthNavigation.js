@@ -1,10 +1,10 @@
 import React from 'react';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {getFocusedRouteNameFromRoute} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/dist/FontAwesome5';
 import routes from '../constants/routes';
-import { COLORS } from '../theme/colors';
-import { hp } from '../theme/dimensions';
+import {COLORS} from '../theme/colors';
+import {hp} from '../theme/dimensions';
 import Home from '../screens/home/Home';
 import Chat from '../screens/chat/Chat';
 import LeaderBoard from '../screens/leadBoard/LeaderBoard';
@@ -14,12 +14,15 @@ import CanvassStack from './CanvassStack';
 
 const Tab = createBottomTabNavigator();
 
-const screenOptions = ({ route }) => ({
+const screenOptions = ({route}) => ({
   headerShown: false,
-  tabBarStyle: { display: getTabBarVisibility(route) },
-  tabBarActiveTintColor: COLORS.orangeReddish,
+  tabBarStyle: {
+    display: getTabBarVisibility(route),
+    backgroundColor: COLORS.background,
+  },
+  tabBarActiveTintColor: COLORS.primary,
   tabBarInactiveTintColor: COLORS.lavendarWhiteDark,
-  tabBarIcon: ({ focused, color, size }) => {
+  tabBarIcon: ({focused, color, size}) => {
     let iconName;
 
     switch (route.name) {
@@ -42,7 +45,13 @@ const screenOptions = ({ route }) => ({
         iconName = ''; // Handle default case
     }
 
-    return <Icon name={iconName} size={hp(2.8)} color={focused ? COLORS.orangeReddish : COLORS.lavendarWhiteDark} />;
+    return (
+      <Icon
+        name={iconName}
+        size={hp(2.8)}
+        color={focused ? COLORS.primary : COLORS.lavendarWhiteDark}
+      />
+    );
   },
 });
 
@@ -52,7 +61,7 @@ const AuthNavigation = () => {
       <Tab.Screen
         name={routes.Home}
         component={Home}
-        options={{ tabBarLabel: routes.Home }}
+        options={{tabBarLabel: routes.Home}}
       />
       {/* <Tab.Screen
         name={routes.Chat}
@@ -67,20 +76,24 @@ const AuthNavigation = () => {
       <Tab.Screen
         name={routes.PhoneBankingStack}
         component={PhoneBankingStack}
-        options={{ tabBarLabel: routes.PhoneBank }}
+        options={{tabBarLabel: routes.PhoneBank}}
       />
       <Tab.Screen
         name={routes.CanvassStack}
         component={CanvassStack}
-        options={{ tabBarLabel: routes.Canvass }}
+        options={{tabBarLabel: routes.Canvass}}
       />
     </Tab.Navigator>
   );
 };
 
-const getTabBarVisibility = (route) => {
+const getTabBarVisibility = route => {
   const routeName = getFocusedRouteNameFromRoute(route);
-  return [routes.VoterCheck, routes.TotalVoters, routes.AddToTeam].includes(routeName) ? 'none' : 'flex';
+  return [routes.VoterCheck, routes.TotalVoters, routes.AddToTeam].includes(
+    routeName,
+  )
+    ? 'none'
+    : 'flex';
 };
 
 export default AuthNavigation;

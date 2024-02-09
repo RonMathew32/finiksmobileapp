@@ -31,7 +31,7 @@ const UpdatePassword = ({
     () =>
       StyleSheet.create({
         errorTxt: {
-          color: 'red',
+          color: COLORS.red,
           marginTop: hp(3),
         },
         btnStyle: {

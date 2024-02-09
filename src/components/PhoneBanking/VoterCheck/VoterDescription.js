@@ -2,6 +2,7 @@ import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import React, {useMemo} from 'react';
 import {hp, normalize, wp} from '../../../theme/dimensions';
 import {MontserratSemiBold} from '../../../theme/fonts';
+import { COLORS } from '../../../theme/colors';
 
 const VoterDescription = ({script}) => {
 
@@ -26,11 +27,11 @@ const styles = StyleSheet.create({
     paddingBottom: 4,
     paddingTop: 4,
     marginTop: hp(2.5),
-    backgroundColor: 'white',
+    backgroundColor: COLORS.white,
   },
   container: {
-    backgroundColor: '#D9D9D9',
-    shadowColor: '#545454',
+    backgroundColor: COLORS.background,
+    shadowColor: COLORS.darkGray,
     shadowOffset: {width: 1, height: 1},
     shadowOpacity: 0.4,
     shadowRadius: 3,
@@ -43,7 +44,7 @@ const styles = StyleSheet.create({
     fontFamily: MontserratSemiBold,
     fontSize: normalize(16),
     lineHeight: normalize(18),
-    color: '#140001',
+    color: COLORS.darkGray,
     marginVertical: hp(2),
   },
 });

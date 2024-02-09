@@ -40,8 +40,10 @@ const VoterActions = ({navigation, currentVoter, canvass = false}) => {
       setAddToTeamModal(true);
     } else if (val === 'Call') {
       makePhoneCall(isPhoneNumberExist);
-    } else {
+    } else if (val === 'Update') {
       navigation.navigate(routes?.UpdateVoterInfo);
+    } else if (val === 'Contacted'){
+      navigation.navigate(routes?.Contacted);
     }
   };
 
@@ -81,7 +83,7 @@ const VoterActions = ({navigation, currentVoter, canvass = false}) => {
             icon={dotsicon}
             name={canvass? "Contacted" :  "Update"}
             valueExist={true}
-            onPress={() => OnCardPress('Update')}
+            onPress={() => OnCardPress(canvass? "Contacted" :  "Update")}
             iconstyle={styles.dotsIcon}
           />
         </View>
@@ -129,7 +131,7 @@ const styles = StyleSheet.create({
     height: hp(6),
   },
   icon: {
-    ...imageStyle(wp(7), wp(7), COLORS.orangeReddish),
+    ...imageStyle(wp(7), wp(7), COLORS.primary),
   },
   bottomHeader: {
     flexDirection: 'row',
@@ -144,10 +146,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   images: (isValue) => ({
-    ...imageStyle(wp(7), wp(7), isValue ? COLORS.orangeReddish : COLORS.lavendarWhite),
+    ...imageStyle(wp(7), wp(7), isValue ? COLORS.primary : COLORS.lavendarWhite),
   }),
   title: (isValue) => ({
-    ...textStyle(MontserratMedium, 12, isValue ? COLORS.orangeReddish : COLORS.lavendarWhite),
+    ...textStyle(MontserratMedium, 12, isValue ? COLORS.primary : COLORS.lavendarWhite),
     marginTop: hp(0.3),
   }),
   phoneIcon: {

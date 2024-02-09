@@ -5,7 +5,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import {hp, normalize, wp} from '../../theme/dimensions';
 import {MontserratMedium} from '../../theme/fonts';
 import {useDispatch} from 'react-redux';
@@ -16,7 +16,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 export const CustomInput = ({
   name,
   placeholder,
-  placeholderTextColor = COLORS.lavendarWhiteDim,
+  placeholderTextColor = COLORS.lavendarWhiteDark,
   value,
   setValue,
   keyboardType,
@@ -49,7 +49,7 @@ export const CustomInput = ({
         />
         {canvass ? (
           <TouchableOpacity onPress={onPressClearInput}>
-            <Icon name="cancel" color={COLORS.orangeReddish} size={hp(3)} />
+            <Icon name="cancel" color={COLORS.primary} size={hp(3)} />
           </TouchableOpacity>
         ) : null}
       </View>
@@ -57,7 +57,7 @@ export const CustomInput = ({
   );
 };
 
-const ProfileForm = () => {
+const ProfileForm = ({style}) => {
   const dispatch = useDispatch();
   const [data, setData] = useState({
     firstname: '',
@@ -76,7 +76,7 @@ const ProfileForm = () => {
   }, [dispatch]);
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, style]}>
       <CustomInput
         name="First Name"
         placeholder="First Name"
@@ -128,11 +128,13 @@ const styles = StyleSheet.create({
     fontFamily: MontserratMedium,
     fontSize: normalize(12),
     lineHeight: normalize(12),
-    color: '#D12E2F',
+    color: COLORS.primary,
     marginBottom: hp(1),
   },
   inputbox: {
     backgroundColor: COLORS.white,
+    borderColor: COLORS.lavendarWhite,
+    borderWidth: 0.2,
     marginBottom: hp(1.5),
     shadowColor: 'rgba(0,0,0,0.5)',
     shadowOffset: {
@@ -144,13 +146,13 @@ const styles = StyleSheet.create({
     elevation: 5,
     paddingHorizontal: wp(3),
     paddingVertical: hp(1.4),
-    borderRadius: wp(1),
+    borderRadius: wp(2),
   },
   textinput: {
     fontFamily: MontserratMedium,
     fontSize: normalize(12),
     lineHeight: normalize(12),
-    color: '#545454',
+    color: COLORS.darkGray,
     padding: 0,
     margin: 0,
   },
@@ -168,6 +170,6 @@ const styles = StyleSheet.create({
   buttontxt: {
     fontSize: normalize(16),
     fontWeight: '700',
-    color: 'white',
+    color: COLORS.white,
   },
 });

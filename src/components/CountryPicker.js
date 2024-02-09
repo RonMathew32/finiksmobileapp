@@ -107,11 +107,11 @@ const styles = StyleSheet.create({
     height: '100%',
     borderRightWidth: 1,
     marginHorizontal: wp(3),
-    borderColor: '#F0F0F0',
+    borderColor: COLORS.lightGray,
   },
   modalbox: { marginHorizontal: wp(2) },
   modalcontainer: {
-    backgroundColor: 'white',
+    backgroundColor: COLORS.white,
     borderRadius: wp(4),
     height: hp(80),
     padding: wp(4),

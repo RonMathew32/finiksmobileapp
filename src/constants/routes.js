@@ -13,7 +13,7 @@ export default Object.freeze({
     TotalVoters: 'Total Voters',
     AddToTeam: 'Add To Team',
     AuthNavigation: 'Auth Navigation',
-    CompaignSelection: 'Compaign Selection',
+    CampaignSelection: 'Campaign Selection',
     Profile: 'Profile',
     UpdateVoterInfo: 'Update Voter Info',
 
@@ -26,6 +26,7 @@ export default Object.freeze({
 
     //Canvass
     CanvassStack: 'CanvassStack',
-    VoterDetails: 'Voter Details'
+    VoterDetails: 'Voter Details',
+    Contacted: 'Contacted'
   });
   

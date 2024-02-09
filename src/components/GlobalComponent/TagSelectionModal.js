@@ -19,7 +19,7 @@ const TagSelectionModal = ({
   const {dispatch} = useReduxStore();
 
   const onPressToSetTags = useCallback(item => {
-    if (!selectTags.some(obj => obj?.tagName == item?.tagName)) {
+    if (!selectTags?.some(obj => obj?.tagName == item?.tagName)) {
       setSelectTags([...selectTags, item]);
     } else {
       const updatedTags = selectTags?.filter(
@@ -30,8 +30,10 @@ const TagSelectionModal = ({
   },[selectTags]);
 
   const onPressSave = useCallback(() => {
+    if(selectTags?.length){
+      dispatch(setVotersTag(selectTags));
+    }
     setVisible(false);
-    dispatch(setVotersTag(selectTags));
   }, [dispatch, selectTags]);
 
   useEffect(() => {
@@ -59,12 +61,12 @@ const TagSelectionModal = ({
             onPress={() => setType('custom')}
             style={[
               styles.selection,
-              type == 'custom' && {borderBottomColor: COLORS.orangeReddish},
+              type == 'custom' && {borderBottomColor: COLORS.primary},
             ]}>
             <Text
               style={[
                 styles.selectiontxt,
-                type == 'custom' && {color: COLORS.orangeReddish},
+                type == 'custom' && {color: COLORS.primary},
               ]}>
               Custom Tags
             </Text>
@@ -73,12 +75,12 @@ const TagSelectionModal = ({
             onPress={() => setType('tags')}
             style={[
               styles.selection,
-              type == 'tags' && {borderBottomColor: COLORS.orangeReddish},
+              type == 'tags' && {borderBottomColor: COLORS.primary},
             ]}>
             <Text
               style={[
                 styles.selectiontxt,
-                type == 'tags' && {color: COLORS.orangeReddish},
+                type == 'tags' && {color: COLORS.primary},
               ]}>
               Campaign Tags
             </Text>
@@ -114,6 +116,8 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.white,
     paddingVertical: hp(2),
     borderRadius: wp(3),
+    borderColor: COLORS.lavendarWhite,
+    borderWidth: 0.2,
   },
   header: {
     flexDirection: 'row',
@@ -137,7 +141,7 @@ const styles = StyleSheet.create({
     fontFamily: MontserratSemiBold,
     fontSize: normalize(14),
     lineHeight: normalize(14),
-    color: COLORS.orangeReddish,
+    color: COLORS.primary,
   },
   selectionbox: {
     flexDirection: 'row',

@@ -1,12 +1,13 @@
 import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import ProfileView from '../../components/GlobalComponent/ProfileView';
-import CompaignHeader from '../../components/CompaignSelection/CompaignHeader';
+import CampaignHeader from '../../components/CampaignSelection/CampaignHeader';
 import Header from '../../components/GlobalComponent/Header';
 import {hp, normalize} from '../../theme/dimensions';
 import {Montserrat} from '../../theme/fonts';
-import CompaignCard from '../../components/CompaignSelection/CompaignCard';
+import CampaignCard from '../../components/CampaignSelection/CampaignCard';
 import routes from '../../constants/routes';
+import { COLORS } from '../../theme/colors';
 
 const PhoneBank = ({navigation}) => {
 
@@ -22,17 +23,17 @@ const PhoneBank = ({navigation}) => {
         <Text style={styles.ongoingtxt}>Phone Banking</Text>
       </View>
       <View style={styles.compaignBox}>
-        <CompaignCard
+        <CampaignCard
           name="Use your own phone number"
           status={true}
           onPress={navigateTo}
         />
-        <CompaignCard
+        <CampaignCard
           name="Use Auto-dialer"
           status={false}
           onPress={navigateTo}
         />
-        <CompaignCard
+        <CampaignCard
           name="Use Predictive dialer"
           status={false}
           onPress={navigateTo}
@@ -47,21 +48,21 @@ export default PhoneBank;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: COLORS.white,
   },
   ongingbox: {
     borderBottomWidth: 1,
     alignSelf: 'center',
     paddingBottom: hp(1.5),
     marginTop: hp(9),
-    borderBottomColor: '#D9D9D9',
+    borderBottomColor: COLORS.lavendarWhiteDim,
     width: '45%',
     alignItems: 'center',
   },
   ongoingtxt: {
     fontFamily: Montserrat,
     fontSize: normalize(18),
-    color: '#A6A6A6',
+    color: COLORS.lavendarWhiteDark,
   },
   compaignBox: {
     alignItems: 'center',

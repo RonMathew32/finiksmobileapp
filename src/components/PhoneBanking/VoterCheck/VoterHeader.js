@@ -56,7 +56,7 @@ const VoterHeader = ({
   }, [rightTitle]);
 
   return (
-    <View style={{ overflow: 'hidden', paddingBottom: paddingBottom ?? 4 }}>
+    <View style={{ overflow: 'hidden', paddingBottom: paddingBottom ?? 4}}>
       <View style={styles.container}>
         <TouchableOpacity
           disabled={leftTitle || onPressLeft ? false : true}
@@ -65,7 +65,7 @@ const VoterHeader = ({
           {leftComponent}
         </TouchableOpacity>
 
-        <Text style={[styles.nametxt, { marginLeft: -wp(6) }]}>{title}</Text>
+        <Text style={styles.nametxt}>{title}</Text>
         
         <TouchableOpacity
           disabled={rightTitle || onPressRight ? false : true}
@@ -84,7 +84,9 @@ const styles = StyleSheet.create({
   leftTitle: {
     fontFamily: MontserratMedium,
     fontSize: normalize(15),
-    color: COLORS.orangeReddish,
+    width: wp(18),
+    // backgroundColor: 'yellow',
+    color: COLORS.primary,
   },
   container: {
     flexDirection: 'row',
@@ -92,7 +94,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: wp(4),
     height: hp(6),
-    backgroundColor: COLORS.white,
+    backgroundColor: COLORS.background,
     shadowColor: COLORS.darkGray,
     shadowOffset: { width: 1, height: 1 },
     shadowOpacity: 0.4,
@@ -101,18 +103,19 @@ const styles = StyleSheet.create({
   },
   icon: (val) => {
     return {
-      width: wp(6),
+      width: wp(10),
       height: wp(6),
-      tintColor: COLORS.orangeReddish,
-      left: val == 'L' ? wp(0) : wp(6),
+      tintColor: COLORS.primary,
+      // backgroundColor: 'green',
+      // left: val == 'L' ? wp(0) : wp(6),
     };
   },
   nametxt: {
     fontFamily: MontserratSemiBold,
     fontSize: normalize(16),
     color: COLORS.darkGray,
-    width: '70%',
-    left: wp(3),
+    width: wp(60),
+    // backgroundColor: 'blue',
     textAlign: 'center',
   },
   savebox: {
@@ -122,6 +125,8 @@ const styles = StyleSheet.create({
   savetxt: {
     fontFamily: MontserratMedium,
     fontSize: normalize(15),
-    color: COLORS.orangeReddish,
+    width: wp(20),
+    // backgroundColor: 'green',
+    color: COLORS.primary,
   },
 });

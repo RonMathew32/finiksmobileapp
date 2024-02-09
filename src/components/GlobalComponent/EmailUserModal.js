@@ -90,9 +90,9 @@ const EmailUserModal = ({ visible, setVisible, voter, type }) => {
           <TouchableOpacity style={styles.btn} onPress={startAction}>
             <Text style={styles.btntxt}>Use This Message</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.secbtn}>
+          {/* <TouchableOpacity style={styles.secbtn}>
             <Text style={styles.headertxt}>Start with Blank Message</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
       </View>
     </ReactNativeModal>
@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: wp(4),
-    backgroundColor: 'white',
+    backgroundColor: COLORS.white,
     paddingVertical: hp(2),
 
     shadowColor: COLORS.darkGray,
@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
   },
   typeview: {
     borderBottomWidth: 1,
-    borderBottomColor: COLORS.orangeReddish,
+    borderBottomColor: COLORS.primary,
     width: wp(60),
     alignItems: 'center',
     alignSelf: 'center',
@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
     fontFamily: MontserratBold,
     fontSize: normalize(16),
     lineHeight: normalize(19),
-    color: COLORS.orangeReddish,
+    color: COLORS.primary,
     marginBottom: hp(1),
   },
   selectionbox: {
@@ -174,7 +174,7 @@ const styles = StyleSheet.create({
   messageicon: {
     width: wp(7),
     height: wp(7),
-    tintColor: COLORS.orangeReddish,
+    tintColor: COLORS.primary,
   },
   cardtxt: {
     fontFamily: MontserratSemiBold,
@@ -186,7 +186,7 @@ const styles = StyleSheet.create({
   tickicon: {
     width: wp(6),
     height: wp(6),
-    tintColor: COLORS.orangeReddish,
+    tintColor: COLORS.primary,
   },
   messagebox: {
     marginHorizontal: wp(4),
@@ -197,7 +197,7 @@ const styles = StyleSheet.create({
     fontFamily: MontserratMedium,
     fontSize: normalize(14),
     lineHeight: normalize(18),
-    color: COLORS.orangeReddish,
+    color: COLORS.primary,
   },
   messagetxt: {
     fontFamily: MontserratMedium,
@@ -212,7 +212,7 @@ const styles = StyleSheet.create({
   btn: {
     width: '100%',
     height: hp(5),
-    backgroundColor: COLORS.orangeReddish,
+    backgroundColor: COLORS.primary,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: wp(1),
@@ -221,7 +221,7 @@ const styles = StyleSheet.create({
     fontFamily: MontserratExtraBold,
     fontSize: normalize(16),
     lineHeight: normalize(24),
-    color: 'white',
+    color: COLORS.white,
   },
   secbtn: {
     width: '100%',

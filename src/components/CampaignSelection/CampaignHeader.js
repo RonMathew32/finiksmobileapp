@@ -15,7 +15,7 @@ const CampaignHeader = ({ enableBackButton = false }) => {
         <Pressable onPress={() => navigation.goBack()}>
           <Icon
             name="arrow-back-ios"
-            color={COLORS.orangeReddish}
+            color={COLORS.primary}
             size={hp(3)}
             style={styles.icon}
           />
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     justifyContent: enableBackButton ? 'space-between' : 'center',
     flexDirection: enableBackButton ? 'row' : null,
     paddingHorizontal: enableBackButton ? wp(5) : 0,
-    backgroundColor: COLORS.white,
+    backgroundColor: COLORS.background,
     height: hp(6),
     shadowColor: COLORS.darkGray,
     shadowOffset: { width: 1, height: 1 },

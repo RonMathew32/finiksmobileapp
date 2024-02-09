@@ -4,6 +4,7 @@ import ReactNativeModal from 'react-native-modal';
 import { hp, normalize, wp } from '../../theme/dimensions';
 import { COLORS } from '../../theme/colors';
 import { MontserratExtraBold, MontserratMedium, MontserratSemiBold } from '../../theme/fonts';
+import AppButton from '../AppButton';
 
 const SurveyModal = ({
   visible,
@@ -43,6 +44,8 @@ const SurveyModal = ({
     shadowOpacity: 0.2,
     shadowRadius: 3,
     elevation: 3,
+    borderWidth: 0.3, 
+    borderColor: COLORS.lavendarWhite ,
     borderRadius: wp(1),
   }), [selectedAnswer]);
 
@@ -75,14 +78,13 @@ const SurveyModal = ({
             </TouchableOpacity>
           ))}
         </ScrollView>
-        <TouchableOpacity
-          onPress={() => {
-            onPressAnswer(selectedAnswer, survey?.surveyId), setVisible(false);
-          }}
-          style={styles.answerbox}
-        >
-          <Text style={styles.btntxt}>Save Answer</Text>
-        </TouchableOpacity>
+        <AppButton 
+        title='Save Answer'
+        onPress={() => {
+          onPressAnswer(selectedAnswer, survey?.surveyId), setVisible(false);
+        }}
+        style={styles.answerbox}
+        />
       </View>
     </ReactNativeModal>
   );
@@ -97,7 +99,7 @@ const textStyles = {
   surveyquestion: {
     fontFamily: MontserratExtraBold,
     fontSize: normalize(20),
-    color: COLORS.orangeReddish,
+    color: COLORS.primary,
     textAlign: 'center',
     width: '80%',
     alignSelf: 'center',
@@ -115,6 +117,8 @@ const styles = StyleSheet.create({
   modalbox: {
     backgroundColor: COLORS.white,
     paddingVertical: hp(2),
+    borderWidth: 0.3, 
+    borderColor: COLORS.lavendarWhite 
   },
   ...textStyles,
   line: {
@@ -125,20 +129,8 @@ const styles = StyleSheet.create({
   },
   answerbox: {
     marginTop: hp(4),
-    width: '70%',
-    alignSelf: 'center',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: COLORS.orangeReddish,
-    shadowColor: '#000000',
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.2,
-    shadowRadius: 3,
-    elevation: 3,
-    borderRadius: wp(1),
+    width: wp(70),
+    borderRadius: 5,
   },
 });
 

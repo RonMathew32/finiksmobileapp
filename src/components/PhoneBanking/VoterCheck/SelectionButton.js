@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
     };
   },
   btn2: {
-    backgroundColor: '#FF914D',
+    backgroundColor: COLORS.orange,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: wp(1),
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
     fontFamily: MontserratBold,
     fontSize: normalize(16),
     paddingVertical: hp(1.5),
-    color: 'white',
+    color: COLORS.white,
   },
 });
 

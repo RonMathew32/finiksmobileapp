@@ -153,7 +153,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: COLORS.background,
+    backgroundColor: '#1A1A1A',
   },
   backiconbox: {
     marginLeft: wp(5),
@@ -170,7 +170,7 @@ const styles = StyleSheet.create({
     height: hp(30),
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: hp(7),
+    // marginTop: hp(7),
   },
   logo: {
     width: wp(70),

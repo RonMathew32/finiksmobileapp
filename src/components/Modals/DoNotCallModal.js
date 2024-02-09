@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  doNotCallContainer: { alignItems: 'center', marginVertical: hp(3) },
+  doNotCallContainer: { alignItems: 'center', marginVertical: hp(3)},
   nextVoterBtn: {
     width: wp(60),
   },
@@ -195,7 +195,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   heading: {
-    color: COLORS.orangeReddish,
+    color: COLORS.primary,
     textAlign: 'center',
   },
   modalContainer: {
@@ -206,6 +206,7 @@ const styles = StyleSheet.create({
   content: {
     backgroundColor: COLORS.white,
     borderRadius: 10,
+    borderWidth: 0.3, borderColor: COLORS.lavendarWhite 
   },
   checkContent: {
     padding: 20,

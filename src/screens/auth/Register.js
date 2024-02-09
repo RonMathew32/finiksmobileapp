@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: COLORS.background,
+    backgroundColor: '#1A1A1A',
   },
   innerbox: {
     flex: 1,
@@ -189,7 +189,7 @@ const styles = StyleSheet.create({
   donttxt: {
     fontSize: normalize(14),
     fontWeight: '400',
-    color: 'white',
+    color: COLORS.white,
     marginTop: hp(4),
     alignSelf: 'center',
   },

@@ -59,23 +59,23 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   placeholderText: {
-    color: COLORS.orangeReddish,
+    color: COLORS.primary,
     fontSize: normalize(16),
   },
   card: {
-    backgroundColor: COLORS.orangeReddish,
+    backgroundColor: COLORS.primary,
     borderRadius: wp(7),
     marginRight: wp(3),
   },
   name: {
     fontFamily: MontserratMedium,
     fontSize: normalize(14),
-    color: 'white',
+    color: COLORS.white,
     marginHorizontal: wp(5),
     marginVertical: hp(0.6),
   },
   plusbox: {
-    backgroundColor: COLORS.orangeReddish,
+    backgroundColor: COLORS.primary,
     borderRadius: wp(10),
     width: wp(7),
     height: wp(7),
