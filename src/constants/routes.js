@@ -27,6 +27,9 @@ export default Object.freeze({
     //Canvass
     CanvassStack: 'CanvassStack',
     VoterDetails: 'Voter Details',
-    Contacted: 'Contacted'
+    Contacted: 'Contacted',
+    List: 'List',
+    CanvassMap: 'CanvassMap',
+    CanvassMapDetails: 'CanvassMapDetails',
   });
   

@@ -2,7 +2,7 @@ import {useCallback, useEffect, useState} from 'react';
 import {
   ToastMessageDark,
   ToastMessageLight,
-} from '../components/GlobalComponent/DisplayMessage';
+} from '../utils/DisplayMessage';
 import useReduxStore from './useReduxStore';
 import {
   getCampaignTags,
