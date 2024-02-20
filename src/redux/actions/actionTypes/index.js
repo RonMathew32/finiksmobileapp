@@ -33,10 +33,12 @@ export const ACTION_TYPES = {
   VOTERS_TAG: createAsyncActionTypes('VOTERS_TAG'),
   UPDATE_VOTER_INFO: createAsyncActionTypes('UPDATE_VOTER_INFO'),
   PHONE_BANK_RECORDS: createAsyncActionTypes('PHONE_BANK_RECORDS'),
+  CANASSING_BY_NAME: createAsyncActionTypes('CANASSING_BY_NAME'),
 
   //CLEAR
   LOGOUT: createAsyncActionTypes('LOGOUT'),
   EMPTY_CAMPAIGN: createAsyncActionTypes('EMPTY_CAMPAIGN'),
   EMPTY_PHONE_BANK: createAsyncActionTypes('EMPTY_PHONE_BANK'),
   EMPTY_VOTERS: createAsyncActionTypes('EMPTY_VOTERS'),
+  EMPTY_CANVASSING: createAsyncActionTypes('EMPTY_CANVASSING')
 };

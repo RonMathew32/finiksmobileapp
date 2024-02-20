@@ -18,7 +18,6 @@ import stylee from '../../constants/stylee';
 
 const VoterDetails = ({ navigation }) => {
   const { currentVoter, votersTag, campaignTags, customTags } = useReduxStore();
-
   const lastContacted = useMemo(() => formattedDate(currentVoter), [currentVoter]);
 
   const renderVoterTags = useCallback(() => (

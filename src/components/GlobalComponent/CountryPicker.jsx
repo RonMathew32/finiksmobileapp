@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useCallback } from 'react';
 import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Modal from 'react-native-modal';
-import CountryData from '../../utils/CountryData';
+import { countryData } from '../../constants/dummy';
 import { hp, normalize, wp } from '../../theme/dimensions';
 import { Belleza } from '../../theme/fonts';
 import { arrowdown, crossicon } from '../../theme/images';
@@ -51,7 +51,7 @@ const CountryPicker = () => {
             </TouchableOpacity>
           </View>
           <FlatList
-            data={CountryData}
+            data={countryData}
             keyExtractor={(item, index) => item.name}
             initialNumToRender={15}
             renderItem={CountryItem}

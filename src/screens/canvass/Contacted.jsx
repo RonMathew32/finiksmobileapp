@@ -6,15 +6,7 @@ import { hp, wp } from '../../theme/dimensions';
 import CampaignCard from '../../components/CampaignCard';
 import AppButton from '../../components/GlobalComponent/AppButton';
 import stylee from '../../constants/stylee';
-
-const contactedData = [
-  { id: 1, title: 'In Person', desc: 'Spoke with (Insert Name) in person' },
-  { id: 2, title: 'By Phone', desc: 'Spoke with (Insert Name) by phone call' },
-  { id: 3, title: 'By Text', desc: 'Spoke with (Insert Name) by text message' },
-  { id: 4, title: 'By Email', desc: 'Spoke with (Insert Name) by email' },
-  { id: 5, title: 'While Canvassing', desc: 'Spoke with (Insert Name) while canvassing' },
-  { id: 6, title: 'Over Social Media', desc: 'Spoke with (Insert Name) over social media' },
-];
+import { contactedData } from '../../constants/dummy';
 
 const Contacted = () => {
   return (
@@ -23,11 +15,11 @@ const Contacted = () => {
       <View style={styles.context}>
         <Text style={styles.heading}>How Did You Contact (Insert Name Here)</Text>
         <Text style={styles.selectTxt}>Select Below:</Text>
-        {contactedData.map(item => (
+        {contactedData?.map(item => (
           <CampaignCard
-            key={item.id}
             name={item.title}
             desc={item.desc}
+            index={item?._id}
             status={true}
             style={styles.card}
           />

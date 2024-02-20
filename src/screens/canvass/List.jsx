@@ -6,25 +6,9 @@ import {normalize, wp} from '../../theme/dimensions';
 import ProfileView from '../../components/ProfileView';
 import routes from '../../constants/routes';
 import stylee from '../../constants/stylee';
+import { districtList } from '../../constants/dummy';
 
 const List = ({navigation}) => {
-  const districtList = [
-    {
-      _id: 1,
-      title: 'District 1 Canvassing 55+ - 001',
-      num: 4
-    },
-    {
-      _id: 2,
-      title: 'District 1 Canvassing 55+ - 002',
-      num: 50
-    },
-    {
-      _id: 3,
-      title: 'District 1 Canvassing 55+ - 003',
-      num: 60
-    },
-  ];
 
   const onPressToNavigate = ()=> navigation.navigate(routes?.CanvassMap)
 
@@ -35,7 +19,7 @@ const List = ({navigation}) => {
         title="District 1 Canvassing 55+"
         textStyle={styles.title}
       />
-      {districtList.map((item, index) => (
+      {districtList?.map((item, index) => (
         <ProfileView
           index={item?._id}
           canvass={true}

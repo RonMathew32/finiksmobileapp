@@ -1,40 +1,13 @@
-import {FlatList, SafeAreaView, StyleSheet} from 'react-native';
-import React, { useEffect, useState } from 'react';
+import {FlatList, SafeAreaView} from 'react-native';
+import React, { useState } from 'react';
 import TotalVotersInfo from '../../components/TotalVotersInfo';
 import SingleVoter from '../../components/SingleVoter';
 import routes from '../../constants/routes';
-import { COLORS } from '../../theme/colors';
 import stylee from '../../constants/stylee';
+import { totalVotersData } from '../../constants/dummy';
 
 const TotalVoters = ({navigation}) => {
   const onPressVoter = () => navigation.navigate(routes?.VoterDetails)
-  const totalVotersData = [{
-    id: 1,
-    name: 'Ailbo Baggins',
-    address: '1 Bag End, The Shire, Middle Earth',
-    sex: 'F',
-    age: 102,
-    partyCode: 'Independent'
-
-  },
-  {
-    id: 26,
-    name: 'Zilbo Baggins',
-    address: '1 Bag End, The Shire, Middle Earth',
-    sex: 'F',
-    age: 102,
-    partyCode: 'Independent'
-
-  },
-  {
-    id: 2,
-    name: 'Bilbo Baggins',
-    address: '1 Bag End, The Shire, Middle Earth',
-    sex: 'F',
-    age: 102,
-    partyCode: 'Independent'
-  },
-]
   const [data, setData] = useState([...totalVotersData])
 
   return (

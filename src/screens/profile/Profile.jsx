@@ -28,6 +28,7 @@ import { setCurrentCampaign, setEmptyCampaign, setJoinCampaign } from '../../red
 import { setEmptyPhoneBank, setPhoneBankRecords, setRecord } from '../../redux/actions/phonebank.actions';
 import { setCampaignTags, setCurrentVoter, setCustomTags, setEmptyVoters, setScript, setScriptId, setSurveyList, setUndoneVoters, setVoterList, setVotersTag } from '../../redux/actions/voters.actions';
 import stylee from '../../constants/stylee';
+import { setEmptyCanvassing } from '../../redux/actions/canvassing.actions';
 
 const Profile = () => {
   const {user, dispatch, token, loading, setLoading, campaignId} =
@@ -119,6 +120,7 @@ const Profile = () => {
     dispatch(setEmptyCampaign())
     dispatch(setEmptyPhoneBank())
     dispatch(setEmptyVoters());
+    dispatch(setEmptyCanvassing())
     dispatch(setLogout())
     ToastMessageLight('Logout Successfully')
   },[dispatch])

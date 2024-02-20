@@ -35,6 +35,10 @@ const stylee = StyleSheet.create({
     alignItems: 'center',
     alignSelf: 'center',
   },
+  alignSelfEPostionA: {
+    alignSelf: 'flex-end',
+    position: 'absolute',
+  },
   alignSelfEndJC: {
     alignItems: 'center',
     justifyContent: 'center',

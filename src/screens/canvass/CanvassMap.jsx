@@ -1,4 +1,4 @@
-import React, {useState, useMemo, useCallback} from 'react';
+import React, {useState, useCallback} from 'react';
 import {
   FlatList,
   Pressable,
@@ -12,78 +12,33 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import {COLORS} from '../../theme/colors';
 import {hp, normalize, wp} from '../../theme/dimensions';
 import CampaignHeader from '../../components/Headers/CampaignHeader';
-import {getRandomColor} from '../../utils/GetRandomColor';
 import HouseIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import MapView, {Marker} from 'react-native-maps';
 import MapSettingModal from '../../components/Modals/MapSettingModal';
 import routes from '../../constants/routes';
 import stylee from '../../constants/stylee';
+import { listData, canvassListButtons } from '../../constants/dummy';
 
 const CanvassMap = ({navigation}) => {
   const [activeButton, setActiveButton] = useState('List');
   const [isVisibleMapSetting, setIsVisibleMapSetting] = useState(false);
 
-  const aligny = {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  };
-
-  const renderIcon = useCallback(
-    name => <Icon name={name} color={COLORS.primary} size={hp(4)} />,
-    [],
-  );
+  const renderIcon = useCallback(name => {
+    return <Icon name={name} color={COLORS.primary} size={hp(4)} />;
+  }, []);
 
   const handleButtonPress = useCallback(buttonName => {
     setActiveButton(buttonName);
   }, []);
 
-  const renderButton = useCallback(
-    buttonName => (
+  const renderButton = useCallback(item => (
       <Pressable
-        key={buttonName}
-        style={styles.btn(activeButton === buttonName)}
-        onPress={() => handleButtonPress(buttonName)}>
-        <Text style={styles.txt}>{buttonName}</Text>
+        key={item?._id}
+        style={styles.btn(activeButton === item?.title)}
+        onPress={() => handleButtonPress(item?.title)}>
+        <Text style={styles.txt}>{item?.title}</Text>
       </Pressable>
-    ),
-    [activeButton, handleButtonPress],
-  );
-
-  const buttons = useMemo(() => ['List', 'Map'], []);
-  const listData = useMemo(
-    () => [
-      {
-        _id: 1,
-        address: '1 Bag End, Hobbiton Westfarthing, The Shire',
-        houseNum: 1,
-        color: getRandomColor(),
-        region: {latitude: 37.78825, longitude: -122.4324},
-      },
-      {
-        _id: 2,
-        address: '1 Wending Way, Hobbiton Westfarthing, The Shire',
-        houseNum: 2,
-        color: getRandomColor(),
-        region: {latitude: 37.779384, longitude: -122.426088},
-      },
-      {
-        _id: 3,
-        address: '2 Harrow Road, Hobbiton Westfarthing, The Shire',
-        houseNum: 3,
-        color: getRandomColor(),
-        region: {latitude: 37.780376, longitude: -122.443867},
-      },
-      {
-        _id: 4,
-        address: '1 Pleasant Street, Hobbiton Westfarthing, The Shire',
-        houseNum: 4,
-        color: getRandomColor(),
-        region: {latitude: 37.7836821, longitude: -122.4462204},
-      },
-    ],
-    [],
-  );
+    ),[activeButton, handleButtonPress]);
 
   const handleMarkerPress = useCallback(item => {
     console.log(item);
@@ -94,13 +49,17 @@ const CanvassMap = ({navigation}) => {
       <TouchableOpacity
         onPress={() => navigation.navigate(routes?.CanvassMapDetails, {item})}
         key={item?._id}
-        style={[aligny, styles.hexContainer]}>
-        <View style={[aligny, styles.contentContainer]}>
+        style={[stylee.alignJSR, styles.hexContainer]}>
+        <View style={[stylee.alignJSR, styles.contentContainer]}>
           <Text style={styles.nametxt}>{item?.address}</Text>
           <View style={[styles.homeIconContainer, stylee.alignR]}>
             <HouseIcon name="home-roof" size={hp(5)} color={item.color} />
             <View
-              style={[styles.numberContainer, stylee.alignJC, {backgroundColor: item.color}]}>
+              style={[
+                styles.numberContainer,
+                stylee.alignJC,
+                {backgroundColor: item.color},
+              ]}>
               <Text style={styles.houseNm}>{item?.houseNum}</Text>
             </View>
           </View>
@@ -119,9 +78,9 @@ const CanvassMap = ({navigation}) => {
         />
       )}
       <CampaignHeader enableBackButton={true} />
-      <View style={[aligny, styles.alignBtns]}>
+      <View style={[stylee.alignJSR, styles.alignBtns]}>
         {renderIcon('location-sharp')}
-        {buttons.map(renderButton)}
+        {canvassListButtons.map(renderButton)}
         <TouchableOpacity onPress={() => setIsVisibleMapSetting(true)}>
           {renderIcon('information-circle-outline')}
         </TouchableOpacity>
@@ -133,7 +92,7 @@ const CanvassMap = ({navigation}) => {
           renderItem={renderItem}
         />
       ) : (
-        <View style={styles.container}>
+        <View style={styles.map}>
           <MapView
             style={styles.map}
             initialRegion={{

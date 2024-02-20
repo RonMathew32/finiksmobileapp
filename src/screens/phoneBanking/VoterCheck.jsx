@@ -36,6 +36,7 @@ import {
   setVotersTag,
 } from '../../redux/actions/voters.actions';
 import stylee from '../../constants/stylee';
+import { voterCheckbuttons } from '../../constants/dummy';
 
 const VoterCheck = ({route, navigation}) => {
   const item = route.params?.item ?? null;
@@ -60,13 +61,6 @@ const VoterCheck = ({route, navigation}) => {
   const [nextVoterloader, setNextVoterloader] = useState(false);
   const [isVisibleWrongModal, setIsVisibleWrongModal] = useState(false);
   const [isVisibleDoNotCallModal, setIsVisibleDoNotCallModal] = useState(false);
-
-  const buttons = [
-    {name: 'Wrong number', type: 'wrong'},
-    {name: 'Do Not Call', type: 'donot'},
-    {name: 'Contact Later', type: 'contact'},
-    {name: 'Survey', type: 'survey'},
-  ];
 
   const headerTitle = useMemo(
     () =>
@@ -276,7 +270,7 @@ const VoterCheck = ({route, navigation}) => {
 
       <View style={styles.voterinfo}>
         <SelectionButton
-          buttons={buttons}
+          buttons={voterCheckbuttons}
           onNextPress={onPressNextVoter}
           selected={selected}
           handleButtonPress={handleButtonPress}

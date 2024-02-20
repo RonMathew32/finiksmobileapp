@@ -10,6 +10,7 @@ import {
 import {joinCampaignRequestSaga, joinedCampaignRequestSaga} from './campaign.saga';
 import { getCampaignTagsRequestSaga, getCustomTagsRequestSaga, getScriptRequestSaga, getSurveyListRequestSaga, getVoterCheckDataByAdminRequestSaga, getVoterCheckDataRequestSaga, getVoterListRequestSaga, updateVoterInfoRequestSaga } from './voters.saga';
 import { getPhoneBankRecordsRequestSaga, getWrongNumberRequestSaga, getSaveInteractionRequestSaga, getSurveyToTakeRequestSaga } from './phonebank.saga';
+import { getCanvassingListByNameRequestSaga } from './canvassing.saga';
 
 export function* rootSaga() {
   yield all([
@@ -31,6 +32,7 @@ export function* rootSaga() {
     getWrongNumberRequestSaga(),
     getSaveInteractionRequestSaga(),
     getSurveyToTakeRequestSaga(),
+    getCanvassingListByNameRequestSaga()
 
   ]);
 }

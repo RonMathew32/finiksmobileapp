@@ -8,17 +8,21 @@ import CustomInput from '../../components/GlobalComponent/CustomInput';
 import Icon from 'react-native-vector-icons/Ionicons';
 import routes from '../../constants/routes';
 import stylee from '../../constants/stylee';
+import DropDown from '../../components/GlobalComponent/DropDown';
+import { canvasSearchOptions } from '../../constants/dummy';
 
 const Canvass = ({navigation}) => {
+  const [selected, setSelected] = useState('Un Select')
   const [data, setData] = useState({
     byName: '',
     byLocation: '',
     byList: '',
   });
 
+
   const onChangeValue = useCallback((key, value) => {
-    setData({ ...data, [key]: value });
-  }, [data]);
+      setData({...data, [key]: value})
+    },[data]);
 
   const onPressLocationByList = useCallback(() => {
     navigation.navigate(routes.CampaignSelection, {enableBackButton: true});
@@ -28,14 +32,24 @@ const Canvass = ({navigation}) => {
     navigation.navigate(routes.TotalVoters);
   }, [navigation]);
 
-  const onPressAddVoter = ()=> {
-    navigation.navigate(routes?.UpdateVoterInfo, {canvass: true})
-  }  
-  
+  const onPressAddVoter = useCallback(() => {
+    navigation.navigate(routes?.UpdateVoterInfo, {canvass: true});
+  },[navigation]);
+
+  const onPressSearch = ()=>{
+    console.log(data.byName, selected?.name)
+  }
+
+
   return (
     <SafeAreaView style={stylee.container}>
-      <HomeHeader canvass={true} onPressAddVoter={onPressAddVoter}/>
+      <HomeHeader canvass={true} onPressAddVoter={onPressAddVoter} />
       <View style={styles.layout}>
+        <DropDown
+          data={canvasSearchOptions}
+          selected={selected}
+          setSelected={setSelected}
+        />
         <Text style={styles.heading(COLORS.primary)}>Search</Text>
         <Text style={styles.searchBy}>By Voter:</Text>
 
@@ -43,10 +57,9 @@ const Canvass = ({navigation}) => {
           <CustomInput
             placeholderTextColor={COLORS.lavendarWhite}
             placeholder="Name"
-            value={data.byName}
-            editable={false}
+            value={data?.byName}
             textInputStyle={styles.layout}
-            setValue={val => onChangeValue('byName', val)}
+            setValue={(val)=> onChangeValue('byName', val)}
           />
         </Pressable>
 
@@ -69,12 +82,14 @@ const Canvass = ({navigation}) => {
             setValue={val => onChangeValue('byList', val)}
           />
         </Pressable>
+        <Pressable onPress={onPressSearch}>
         <Icon
           name="search-circle"
           color={COLORS.primary}
           size={hp(10)}
           style={styles.iconStyle}
         />
+        </Pressable>
       </View>
     </SafeAreaView>
   );
@@ -99,6 +114,7 @@ const styles = StyleSheet.create({
       fontSize: normalize(28),
       fontFamily: MontserratExtraBold,
       textAlign: 'center',
+      marginTop: hp(6),
       marginVertical: hp(4),
     };
   },

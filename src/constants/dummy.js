@@ -1,4 +1,6 @@
-export default countries = [
+import { getRandomColor } from "../utils/GetRandomColor";
+
+export const countryData = [
   { name: "Afghanistan", flag: "🇦🇫", code: "AF", dial_code: "+93" },
   { name: "Åland Islands", flag: "🇦🇽", code: "AX", dial_code: "+358" },
   { name: "Albania", flag: "🇦🇱", code: "AL", dial_code: "+355" },
@@ -471,3 +473,124 @@ export default countries = [
   { name: "Zambia", flag: "🇿🇲", code: "ZM", dial_code: "+260" },
   { name: "Zimbabwe", flag: "🇿🇼", code: "ZW", dial_code: "+263" },
 ];
+
+export const canvasSearchOptions = [
+  {_id: 1, name: 'Un Select'},
+  {_id: 2, name: 'Address'},
+  {_id: 3, name: 'State'},
+]
+
+export const listData = [
+    {
+      _id: 1,
+      address: '1 Bag End, Hobbiton Westfarthing, The Shire',
+      houseNum: 1,
+      color: getRandomColor(),
+      region: {latitude: 37.78825, longitude: -122.4324},
+    },
+    {
+      _id: 2,
+      address: '1 Wending Way, Hobbiton Westfarthing, The Shire',
+      houseNum: 2,
+      color: getRandomColor(),
+      region: {latitude: 37.779384, longitude: -122.426088},
+    },
+    {
+      _id: 3,
+      address: '2 Harrow Road, Hobbiton Westfarthing, The Shire',
+      houseNum: 3,
+      color: getRandomColor(),
+      region: {latitude: 37.780376, longitude: -122.443867},
+    },
+    {
+      _id: 4,
+      address: '1 Pleasant Street, Hobbiton Westfarthing, The Shire',
+      houseNum: 4,
+      color: getRandomColor(),
+      region: {latitude: 37.7836821, longitude: -122.4462204},
+    }
+];
+
+export const totalVotersData = [
+  {
+    _id: 1,
+    name: 'Ailbo Baggins',
+    sex: 'F',
+    address: '1 Bag End, The Shire, Middle Earth',
+    age: 102,
+    partyCode: 'Independent',
+  },
+  {
+    _id: 2,
+    name: 'Zilbo Baggins',
+    sex: 'F',
+    address: '1 Bag End, The Shire, Middle Earth',
+    age: 45,
+    partyCode: 'Republican',
+  },
+  {
+    _id: 3,
+    name: 'Bilbo Baggins',
+    sex: 'F',
+    address: '1 Bag End, The Shire, Middle Earth',
+    age: 32,
+    partyCode: 'Republican',
+  },
+  {
+    _id: 4,
+    name: 'Samwise Gamgee',
+    sex: 'M',
+    address: '1 Bag End, The Shire, Middle Earth',
+    age: 42,
+    partyCode: 'Republican',
+  },
+];
+
+export const contactedData = [
+  { _id: 1, title: 'In Person', desc: 'Spoke with (Insert Name) in person' },
+  { _id: 2, title: 'By Phone', desc: 'Spoke with (Insert Name) by phone call' },
+  { _id: 3, title: 'By Text', desc: 'Spoke with (Insert Name) by text message' },
+  { _id: 4, title: 'By Email', desc: 'Spoke with (Insert Name) by email' },
+  { _id: 5, title: 'While Canvassing', desc: 'Spoke with (Insert Name) while canvassing' },
+  { _id: 6, title: 'Over Social Media', desc: 'Spoke with (Insert Name) over social media' },
+];
+
+export const canvassListButtons = [
+  {_id: 1, title: 'List'}, 
+  {_id: 2, title: 'Map'}
+];
+
+export const voterCheckbuttons = [
+  {_id: 1, name: 'Wrong number', type: 'wrong'},
+  {_id: 2, name: 'Do Not Call', type: 'donot'},
+  {_id: 3, name: 'Contact Later', type: 'contact'},
+  {_id: 4, name: 'Survey', type: 'survey'},
+];
+
+export const canvassMapDetailsButtons = [
+  {_id: 1, name: 'Refused', type: 'wrong'},
+  {_id: 2, name: 'Restriced Access', type: 'donot'},
+  {_id: 3, name: 'No one home', type: 'contact'},
+  {_id: 4, name: 'Literature Drop', type: 'survey'},
+];
+
+export const districtList = [
+  {
+    _id: 1,
+    title: 'District 1 Canvassing 55+ - 001',
+    num: 4
+  },
+  {
+    _id: 2,
+    title: 'District 1 Canvassing 55+ - 002',
+    num: 50
+  },
+  {
+    _id: 3,
+    title: 'District 1 Canvassing 55+ - 003',
+    num: 60
+  },
+];
+
+
+export const script = `"Hi! my name _____ and I am here on befalf of Hanna Jacobs for Congress, Are you available for breif coversation?"`;

@@ -5,7 +5,7 @@ import { MontserratSemiBold } from '../theme/fonts';
 import { COLORS } from '../theme/colors';
 import stylee from '../constants/stylee';
 
-const CampaignCard = ({ name, status, desc = '', onPress, style }) => {
+const CampaignCard = ({ name, status, index, desc = '', onPress, style }) => {
   const nameStyle = useMemo(() => {
     return {
       fontFamily: MontserratSemiBold,
@@ -15,7 +15,7 @@ const CampaignCard = ({ name, status, desc = '', onPress, style }) => {
   }, [desc]);
 
   return (
-    <TouchableOpacity onPress={onPress} style={[styles.container, stylee.shadowWithOpactiy, stylee.alignJSR, style]}>
+    <TouchableOpacity key={index} onPress={onPress} style={[styles.container, stylee.shadowWithOpactiy, stylee.alignJSR, style]}>
       <View>
         <Text style={[styles.name, nameStyle]}>{name}</Text>
         {desc ? <Text style={styles.descTxt}>{desc}</Text> : null}
