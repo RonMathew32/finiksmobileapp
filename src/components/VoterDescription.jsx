@@ -3,6 +3,7 @@ import React, {useMemo} from 'react';
 import {hp, normalize, wp} from '../theme/dimensions';
 import {MontserratSemiBold} from '../theme/fonts';
 import { COLORS } from '../theme/colors';
+import stylee from '../constants/stylee';
 
 const VoterDescription = ({script, style, textStyle}) => {
 
@@ -10,7 +11,7 @@ const VoterDescription = ({script, style, textStyle}) => {
 
   return (
     <View style={[styles.parent, style]}>
-      <View style={styles.container}>
+      <View style={[styles.container, stylee.shadow]}>
         <ScrollView style={{flex: 1}}>
           <Text style={[styles.text, textStyle]}>{scriptDesc}</Text>
         </ScrollView>
@@ -31,11 +32,6 @@ const styles = StyleSheet.create({
   },
   container: {
     backgroundColor: COLORS.background,
-    shadowColor: COLORS.darkGray,
-    shadowOffset: {width: 1, height: 1},
-    shadowOpacity: 0.4,
-    shadowRadius: 3,
-    elevation: 5,
     height: hp(25),
     padding: 5,
   },

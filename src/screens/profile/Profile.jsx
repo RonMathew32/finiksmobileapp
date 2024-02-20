@@ -27,6 +27,7 @@ import UpdatePassword from '../../components/Modals/UpdatePassword';
 import { setCurrentCampaign, setEmptyCampaign, setJoinCampaign } from '../../redux/actions/campaings.actions';
 import { setEmptyPhoneBank, setPhoneBankRecords, setRecord } from '../../redux/actions/phonebank.actions';
 import { setCampaignTags, setCurrentVoter, setCustomTags, setEmptyVoters, setScript, setScriptId, setSurveyList, setUndoneVoters, setVoterList, setVotersTag } from '../../redux/actions/voters.actions';
+import stylee from '../../constants/stylee';
 
 const Profile = () => {
   const {user, dispatch, token, loading, setLoading, campaignId} =
@@ -125,7 +126,7 @@ const Profile = () => {
   return loading ? (
     <LoadingScreen />
   ) : (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={stylee.container}>
       <VoterHeader
         title="Profile"
         rightTitle="Save"
@@ -165,10 +166,6 @@ const styles = StyleSheet.create({
     marginTop: hp(2),
     padding: 5,
     fontSize: normalize(14),
-  },
-  container: {
-    flex: 1,
-    backgroundColor: COLORS.white,
   },
   logo: {
     width: wp(19),

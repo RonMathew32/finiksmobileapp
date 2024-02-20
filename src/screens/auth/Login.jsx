@@ -19,6 +19,7 @@ import {ToastMessageLight} from '../../utils/DisplayMessage';
 import useReduxStore from '../../hooks/useReduxStore';
 import {STRINGS} from '../../constants/strings';
 import AppButton from '../../components/GlobalComponent/AppButton';
+import stylee from '../../constants/stylee';
 
 const Login = ({navigation}) => {
   const {dispatch, loading, setLoading, user, token} = useReduxStore();
@@ -39,9 +40,9 @@ const Login = ({navigation}) => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={stylee.containerAuth}>
       <StatusBar barStyle="light-content" />
-      <ImageBackground source={loginback} style={styles.backimg}>
+      <ImageBackground source={loginback} style={[styles.backimg, stylee.alignJC]}>
         <Image source={logo} style={styles.logo} resizeMode="contain" />
       </ImageBackground>
       <View style={styles.inputmainbox}>
@@ -82,15 +83,9 @@ const Login = ({navigation}) => {
 export default Login;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#1A1A1A',
-  },
   backimg: {
     width: '100%',
     height: hp(30),
-    alignItems: 'center',
-    justifyContent: 'center',
     // marginTop: hp(7),
   },
   logo: {

@@ -4,6 +4,7 @@ import { hp, normalize, wp } from '../theme/dimensions';
 import { Montserrat, MontserratSemiBold } from '../theme/fonts';
 import { COLORS } from '../theme/colors';
 import { getRandomColor } from '../utils/GetRandomColor';
+import stylee from '../constants/stylee';
 
 const SingleVoter = ({ onPressVoter, item }) => {
   const sideBarStyle = useMemo(() => ({
@@ -21,7 +22,7 @@ const SingleVoter = ({ onPressVoter, item }) => {
   ), [item?.sex, item?.age, item?.partyCode]);
 
   return (
-    <TouchableOpacity key={item?._id}  onPress={onPressVoter} style={styles.container}>
+    <TouchableOpacity key={item?._id}  onPress={onPressVoter} style={[stylee.alignJSR, styles.container]}>
       <View style={styles.contentContainer}>
         {renderName}
         {renderAddress}
@@ -35,7 +36,6 @@ const SingleVoter = ({ onPressVoter, item }) => {
 export default React.memo(SingleVoter);
 
 const styles = StyleSheet.create({
-  sideBar: {},
   contentContainer: {
     paddingHorizontal: wp(7.5),
     paddingVertical: hp(1),
@@ -43,9 +43,6 @@ const styles = StyleSheet.create({
   container: {
     borderBottomWidth: 1,
     borderBottomColor: COLORS.lavendarWhiteDim,
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    flexDirection: 'row',
   },
   nametxt: {
     fontFamily: MontserratSemiBold,

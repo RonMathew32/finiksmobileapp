@@ -18,6 +18,7 @@ import AppButton from '../../components/GlobalComponent/AppButton';
 import { COLORS } from '../../theme/colors';
 import routes from '../../constants/routes';
 import KeyboardAvoidingViewWrapper from '../../components/GlobalComponent/KeyboardAvoidingViewWrapper';
+import stylee from '../../constants/stylee';
 
 const Register = ({navigation}) => {
   const {dispatch, loading, setLoading} = useReduxStore();
@@ -78,7 +79,7 @@ const Register = ({navigation}) => {
 
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={stylee.containerAuth}>
       <KeyboardAvoidingViewWrapper>
       <View style={styles.innerbox}>
         <Image source={logo} style={styles.logo} resizeMode="contain" />
@@ -161,10 +162,6 @@ const styles = StyleSheet.create({
   textInputStyle: {
     paddingTop: hp(0)
   },
-  container: {
-    flex: 1,
-    backgroundColor: '#1A1A1A',
-  },
   innerbox: {
     flex: 1,
     marginHorizontal: wp(5),
@@ -189,7 +186,7 @@ const styles = StyleSheet.create({
   donttxt: {
     fontSize: normalize(14),
     fontWeight: '400',
-    color: COLORS.white,
+    color: COLORS.hardCodeWhite,
     marginTop: hp(4),
     alignSelf: 'center',
   },

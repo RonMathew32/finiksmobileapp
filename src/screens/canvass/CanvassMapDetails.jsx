@@ -8,6 +8,7 @@ import VoterDescription from '../../components/VoterDescription';
 import SingleVoter from '../../components/SingleVoter';
 import SelectionButton from '../../components/SelectionButton';
 import routes from '../../constants/routes';
+import stylee from '../../constants/stylee';
 
 const CanvassMapDetails = ({navigation}) => {
   const {params} = useRoute();
@@ -57,7 +58,7 @@ const CanvassMapDetails = ({navigation}) => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={stylee.container}>
       <CampaignHeader
         enableBackButton={true}
         title={params?.item?.address}
@@ -105,9 +106,5 @@ const styles = StyleSheet.create({
   },
   headerTxt: {
     fontSize: normalize(12),
-  },
-  container: {
-    flex: 1,
-    backgroundColor: COLORS.white,
   },
 });

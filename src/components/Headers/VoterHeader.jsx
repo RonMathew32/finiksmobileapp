@@ -5,6 +5,7 @@ import { hp, normalize, wp } from '../../theme/dimensions';
 import { MontserratMedium, MontserratSemiBold } from '../../theme/fonts';
 import { useNavigation } from '@react-navigation/native';
 import { COLORS } from '../../theme/colors';
+import stylee from '../../constants/stylee';
 
 const VoterHeader = ({
   leftTitle,
@@ -60,7 +61,7 @@ const VoterHeader = ({
 
   return (
     <View style={{ overflow: 'hidden', paddingBottom: paddingBottom ?? 4}}>
-      <View style={styles.container}>
+      <View style={[styles.container, stylee.shadow, stylee.alignJSR]}>
         <TouchableOpacity
           disabled={leftTitle || onPressLeft ? false : true}
           style={styles.savebox}
@@ -92,17 +93,9 @@ const styles = StyleSheet.create({
     color: COLORS.primary,
   },
   container: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
     paddingHorizontal: wp(4),
     height: hp(6),
     backgroundColor: COLORS.background,
-    shadowColor: COLORS.darkGray,
-    shadowOffset: { width: 1, height: 1 },
-    shadowOpacity: 0.4,
-    shadowRadius: 3,
-    elevation: 5,
   },
   icon: (val) => {
     return {

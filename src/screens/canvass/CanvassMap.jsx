@@ -17,6 +17,7 @@ import HouseIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import MapView, {Marker} from 'react-native-maps';
 import MapSettingModal from '../../components/Modals/MapSettingModal';
 import routes from '../../constants/routes';
+import stylee from '../../constants/stylee';
 
 const CanvassMap = ({navigation}) => {
   const [activeButton, setActiveButton] = useState('List');
@@ -96,10 +97,10 @@ const CanvassMap = ({navigation}) => {
         style={[aligny, styles.hexContainer]}>
         <View style={[aligny, styles.contentContainer]}>
           <Text style={styles.nametxt}>{item?.address}</Text>
-          <View style={styles.homeIconContainer}>
+          <View style={[styles.homeIconContainer, stylee.alignR]}>
             <HouseIcon name="home-roof" size={hp(5)} color={item.color} />
             <View
-              style={[styles.numberContainer, {backgroundColor: item.color}]}>
+              style={[styles.numberContainer, stylee.alignJC, {backgroundColor: item.color}]}>
               <Text style={styles.houseNm}>{item?.houseNum}</Text>
             </View>
           </View>
@@ -110,7 +111,7 @@ const CanvassMap = ({navigation}) => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={stylee.container}>
       {isVisibleMapSetting && (
         <MapSettingModal
           visible={isVisibleMapSetting}
@@ -164,8 +165,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   homeIconContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
     marginLeft: wp(5),
   },
   numberContainer: {
@@ -173,8 +172,6 @@ const styles = StyleSheet.create({
     height: 20,
     position: 'absolute',
     borderRadius: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
     top: 23,
     right: 10.5,
   },
@@ -212,10 +209,6 @@ const styles = StyleSheet.create({
     borderBottomColor: COLORS.background,
     paddingBottom: hp(2),
     borderBottomWidth: 3,
-  },
-  container: {
-    flex: 1,
-    backgroundColor: COLORS.white,
   },
   sideBar: {
     width: 10,

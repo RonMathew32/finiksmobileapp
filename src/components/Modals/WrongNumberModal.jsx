@@ -5,6 +5,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import IconClose from 'react-native-vector-icons/Entypo';
 import { COLORS } from '../../theme/colors';
 import { hp, normalize, wp } from '../../theme/dimensions';
+import stylee from '../../constants/stylee';
 
 const WrongNumberModal = ({ isVisible, onClose, onSave, voter }) => {
   const [checkedOne, setCheckedOne] = useState(false);
@@ -35,13 +36,9 @@ const WrongNumberModal = ({ isVisible, onClose, onSave, voter }) => {
           paddingVertical: hp(2),
           borderTopRightRadius: 10,
           borderTopLeftRadius: 10,
-          flexDirection: 'row',
-          justifyContent: 'space-between',
         },
         modalContainer: {
           flex: 1,
-          justifyContent: 'center',
-          alignItems: 'center',
         },
         content: {
           backgroundColor: COLORS.white,
@@ -61,8 +58,6 @@ const WrongNumberModal = ({ isVisible, onClose, onSave, voter }) => {
           textAlign: 'center',
         },
         checkbox: {
-          flexDirection: 'row',
-          alignItems: 'center',
           marginVertical: 10,
         },
         checkboxLabel: {
@@ -71,8 +66,6 @@ const WrongNumberModal = ({ isVisible, onClose, onSave, voter }) => {
           fontSize: normalize(13),
         },
         buttonContainer: {
-          flexDirection: 'row',
-          justifyContent: 'space-between',
           marginTop: 20,
         },
         button: {
@@ -93,9 +86,9 @@ const WrongNumberModal = ({ isVisible, onClose, onSave, voter }) => {
 
   return (
     <Modal isVisible={isVisible}>
-      <View style={styles.modalContainer}>
+      <View style={[styles.modalContainer, stylee.alignJC]}>
         <View style={styles.content}>
-          <View style={styles.titleContainer}>
+          <View style={[styles.titleContainer, stylee.flexJS]}>
             <Text></Text>
             <Text style={styles.title}>Please select which number is incorrect</Text>
             <TouchableOpacity onPress={onClose}>
@@ -106,7 +99,7 @@ const WrongNumberModal = ({ isVisible, onClose, onSave, voter }) => {
             {[{ id: 'MOBILE_NUM', name: 'Mobile Number' }, { id: 'PHONE_NUM', name: 'Phone Number' }].map((numberType, index) => (
               <TouchableOpacity
                 key={index}
-                style={styles.checkbox}
+                style={[styles.checkbox, stylee.flexR]}
                 onPress={() =>
                   handleCheckboxToggle(
                     numberType?.id === 'MOBILE_NUM' ? checkedOne : checkedTwo,
@@ -136,7 +129,7 @@ const WrongNumberModal = ({ isVisible, onClose, onSave, voter }) => {
                 <Text style={styles.checkboxLabel}>{numberType?.name}: {voter?.[numberType?.id]}</Text>
               </TouchableOpacity>
             ))}
-            <View style={styles.buttonContainer}>
+            <View style={[styles.buttonContainer, stylee.flexJS]}>
               <TouchableOpacity onPress={onClose} style={styles.button}>
                 <Text style={styles.buttonText}>Cancel</Text>
               </TouchableOpacity>

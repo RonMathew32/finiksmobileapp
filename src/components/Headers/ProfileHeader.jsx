@@ -5,6 +5,7 @@ import {hp, normalize, wp} from '../../theme/dimensions';
 import {MontserratMedium, MontserratSemiBold} from '../../theme/fonts';
 import {useNavigation} from '@react-navigation/native';
 import { COLORS } from '../../theme/colors';
+import stylee from '../../constants/stylee';
 
 const ProfileHeader = () => {
   const navigation = useNavigation();
@@ -16,7 +17,7 @@ const ProfileHeader = () => {
   },[navigation]);
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, stylee.alignJSR, stylee.shadow]}>
       <TouchableOpacity style={styles.iconContainer} onPress={handleGoBack}>
         <Image source={chevronleft} style={styles.icon} resizeMode="contain" />
       </TouchableOpacity>
@@ -32,16 +33,8 @@ const ProfileHeader = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
     paddingHorizontal: wp(5),
     backgroundColor: COLORS.background,
-    shadowColor: COLORS.darkGray,
-    shadowOffset: {width: 1, height: 1},
-    shadowOpacity: 0.4,
-    shadowRadius: 3,
-    elevation: 5,
     paddingBottom: hp(1.5),
   },
   iconContainer: {

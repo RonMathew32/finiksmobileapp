@@ -7,13 +7,14 @@ import {useNavigation} from '@react-navigation/native';
 import routes from '../constants/routes';
 import useReduxStore from '../hooks/useReduxStore';
 import {COLORS} from '../theme/colors';
+import stylee from '../constants/stylee';
 
 const ProfileView = ({
   canvass = false,
   textStyle,
   onPressToNavigate,
   title = '',
-  index,
+  index = 1,
   num = 0,
 }) => {
   const navigation = useNavigation();
@@ -27,9 +28,9 @@ const ProfileView = ({
     <TouchableOpacity
       key={index ? index : 1}
       onPress={onPressToNavigate?  onPressToNavigate : onPressToProfile}
-      style={[styles.container, {marginTop: index == 1 ? hp(4) : hp(0)}]}>
+      style={[styles.container, stylee.alignJSR, stylee.shadow, {marginTop: index == 1 ? hp(4) : hp(0)}]}>
       {canvass ? null : (
-        <View style={styles.roundbox}>
+        <View style={[styles.roundbox(canvass), stylee.alignJC]}>
           {user?.campaignLogo ? (
             <Image
               source={{uri: user?.campaignLogo}}
@@ -42,7 +43,7 @@ const ProfileView = ({
         </View>
       )}
       <Text style={[styles.name, textStyle]}>{title ? title : name}</Text>
-      <View style={styles.roundbox(canvass)}>
+      <View style={[styles.roundbox(canvass), stylee.alignJC]}>
         <Image source={arrowright} style={styles.arrow} resizeMode="contain" />
       </View>
       {canvass ? <Text style={styles.ratio}>{`0/${num}`}</Text> : null}
@@ -60,25 +61,12 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   container: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
     borderRadius: wp(2),
     width: '92%',
     alignSelf: 'center',
     height: hp(7),
+    paddingHorizontal: wp(3),
     marginBottom: hp(2),
-    //shadow
-    shadowColor: 'rgba(0,0,0,0.5)',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.29,
-    shadowRadius: 4.65,
-
-    elevation: 7,
-    // background color must be set
     backgroundColor: COLORS.white,
     borderColor: COLORS.lavendarWhite,
     borderWidth: 0.3,
@@ -89,8 +77,6 @@ const styles = StyleSheet.create({
       height: canvass ? wp(7) : wp(9),
       width: canvass ? wp(7) : wp(9),
       borderRadius: wp(9) / 2,
-      alignItems: 'center',
-      justifyContent: 'center',
     };
   },
   shortname: {

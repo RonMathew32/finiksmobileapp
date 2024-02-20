@@ -1,15 +1,16 @@
-import React, { useState, useCallback, memo } from 'react';
-import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { hp, normalize, wp } from '../theme/dimensions';
-import { MontserratMedium } from '../theme/fonts';
+import React, {useState, useCallback, memo} from 'react';
+import {FlatList, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {hp, normalize, wp} from '../theme/dimensions';
+import {MontserratMedium} from '../theme/fonts';
 import useReduxStore from '../hooks/useReduxStore';
-import { COLORS } from '../theme/colors';
-import { setSurveyList } from '../redux/actions/voters.actions';
+import {COLORS} from '../theme/colors';
+import {setSurveyList} from '../redux/actions/voters.actions';
 import SurveyModal from './Modals/SurveyModal';
+import stylee from '../constants/stylee';
 
-const VoterSurvey = ({ data }) => {
-  const { currentVoter } = useReduxStore();
-  const { dispatch } = useReduxStore();
+const VoterSurvey = ({data}) => {
+  const {currentVoter} = useReduxStore();
+  const {dispatch} = useReduxStore();
   const [surveyItem, setSurveyItem] = useState({});
   const [visible, setVisible] = useState(false);
   const [selectedAnswer, setSelectedAnswer] = useState('');
@@ -42,25 +43,29 @@ const VoterSurvey = ({ data }) => {
       };
       dispatch(setSurveyList(payload));
     },
-    [data, currentVoter, dispatch]
+    [data, currentVoter, dispatch],
   );
 
   const renderItem = useCallback(
-    ({ item, index }) => (
+    ({item, index}) => (
       <TouchableOpacity
         onPress={() => {
           setSurveyItem(item);
           setVisible(true);
         }}
-        style={{
-          ...styles.card,
-          backgroundColor: item?.voterAnswer?.answer ? COLORS.lavendarWhiteDark : item?.color.code,
-        }}
-      >
+        style={[
+          styles.card,
+          stylee.alignJC,
+          {
+            backgroundColor: item?.voterAnswer?.answer
+              ? COLORS.lavendarWhiteDark
+              : item?.color.code,
+          },
+        ]}>
         <Text style={styles.cardtxt}>{item?.surveyPreview}</Text>
       </TouchableOpacity>
     ),
-    []
+    [],
   );
 
   const keyExtractor = useCallback((item, index) => index.toString(), []);
@@ -93,7 +98,7 @@ const styles = StyleSheet.create({
   container: {
     height: hp(55),
     borderBlockColor: COLORS.lavendarWhite,
-    borderWidth: 0.4
+    borderWidth: 0.4,
   },
   flatlist: {
     flex: 1,
@@ -105,8 +110,6 @@ const styles = StyleSheet.create({
   },
   card: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
     backgroundColor: COLORS.orange,
     borderRadius: wp(4),
     margin: wp(1),

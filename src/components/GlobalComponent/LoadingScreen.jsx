@@ -1,22 +1,14 @@
 import {ActivityIndicator, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import { COLORS } from '../../theme/colors';
+import stylee from '../../constants/stylee';
 
 const LoadingScreen = () => {
   return (
-    <View style={styles.container}>
+    <View style={[stylee.container, stylee.alignJC]}>
       <ActivityIndicator size="large" color={COLORS.primary} />
     </View>
   );
 };
 
-export default LoadingScreen;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: COLORS.white
-  },
-});
+export default React.memo(LoadingScreen);

@@ -5,6 +5,7 @@ import { hp, normalize, wp } from '../../theme/dimensions';
 import { COLORS } from '../../theme/colors';
 import { MontserratExtraBold, MontserratMedium, MontserratSemiBold } from '../../theme/fonts';
 import AppButton from '../GlobalComponent/AppButton';
+import stylee from '../../constants/stylee';
 
 const SurveyModal = ({
   visible,
@@ -65,7 +66,7 @@ const SurveyModal = ({
     >
       <View style={styles.modalbox}>
         <Text style={styles.heading}>{survey?.surveyName}</Text>
-        <Text style={styles.surveyquestion}>{survey?.surveyQuestion}?</Text>
+        <Text style={[styles.surveyquestion, stylee.alignSelf]}>{survey?.surveyQuestion}?</Text>
         <View style={styles.line} />
         <ScrollView>
           {survey?.surveyAnswers?.map((item, index) => (
@@ -100,9 +101,7 @@ const textStyles = {
     fontFamily: MontserratExtraBold,
     fontSize: normalize(20),
     color: COLORS.primary,
-    textAlign: 'center',
     width: '80%',
-    alignSelf: 'center',
     marginTop: hp(2),
   },
   btntxt: {

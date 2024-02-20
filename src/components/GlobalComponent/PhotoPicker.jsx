@@ -4,6 +4,7 @@ import { hp, normalize, wp } from '../../theme/dimensions';
 import { MontserratBold } from '../../theme/fonts';
 import { COLORS } from '../../theme/colors';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
+import stylee from '../../constants/stylee';
 
 const PhotoPicker = ({ user, setImage }) => {
   const [userImage, setUserImage] = useState('');
@@ -41,15 +42,15 @@ const PhotoPicker = ({ user, setImage }) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.imageBack}>
+      <View style={[styles.imageBack, stylee.alignJC]}>
         {userImage ? (
           <Image source={{ uri: userImage }} style={styles.imgStyle} resizeMode="contain" />
         ) : (
           <Text style={styles.nameText}>{nameInitials()}</Text>
         )}
       </View>
-      {/* <View style={styles.selectionBox}>
-        <TouchableOpacity style={styles.btn} onPress={fromGallery}>
+      {/* <View style={[styles.selectionBox, stylee.flexJS]}>
+        <TouchableOpacity style={[styles.btn, stylee.alignJC]} onPress={fromGallery}>
           <Text style={styles.text}>Upload Photo</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.btn} onPress={fromCamera}>
@@ -73,8 +74,6 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: COLORS.primary,
     borderRadius: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   container: {
     alignItems: 'center',
@@ -88,8 +87,6 @@ const styles = StyleSheet.create({
     height: wp(25),
     backgroundColor: COLORS.primary,
     borderRadius: wp(25) / 2,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   nameText: {
     fontFamily: MontserratBold,
@@ -97,8 +94,6 @@ const styles = StyleSheet.create({
     color: COLORS.white,
   },
   selectionBox: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
     width: '60%',
     marginTop: hp(2),
   },

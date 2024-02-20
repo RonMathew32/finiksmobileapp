@@ -1,7 +1,7 @@
 import {StyleSheet, View} from 'react-native';
 import React, {useState, useCallback, useEffect, useMemo} from 'react';
 import {hp, wp} from '../theme/dimensions';
-import {CustomInput} from './ProfileForm';
+import CustomInput from './GlobalComponent/CustomInput';
 import useReduxStore from '../hooks/useReduxStore';
 
 const VoterProfileForm = React.memo(

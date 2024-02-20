@@ -5,6 +5,7 @@ import { hp, normalize, wp } from '../theme/dimensions';
 import { MontserratMedium } from '../theme/fonts';
 import TagSelectionModal from './Modals/TagSelectionModal';
 import { COLORS } from '../theme/colors';
+import stylee from '../constants/stylee';
 
 const VoterTags = ({ voterTags, campaignTags, customTags }) => {
   const [visible, setVisible] = useState(false);
@@ -14,7 +15,7 @@ const VoterTags = ({ voterTags, campaignTags, customTags }) => {
   );
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, stylee.alignR]}>
       <FlatList
         data={voterTags}
         renderItem={renderTag}
@@ -26,7 +27,7 @@ const VoterTags = ({ voterTags, campaignTags, customTags }) => {
           <Text style={styles.placeholderText}>Add Tags</Text>
         </View>
       )}
-      <TouchableOpacity onPress={() => setVisible(true)} style={styles.plusbox}>
+      <TouchableOpacity onPress={() => setVisible(true)} style={[styles.plusbox, stylee.alignJC]}>
         <Image source={plusicon} style={styles.plusicon} resizeMode="contain" />
       </TouchableOpacity>
       <TagSelectionModal
@@ -50,8 +51,6 @@ export default VoterTags;
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
-    alignItems: 'center',
     marginTop: hp(2.5),
   },
   addTagsPlaceholder: {
@@ -79,8 +78,6 @@ const styles = StyleSheet.create({
     borderRadius: wp(10),
     width: wp(7),
     height: wp(7),
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   plusicon: {
     width: wp(4.3),

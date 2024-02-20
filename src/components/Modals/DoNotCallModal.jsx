@@ -7,6 +7,7 @@ import AppButton from '../GlobalComponent/AppButton';
 import useReduxStore from '../../hooks/useReduxStore';
 import { toCamelCase } from '../../utils/FilterArray';
 import Icon from 'react-native-vector-icons/Entypo';
+import stylee from '../../constants/stylee';
 
 const DoNotCallModal = ({ isVisible, onClose, onSave, selected }) => {
   const { listId, currentVoter } = useReduxStore();
@@ -34,9 +35,9 @@ const DoNotCallModal = ({ isVisible, onClose, onSave, selected }) => {
     <TouchableOpacity
       key={index}
       onPress={() => setSelectInteraction(title)}
-      style={styles.radioButton}
+      style={[styles.radioButton, stylee.alignR]}
     >
-      <View style={styles.radioCircle}>
+      <View style={[styles.radioCircle, stylee.alignJC]}>
         {title === selectInteraction && <View style={styles.selectedRadioCircle} />}
       </View>
       <Text style={[styles.btnTxtStyle(COLORS.darkGray)]}>{title}</Text>
@@ -57,9 +58,9 @@ const DoNotCallModal = ({ isVisible, onClose, onSave, selected }) => {
 
   return (
     <Modal isVisible={isVisible}>
-      <View style={styles.modalContainer}>
+      <View style={[styles.modalContainer, stylee.alignJC]}>
         <View style={styles.content}>
-          <View style={styles.titleContainer}>
+          <View style={[styles.titleContainer, stylee.alignJSR]}>
             <Text></Text>
             <Text style={styles.title}>Record Interaction</Text>
             <TouchableOpacity onPress={onClose}>
@@ -69,10 +70,10 @@ const DoNotCallModal = ({ isVisible, onClose, onSave, selected }) => {
 
           <View style={styles.checkContent}>
             <Text style={styles.heading}>Are You Finished Calling This Voter?</Text>
-            <View style={styles.alignBtn}>
-              <AppButton style={styles.btnStyle(COLORS.orange)} title="Yes" />
+            <View style={stylee.alignJSR}>
+              <AppButton style={[styles.btnStyle(COLORS.orange), stylee.shadow]} title="Yes" />
               <AppButton
-                style={styles.btnStyle(COLORS.white)}
+                style={[styles.btnStyle(COLORS.white), stylee.shadow]}
                 textStyle={styles.btnTxtStyle(COLORS.darkGray)}
                 onPress={onClose}
                 title="No"
@@ -81,11 +82,11 @@ const DoNotCallModal = ({ isVisible, onClose, onSave, selected }) => {
             <Text style={[styles.heading, styles.subHeading]}>
               Please Record Your Interaction
             </Text>
-            <View style={styles.alignBtn}>
+            <View style={stylee.alignJSR}>
               <AppButton
-                style={styles.btnStyle(
+                style={[styles.btnStyle(
                   recordInteraction === 'Connected' ? COLORS.orange : COLORS.white
-                )}
+                ), stylee.shadow]}
                 textStyle={styles.btnRecTxtStyle(
                   recordInteraction === 'Connected' ? COLORS.white : COLORS.darkGray
                 )}
@@ -93,9 +94,9 @@ const DoNotCallModal = ({ isVisible, onClose, onSave, selected }) => {
                 onPress={() => setRecordInteraction('Connected')}
               />
               <AppButton
-                style={styles.btnStyle(
+                style={[styles.btnStyle(
                   recordInteraction === 'No Answer' ? COLORS.orange : COLORS.white
-                )}
+                ), stylee.shadow]}
                 textStyle={[
                   styles.btnTxtStyle(
                     recordInteraction === 'No Answer' ? COLORS.white : COLORS.darkGray
@@ -113,7 +114,7 @@ const DoNotCallModal = ({ isVisible, onClose, onSave, selected }) => {
               </View>
 
               <AppButton
-                style={[styles.btnStyle(COLORS.orange), styles.nextVoterBtn]}
+                style={[styles.btnStyle(COLORS.orange), stylee.shadow, styles.nextVoterBtn]}
                 textStyle={styles.btnRecTxtStyle}
                 title="Next Voter"
                 onPress={onPressNextVoter}
@@ -133,9 +134,6 @@ const styles = StyleSheet.create({
     paddingVertical: hp(2),
     borderTopRightRadius: 10,
     borderTopLeftRadius: 10,
-    alignItems: 'center',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
   },
   doNotCallContainer: { alignItems: 'center', marginVertical: hp(3)},
   nextVoterBtn: {
@@ -148,8 +146,6 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.powderblue,
   },
   radioButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
     width: wp(40),
     marginBottom: hp(1),
   },
@@ -159,8 +155,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderWidth: 2,
     borderColor: COLORS.powderblue,
-    alignItems: 'center',
-    justifyContent: 'center',
     marginRight: wp(3),
   },
   btnRecTxtStyle: (color) => ({
@@ -182,28 +176,13 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     borderColor: COLORS.lavendarWhite,
     borderWidth: 0.2,
-    shadowColor: 'rgba(0,0,0,0.5)',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.29,
-    shadowRadius: 4.65,
-    elevation: 5,
   }),
-  alignBtn: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
   heading: {
     color: COLORS.primary,
     textAlign: 'center',
   },
   modalContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   content: {
     backgroundColor: COLORS.white,

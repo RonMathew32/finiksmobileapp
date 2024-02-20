@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { COLORS } from '../theme/colors';
 import { hp, wp } from '../theme/dimensions';
+import stylee from '../constants/stylee';
 
 const ShowInAlign = ({ title, value = '', index }) => {
   const alignItemsStyle = useMemo(() => getAlignItemsStyle(index), [index]);
@@ -23,9 +24,7 @@ const voterInfoData = [
 
 const getAlignItemsStyle = index => {
   return {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    ...stylee.alignJSR,
     paddingTop: index === 1 ? hp(0) : hp(2),
     paddingBottom: hp(2),
     borderBottomColor: COLORS.lavendarWhite,
@@ -35,7 +34,7 @@ const getAlignItemsStyle = index => {
 
 const CanvassVoterInfo = ({ value }) => {
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, stylee.containerBG]}>
       {voterInfoData?.map((info, index) => (
         <ShowInAlign
         key={index}
@@ -61,8 +60,6 @@ const styles = StyleSheet.create({
     color: COLORS.black
   },
   container: {
-    flex: 1,
-    backgroundColor: COLORS.background,
     paddingBottom: hp(2),
   }
 });

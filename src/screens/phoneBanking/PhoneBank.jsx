@@ -8,6 +8,7 @@ import {Montserrat} from '../../theme/fonts';
 import CampaignCard from '../../components/CampaignCard';
 import routes from '../../constants/routes';
 import { COLORS } from '../../theme/colors';
+import stylee from '../../constants/stylee';
 
 const PhoneBank = ({navigation}) => {
 
@@ -16,10 +17,10 @@ const PhoneBank = ({navigation}) => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={stylee.container}>
       <HomeHeader />
       <ProfileView />
-      <View style={styles.ongingbox}>
+      <View style={[styles.ongingbox, stylee.alignSelf]}>
         <Text style={styles.ongoingtxt}>Phone Banking</Text>
       </View>
       <View style={styles.compaignBox}>
@@ -46,18 +47,12 @@ const PhoneBank = ({navigation}) => {
 export default PhoneBank;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: COLORS.white,
-  },
   ongingbox: {
     borderBottomWidth: 1,
-    alignSelf: 'center',
     paddingBottom: hp(1.5),
     marginTop: hp(9),
     borderBottomColor: COLORS.lavendarWhiteDim,
     width: '45%',
-    alignItems: 'center',
   },
   ongoingtxt: {
     fontFamily: Montserrat,

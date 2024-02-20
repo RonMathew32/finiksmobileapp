@@ -1,14 +1,11 @@
 import {
-  Image,
   StyleSheet,
   Text,
-  TextInput,
   TouchableOpacity,
   View,
 } from 'react-native';
 import React, {useState} from 'react';
 import ReactNativeModal from 'react-native-modal';
-import {crossicon} from '../../theme/images';
 import {
   hp,
   wp,
@@ -18,6 +15,7 @@ import {  Montserrat,
   MontserratBold } from '../../theme/fonts';
 import InputText from '../GlobalComponent/InputText';
 import { COLORS } from '../../theme/colors';
+import stylee from '../../constants/stylee';
 
 const AddToTeamModal = ({visible, setVisible}) => {
   const [email, setEmail] = useState('');
@@ -28,7 +26,7 @@ const AddToTeamModal = ({visible, setVisible}) => {
       onBackdropPress={() => setVisible(false)}>
       <View style={styles.container}>
         <View style={styles.headerbox}>
-          <View style={styles.header}>
+          <View style={[styles.header, stylee.alignJSR]}>
             <TouchableOpacity onPress={() => setVisible(false)}>
               <Text style={styles.btntxt}>Cancel</Text>
             </TouchableOpacity>
@@ -69,9 +67,6 @@ const styles = StyleSheet.create({
   },
   headerbox: {overflow: 'hidden', paddingBottom: 4},
   header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
     paddingHorizontal: wp(4),
     backgroundColor: COLORS.white,
     paddingVertical: hp(2),

@@ -6,6 +6,7 @@ import {COLORS} from '../../theme/colors';
 import VoterHeader from '../Headers/VoterHeader';
 import {Montserrat} from '../../theme/fonts';
 import HomeIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+import stylee from '../../constants/stylee';
 
 const MapSettingModal = ({visible, setVisible}) => {
   const options = useMemo(
@@ -20,11 +21,12 @@ const MapSettingModal = ({visible, setVisible}) => {
   const renderOption = useMemo(
     () =>
       options.map(item => (
-        <View key={item?._id} style={styles.align}>
+        <View key={item?._id} style={[styles.align, stylee.alignJSR]}>
           <Text style={styles.optionTxt}>{item?.name}</Text>
           <View
             style={[
               styles.dot,
+              stylee.shadowWithOpactiy,
               item?.status && {
                 backgroundColor: COLORS.green,
               },
@@ -37,7 +39,7 @@ const MapSettingModal = ({visible, setVisible}) => {
   const renderStatus = name => {
     return (
       <View
-        style={[styles.alignFlex, name == 'Completed' ? styles.status : {}]}>
+        style={[styles.alignFlex, stylee.alignR,  name == 'Completed' ? styles.status : {}]}>
         <HomeIcon
           name="home"
           color={name == 'Completed' ? COLORS.darkGray : COLORS.primary}
@@ -82,15 +84,10 @@ const styles = StyleSheet.create({
     fontSize: normalize(14),
   },
   alignFlex: {
-    alignItems: 'center',
-    flexDirection: 'row',
     marginHorizontal: wp(5),
     marginBottom: hp(2),
   },
   align: {
-    justifyContent: 'space-between',
-    flexDirection: 'row',
-    alignItems: 'center',
     paddingVertical: hp(1.5),
     marginHorizontal: wp(5),
     borderBottomColor: COLORS.lavendarWhite,
@@ -103,14 +100,6 @@ const styles = StyleSheet.create({
     width: wp(3),
     height: wp(3),
     borderRadius: wp(3) / 2,
-    shadowColor: 'rgba(0,0,0,0.5)',
-    shadowOffset: {
-      width: 1,
-      height: 1,
-    },
-    shadowOpacity: 0.29,
-    shadowRadius: 4.65,
-    elevation: 5,
     backgroundColor: COLORS.lavendarWhiteDim,
   },
   headerSideTxt: {fontSize: normalize(14)},

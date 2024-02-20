@@ -14,6 +14,7 @@ import {logo} from '../../theme/images';
 import {useRoute} from '@react-navigation/native';
 import {COLORS} from '../../theme/colors';
 import KeyboardAvoidingViewWrapper from '../../components/GlobalComponent/KeyboardAvoidingViewWrapper';
+import stylee from '../../constants/stylee';
 
 const UpdateVoterInfo = () => {
   const {params} = useRoute();
@@ -65,7 +66,7 @@ const UpdateVoterInfo = () => {
   return loading ? (
     <LoadingScreen />
   ) : (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={stylee.container}>
       <VoterHeader
         title={headerTitle}
         rightTitle="Save"
@@ -89,10 +90,6 @@ const UpdateVoterInfo = () => {
 export default UpdateVoterInfo;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: COLORS.white,
-  },
   logo: {
     width: wp(19),
     height: hp(6),

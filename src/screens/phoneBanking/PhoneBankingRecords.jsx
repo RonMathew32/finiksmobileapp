@@ -21,6 +21,7 @@ import routes from '../../constants/routes';
 import {setScriptId} from '../../redux/actions/voters.actions';
 import LoadingScreen from '../../components/GlobalComponent/LoadingScreen';
 import { COLORS } from '../../theme/colors';
+import stylee from '../../constants/stylee';
 
 const PhoneBankingRecords = ({navigation}) => {
   const {
@@ -69,9 +70,9 @@ const PhoneBankingRecords = ({navigation}) => {
     [dispatch, navigation, routes?.VoterCheck]);
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={stylee.container}>
       <HomeHeader />
-      <View style={styles.ongingbox}>
+      <View style={[styles.ongingbox, stylee.alignSelf]}>
         <Text style={styles.ongoingtxt}>Phone Bank</Text>
       </View>
       {loading ? (
@@ -95,18 +96,12 @@ const PhoneBankingRecords = ({navigation}) => {
 export default PhoneBankingRecords;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: COLORS.white,
-  },
   ongingbox: {
     borderBottomWidth: 1,
-    alignSelf: 'center',
     paddingBottom: hp(1.5),
     marginTop: hp(9),
     borderBottomColor: COLORS.lavendarWhiteDim,
     width: '45%',
-    alignItems: 'center',
   },
   ongoingtxt: {
     fontFamily: Montserrat,

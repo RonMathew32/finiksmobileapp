@@ -4,10 +4,11 @@ import ElectionCard from '../../components/ElectionCard';
 import {hp} from '../../theme/dimensions';
 import HomeHeader from '../../components/Headers/HomeHeader';
 import { COLORS } from '../../theme/colors';
+import stylee from '../../constants/stylee';
 
 const Home = () => {
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={stylee.container}>
       <HomeHeader />
       <FlatList
         data={Array.from({length: 5})}
@@ -23,10 +24,6 @@ const Home = () => {
 export default Home;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: COLORS.white,
-  },
   flatlist: {
     paddingTop: hp(3),
   },

@@ -5,6 +5,7 @@ import CampaignHeader from '../../components/Headers/CampaignHeader';
 import {normalize, wp} from '../../theme/dimensions';
 import ProfileView from '../../components/ProfileView';
 import routes from '../../constants/routes';
+import stylee from '../../constants/stylee';
 
 const List = ({navigation}) => {
   const districtList = [
@@ -28,7 +29,7 @@ const List = ({navigation}) => {
   const onPressToNavigate = ()=> navigation.navigate(routes?.CanvassMap)
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={stylee.container}>
       <CampaignHeader
         enableBackButton={true}
         title="District 1 Canvassing 55+"
@@ -53,8 +54,4 @@ export default List;
 const styles = StyleSheet.create({
   txt: {fontSize: normalize(16), width: wp(60)},
   title: {fontSize: normalize(12)},
-  container: {
-    flex: 1,
-    backgroundColor: COLORS.white,
-  },
 });

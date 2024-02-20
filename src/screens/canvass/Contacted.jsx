@@ -5,6 +5,7 @@ import VoterHeader from '../../components/Headers/VoterHeader';
 import { hp, wp } from '../../theme/dimensions';
 import CampaignCard from '../../components/CampaignCard';
 import AppButton from '../../components/GlobalComponent/AppButton';
+import stylee from '../../constants/stylee';
 
 const contactedData = [
   { id: 1, title: 'In Person', desc: 'Spoke with (Insert Name) in person' },
@@ -17,7 +18,7 @@ const contactedData = [
 
 const Contacted = () => {
   return (
-    <View style={styles.container}>
+    <View style={stylee.container}>
       <VoterHeader leftTitle="Cancel" rightTitle="Save" title="Contact Page" />
       <View style={styles.context}>
         <Text style={styles.heading}>How Did You Contact (Insert Name Here)</Text>
@@ -40,10 +41,6 @@ const Contacted = () => {
 export default Contacted;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: COLORS.white,
-  },
   context: {
     padding: wp(5),
   },

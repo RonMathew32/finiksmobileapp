@@ -3,8 +3,9 @@ import {View, Text, StyleSheet} from 'react-native';
 import Modal from 'react-native-modal';
 import {COLORS} from '../../theme/colors';
 import {hp, normalize, wp} from '../../theme/dimensions';
-import {CustomInput} from '../ProfileForm';
+import CustomInput from '../GlobalComponent/CustomInput';
 import AppButton from '../GlobalComponent/AppButton';
+import stylee from '../../constants/stylee';
 
 const UpdatePassword = ({
   isVisible,
@@ -40,8 +41,6 @@ const UpdatePassword = ({
           borderRadius: 5,
         },
         buttonContainer: {
-          flexDirection: 'row',
-          justifyContent: 'space-between',
           marginBottom: hp(3),
         },
         innerContent: {
@@ -60,8 +59,6 @@ const UpdatePassword = ({
         },
         modalContainer: {
           flex: 1,
-          justifyContent: 'center',
-          alignItems: 'center',
         },
         content: {
           backgroundColor: COLORS.white,
@@ -79,7 +76,7 @@ const UpdatePassword = ({
 
   return (
     <Modal isVisible={isVisible}>
-      <View style={styles.modalContainer}>
+      <View style={[styles.modalContainer, stylee.alignJC]}>
         <View style={styles.content}>
           <View style={styles.titleContainer}>
             <Text style={styles.title}>Update Password</Text>
@@ -101,7 +98,7 @@ const UpdatePassword = ({
               setValue={val => onChangeValue('newPassword', val)}
             />
             {errorMsg ? <Text style={styles.errorTxt}>{errorMsg}</Text> : null}
-            <View style={styles.buttonContainer}>
+            <View style={[styles.buttonContainer, stylee.flexJS]}>
               <AppButton
                 title="Cancel"
                 onPress={onClose}

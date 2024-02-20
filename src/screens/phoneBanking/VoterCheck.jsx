@@ -35,6 +35,7 @@ import {
   setSurveyList,
   setVotersTag,
 } from '../../redux/actions/voters.actions';
+import stylee from '../../constants/stylee';
 
 const VoterCheck = ({route, navigation}) => {
   const item = route.params?.item ?? null;
@@ -251,7 +252,7 @@ const VoterCheck = ({route, navigation}) => {
   return !currentVoter?._id || loading ? (
     <LoadingScreen />
   ) : (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={stylee.container}>
       <VoterHeader title={headerTitle} leftTitle="Done" />
       <VoterActions currentVoter={currentVoter} navigation={navigation} />
       {selected === 'survey' ? (
@@ -309,10 +310,6 @@ const VoterCheck = ({route, navigation}) => {
 export default VoterCheck;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: COLORS.white,
-  },
   voterinfo: {
     marginHorizontal: wp(4),
   },

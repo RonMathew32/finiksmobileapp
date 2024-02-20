@@ -22,6 +22,7 @@ import AddToTeamModal from './Modals/AddToTeamModal';
 import routes from '../constants/routes';
 import { COLORS } from '../theme/colors';
 import { makePhoneCall } from '../utils/CommunicationUtils';
+import stylee from '../constants/stylee';
 
 const VoterActions = ({navigation, currentVoter, canvass = false}) => {
   const [messageModal, setMessageModal] = useState(false);
@@ -49,8 +50,8 @@ const VoterActions = ({navigation, currentVoter, canvass = false}) => {
 
   return (
     <View style={{overflow: 'hidden', paddingBottom: 4}}>
-      <View style={styles.shadow}>
-        <View style={styles.bottomHeader}>
+      <View style={[styles.shadowColor, stylee.shadow]}>
+        <View style={[styles.bottomHeader, stylee.alignJSR]}>
           <Card
             icon={messageicon}
             name="Message"
@@ -101,7 +102,7 @@ const VoterActions = ({navigation, currentVoter, canvass = false}) => {
 
 const Card = ({icon, name, onPress, iconstyle, valueExist}) => {
   return (
-    <TouchableOpacity disabled={valueExist? false : true} style={styles.card} onPress={onPress}>
+    <TouchableOpacity disabled={valueExist? false : true} style={stylee.alignJC} onPress={onPress}>
       <Image
         source={icon}
         style={[iconstyle, styles.images(valueExist)]}
@@ -115,35 +116,16 @@ const Card = ({icon, name, onPress, iconstyle, valueExist}) => {
 export default VoterActions;
 
 const styles = StyleSheet.create({
-  shadow: {
+  shadowColor: {
     backgroundColor: COLORS.white,
-    shadowColor: COLORS.darkGray,
-    shadowOffset: { width: 1, height: 1 },
-    shadowOpacity: 0.4,
-    shadowRadius: 3,
-    elevation: 5,
-  },
-  container: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingHorizontal: wp(5),
-    height: hp(6),
   },
   icon: {
     ...imageStyle(wp(7), wp(7), COLORS.primary),
   },
   bottomHeader: {
-    flexDirection: 'row',
-    alignItems: 'flex-end',
-    justifyContent: 'space-between',
     marginHorizontal: wp(5),
     marginTop: hp(1),
     marginBottom: hp(1.6),
-  },
-  card: {
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   images: (isValue) => ({
     ...imageStyle(wp(7), wp(7), isValue ? COLORS.primary : COLORS.lavendarWhite),

@@ -13,6 +13,7 @@ import { COLORS } from '../theme/colors';
 import FilterModal from './Modals/FilterModal';
 import { sortByKey } from '../utils/FilterArray';
 import {filterbtn} from '../theme/images';
+import stylee from '../constants/stylee';
 
 const TotalVotersInfo = ({ navigation, data, setData, totalVotersData }) => {
   const [isFilterModalVisible, setFilterModalVisible] = useState(false);
@@ -35,7 +36,7 @@ const TotalVotersInfo = ({ navigation, data, setData, totalVotersData }) => {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, stylee.alignJSR]}>
       {isFilterModalVisible && (
         <FilterModal
           isVisible={isFilterModalVisible}
@@ -44,7 +45,7 @@ const TotalVotersInfo = ({ navigation, data, setData, totalVotersData }) => {
           active={activeFilter}
         />
       )}
-      <TouchableOpacity onPress={() => navigation.goBack()} style={styles.leftView}>
+      <TouchableOpacity onPress={() => navigation.goBack()} style={stylee.flexR}>
         <Icon
           name="arrow-back-ios"
           color={COLORS.primary}
@@ -56,9 +57,9 @@ const TotalVotersInfo = ({ navigation, data, setData, totalVotersData }) => {
           <Text style={styles.numOfVoterText}>3 Voters found</Text>
         </View>
       </TouchableOpacity>
-      <TouchableOpacity onPress={toggleFilterModal} style={styles.rightView}>
+      <TouchableOpacity onPress={toggleFilterModal} style={stylee.alignR}>
         <Text style={styles.filterText}>Filter</Text>
-        <View style={styles.filterView}>
+        <View style={[styles.filterView, stylee.alignJC]}>
           <Image
             source={filterbtn}
             style={styles.filterBtn}
@@ -75,16 +76,10 @@ const styles = StyleSheet.create({
     padding: 5,
   },
   container: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
     padding: wp(4),
     borderBottomWidth: 1,
     borderBottomColor: COLORS.lavendarWhiteDim,
     backgroundColor: COLORS.background
-  },
-  leftView: {
-    flexDirection: 'row',
   },
   detailView: {},
   chevBack: {
@@ -104,10 +99,6 @@ const styles = StyleSheet.create({
     fontSize: normalize(12),
     color: COLORS.darkGray,
   },
-  rightView: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
   filterText: {
     fontFamily: MontserratBold,
     fontSize: normalize(16),
@@ -119,8 +110,6 @@ const styles = StyleSheet.create({
     height: wp(6),
     borderRadius: wp(6) / 2,
     backgroundColor: COLORS.primary,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   filterBtn: {
     width: wp(3.5),

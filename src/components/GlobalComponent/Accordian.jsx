@@ -11,6 +11,7 @@ import {
 import { COLORS } from '../../theme/colors';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { hp, normalize, wp } from '../../theme/dimensions';
+import stylee from '../../constants/stylee';
 
 const Accordion = ({ title, children }) => {
   const [expanded, setExpanded] = useState(false);
@@ -28,7 +29,7 @@ const Accordion = ({ title, children }) => {
 
   return (
     <View>
-      <Pressable style={styles.row} onPress={toggleExpand}>
+      <Pressable style={[stylee.alignJSR, styles.row]} onPress={toggleExpand}>
         <Text style={styles.title}>{title}</Text>
         <Icon
           name={expanded ? 'keyboard-arrow-up' : 'keyboard-arrow-down'}
@@ -49,11 +50,8 @@ const styles = StyleSheet.create({
     color: COLORS.primary,
   },
   row: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
     height: hp(10),
     paddingHorizontal: wp(5),
-    alignItems: 'center',
     backgroundColor: COLORS.background,
   },
   parentHr: {

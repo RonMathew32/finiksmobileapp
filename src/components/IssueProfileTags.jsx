@@ -3,6 +3,7 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { COLORS } from '../theme/colors';
 import { hp, normalize, wp } from '../theme/dimensions';
 import { MontserratMedium } from '../theme/fonts';
+import stylee from '../constants/stylee';
 
 const IssueProfileTags = () => {
   const dummyData = [
@@ -15,7 +16,7 @@ const IssueProfileTags = () => {
   ];
 
   const renderPair = (item1, item2) => (
-    <View style={styles.pairContainer} key={item1.id + '_' + item2.id}>
+    <View style={[stylee.flexJS, styles.pairContainer]} key={item1.id + '_' + item2.id}>
       {renderItem(item1)}
       {renderItem(item2)}
     </View>
@@ -36,19 +37,13 @@ const IssueProfileTags = () => {
     pairs.push(renderPair(item1, item2));
   }
 
-  return <View style={styles.container}>{pairs}</View>;
+  return <View style={stylee.flexCJStart}>{pairs}</View>;
 };
 
 export default IssueProfileTags;
 
 const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
-  },
   pairContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
     marginVertical: 5,
   },
   card: {

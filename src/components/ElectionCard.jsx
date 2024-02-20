@@ -7,6 +7,7 @@ import {
   MontserratSemiBold,
 } from '../theme/fonts';
 import { COLORS } from '../theme/colors';
+import stylee from '../constants/stylee';
 
 const ElectionCard = () => {
   return (
@@ -20,12 +21,12 @@ const ElectionCard = () => {
         <Text style={styles.cardHeading}>Election: 4/25/2021</Text>
         <Text style={styles.cardDescText}>Early voting begins in 64 days</Text>
       </View>
-      <View style={styles.bottomBox}>
-        <View style={styles.button}>
+      <View style={[styles.bottomBox, stylee.alignJSR]}>
+        <View style={[styles.button, stylee.alignJC, stylee.container]}>
           <Text style={styles.title}>Days Until Election</Text>
           <Text style={styles.subtitle}>142</Text>
         </View>
-        <View style={[styles.button, styles.whiteButton]}>
+        <View style={[styles.button, stylee.container, stylee.alignJC, styles.whiteButton]}>
           <Text style={styles.whiteTitle}>Voters Contacted</Text>
           <Text style={styles.whiteSubtitle}>214</Text>
         </View>
@@ -75,20 +76,14 @@ const styles = StyleSheet.create({
     marginTop: hp(1),
   },
   bottomBox: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
     columnGap: wp(3),
     marginBottom: hp(1.7),
     marginHorizontal: wp(3),
   },
   button: {
-    flex: 1,
     paddingTop: hp(1.5),
     paddingBottom: hp(2),
-    alignItems: 'center',
-    justifyContent: 'center',
     borderRadius: wp(1.5),
-    backgroundColor: COLORS.white,
     shadowColor: COLORS.black,
     shadowOffset: {
       width: 0,

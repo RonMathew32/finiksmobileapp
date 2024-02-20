@@ -25,6 +25,7 @@ import {
 } from '../../redux/actions/campaings.actions';
 import LoadingScreen from '../../components/GlobalComponent/LoadingScreen';
 import {useRoute} from '@react-navigation/native';
+import stylee from '../../constants/stylee';
 
 const CampaignSelection = ({navigation}) => {
   const {params} = useRoute();
@@ -95,7 +96,7 @@ const CampaignSelection = ({navigation}) => {
         <Text style={styles.joinText}>Join A New Campaign</Text>
         <TouchableOpacity
           onPress={onPressJoinNewCampaign}
-          style={styles.plusBox}>
+          style={[styles.plusBox, stylee.alignJC]}>
           <Image
             style={styles.plusIcon}
             source={plusicon}
@@ -142,8 +143,6 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.primary,
     height: wp(10),
     width: wp(10),
-    alignItems: 'center',
-    justifyContent: 'center',
     borderRadius: wp(10) / 2,
     marginTop: hp(4),
   },

@@ -24,6 +24,7 @@ import AppButton from '../../components/GlobalComponent/AppButton';
 import {STRINGS} from '../../constants/strings';
 import { getJoinCampaign, getJoinedCampaign, setJoinedCampaign } from '../../redux/actions/campaings.actions';
 import routes from '../../constants/routes';
+import stylee from '../../constants/stylee';
 
 const OtpVerify = ({route, navigation}) => {
   const {dispatch, loading, setLoading, token, user} = useReduxStore();
@@ -91,14 +92,14 @@ const OtpVerify = ({route, navigation}) => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={stylee.containerAuth}>
       <StatusBar barStyle="light-content" />
       <TouchableOpacity
         onPress={() => navigation.canGoBack() && navigation.goBack()}
         style={styles.backiconbox}>
         <Image source={chevronleft} style={styles.backicon} />
       </TouchableOpacity>
-      <ImageBackground source={loginback} style={styles.backimg}>
+      <ImageBackground source={loginback} style={[styles.backimg, stylee.alignJC]}>
         <Image source={logo} style={styles.logo} resizeMode="contain" />
       </ImageBackground>
       <View style={styles.inputmainbox}>
@@ -114,7 +115,7 @@ const OtpVerify = ({route, navigation}) => {
           multiline={false}
           maxLength={6}
           onChangeText={val => onChangeValue('code', val)}
-          containerStyle={styles.containerStyle}
+          containerStyle={[styles.containerStyle, stylee.alignJC]}
           inputTextStyle={styles.textinputstyle}
           type={true}
         />
@@ -123,7 +124,7 @@ const OtpVerify = ({route, navigation}) => {
             title={STRINGS.TEXT_RESEND}
             loading={resendOTPLoader}
             onPress={resendOTPRequest}
-            style={styles.resendOTP}
+            style={[styles.resendOTP, stylee.alignSelfEndJC]}
           />
         ) : null}
 
@@ -145,15 +146,8 @@ const styles = StyleSheet.create({
     height: hp(4),
     width: '25%',
     backgroundColor: COLORS.primary,
-    alignSelf: 'flex-end',
     borderRadius: wp(3),
-    alignItems: 'center',
-    justifyContent: 'center',
     marginTop: 0,
-  },
-  container: {
-    flex: 1,
-    backgroundColor: '#1A1A1A',
   },
   backiconbox: {
     marginLeft: wp(5),
@@ -168,8 +162,6 @@ const styles = StyleSheet.create({
   backimg: {
     width: '100%',
     height: hp(30),
-    alignItems: 'center',
-    justifyContent: 'center',
     // marginTop: hp(7),
   },
   logo: {
@@ -193,8 +185,6 @@ const styles = StyleSheet.create({
     height: hp(6.3),
     marginBottom: hp(2),
     flex: 0,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   textinputstyle: {
     flex: 0,

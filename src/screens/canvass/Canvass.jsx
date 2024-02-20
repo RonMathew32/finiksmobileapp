@@ -4,9 +4,10 @@ import {COLORS} from '../../theme/colors';
 import HomeHeader from '../../components/Headers/HomeHeader';
 import {hp, normalize, wp} from '../../theme/dimensions';
 import {MontserratExtraBold} from '../../theme/fonts';
-import {CustomInput} from '../../components/ProfileForm';
+import CustomInput from '../../components/GlobalComponent/CustomInput';
 import Icon from 'react-native-vector-icons/Ionicons';
 import routes from '../../constants/routes';
+import stylee from '../../constants/stylee';
 
 const Canvass = ({navigation}) => {
   const [data, setData] = useState({
@@ -32,7 +33,7 @@ const Canvass = ({navigation}) => {
   }  
   
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={stylee.container}>
       <HomeHeader canvass={true} onPressAddVoter={onPressAddVoter}/>
       <View style={styles.layout}>
         <Text style={styles.heading(COLORS.primary)}>Search</Text>
@@ -103,9 +104,5 @@ const styles = StyleSheet.create({
   },
   layout: {
     paddingHorizontal: wp(4),
-  },
-  container: {
-    flex: 1,
-    backgroundColor: COLORS.white,
   },
 });

@@ -3,9 +3,10 @@ import {ActivityIndicator, FlatList, StyleSheet, Text, TouchableOpacity, View} f
 import {hp, normalize, wp} from '../theme/dimensions';
 import {MontserratBold} from '../theme/fonts';
 import {COLORS} from '../theme/colors';
+import stylee from '../constants/stylee';
 
 const ButtonItem = ({item, onPress, selected}) => (
-  <TouchableOpacity onPress={onPress} style={styles.btn(selected)}>
+  <TouchableOpacity onPress={onPress} style={[styles.btn(selected), stylee.alignJC]}>
     <Text style={styles.name(selected)}>{item?.name}</Text>
   </TouchableOpacity>
 );
@@ -34,7 +35,7 @@ const SelectionButton = ({
         contentContainerStyle={{marginTop: 10}}
         numColumns={2}
       />
-      <TouchableOpacity onPress={onNextPress} style={styles.btn2}>
+      <TouchableOpacity onPress={onNextPress} style={[stylee.alignJC, styles.btn2]}>
         {nextVoterLoader ? (
           <ActivityIndicator color={COLORS.white} size='small' />
         ) : (
@@ -46,18 +47,9 @@ const SelectionButton = ({
 };
 
 const styles = StyleSheet.create({
-  btnsbox: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    columnGap: wp(2),
-    rowGap: wp(2),
-    marginTop: hp(2),
-  },
   btn: selected => {
     return {
       width: wp(44.7),
-      alignItems: 'center',
-      justifyContent: 'center',
       borderRadius: wp(1),
       backgroundColor: selected ? COLORS.orange : COLORS.lavendarWhiteDim,
       margin: 3,
@@ -73,8 +65,6 @@ const styles = StyleSheet.create({
   },
   btn2: {
     backgroundColor: COLORS.orange,
-    alignItems: 'center',
-    justifyContent: 'center',
     borderRadius: wp(1),
     marginTop: hp(2),
   },

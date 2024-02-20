@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import Modal from 'react-native-modal';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { COLORS } from '../../theme/colors';
+import stylee from '../../constants/stylee';
 
 const filterOptions = [
   { icon: 'sort-amount-desc', text: 'Relevance' },
@@ -34,7 +35,7 @@ const FilterModal = ({ isVisible, onClose, onOptionPress, active }) => {
           <TouchableOpacity
             key={index}
             onPress={() => onOptionPress(index)}
-            style={styles.option}>
+            style={[styles.option, stylee.alignJSR]}>
             <Icon
               name={option.icon}
               size={20}
@@ -83,9 +84,6 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   option: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
     marginBottom: 10,
   },
 });

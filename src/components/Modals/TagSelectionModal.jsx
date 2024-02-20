@@ -6,6 +6,7 @@ import {MontserratMedium, MontserratSemiBold} from '../../theme/fonts';
 import {COLORS} from '../../theme/colors';
 import {setVotersTag} from '../../redux/actions/voters.actions';
 import useReduxStore from '../../hooks/useReduxStore';
+import stylee from '../../constants/stylee';
 
 const TagSelectionModal = ({
   visible,
@@ -47,7 +48,7 @@ const TagSelectionModal = ({
       style={styles.modalStyle}
       onBackdropPress={() => setVisible(false)}>
       <View style={styles.container}>
-        <View style={styles.header}>
+        <View style={[styles.header, stylee.alignJSR]}>
           <TouchableOpacity onPress={() => setVisible(false)}>
             <Text style={styles.btntxt}>Cancel</Text>
           </TouchableOpacity>
@@ -93,9 +94,9 @@ const TagSelectionModal = ({
           renderItem={({item, index}) => (
             <TouchableOpacity
               onPress={() => onPressToSetTags(item)}
-              style={styles.tagbox}>
+              style={[styles.tagbox, stylee.flexJS]}>
               <Text style={styles.tagtxt}>{item.tagName}</Text>
-              <View style={styles.dot(selectTags, item)}></View>
+              <View style={[styles.dot(selectTags, item), stylee.shadow]}></View>
             </TouchableOpacity>
           )}
         />
@@ -120,9 +121,6 @@ const styles = StyleSheet.create({
     borderWidth: 0.2,
   },
   header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
     paddingHorizontal: wp(4),
     backgroundColor: COLORS.white,
     paddingBottom: hp(2),
@@ -166,8 +164,6 @@ const styles = StyleSheet.create({
     marginVertical: hp(2),
   },
   tagbox: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
     marginHorizontal: wp(4),
     borderBottomWidth: 1,
     borderBottomColor: COLORS.lavendarWhiteDim,
@@ -190,13 +186,6 @@ const styles = StyleSheet.create({
       backgroundColor: voterTags?.some(obj => obj?.tagName == item?.tagName)
         ? COLORS.green
         : COLORS.lavendarWhite,
-      shadowOffset: {
-        width: 1,
-        height: 1,
-      },
-      shadowOpacity: 0.29,
-      shadowRadius: 4.65,
-      elevation: 5,
     };
   },
 });

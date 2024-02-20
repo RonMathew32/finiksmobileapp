@@ -16,6 +16,7 @@ const lightColors = {
     lavendarWhiteDim: '#D9D9D9',
     lavendarWhiteDark: '#A6A6A6',
     hardCodeWhite: '#FFFFFF',
+    hardLavendarWhiteDim: '#1A1A1A',
   };
 
   const darkColors = {
@@ -33,6 +34,7 @@ const lightColors = {
     lavendarWhiteDim: '#1A1A1A',
     lavendarWhiteDark: '#A6A6A6',
     hardCodeWhite: '#FFFFFF',
+    hardLavendarWhiteDim: '#1A1A1A',
   };
 
 const colorScheme = Appearance.getColorScheme();

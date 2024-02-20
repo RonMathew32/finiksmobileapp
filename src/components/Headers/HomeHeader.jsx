@@ -13,6 +13,7 @@ import useReduxStore from '../../hooks/useReduxStore';
 import { useNavigation } from '@react-navigation/native';
 import routes from '../../constants/routes';
 import { COLORS } from '../../theme/colors';
+import stylee from '../../constants/stylee';
 
 const HomeHeader = ({canvass, onPressAddVoter}) => {
   const {currentCampaign} = useReduxStore();
@@ -21,7 +22,7 @@ const HomeHeader = ({canvass, onPressAddVoter}) => {
 
   return (
     <View style={{overflow: 'hidden', paddingBottom: 4}}>
-      <View style={styles.container}>
+      <View style={[styles.container, stylee.alignJSR, stylee.shadow]}>
         {canvass ? (
           <TouchableOpacity onPress={onPressAddVoter}>
           <Image
@@ -31,7 +32,7 @@ const HomeHeader = ({canvass, onPressAddVoter}) => {
           />
           </TouchableOpacity>
         ) : (
-          <View style={styles.leftbox}>
+          <View style={[styles.leftbox, stylee.alignR]}>
             <Image
               source={calendericon}
               style={styles.icon}
@@ -45,7 +46,7 @@ const HomeHeader = ({canvass, onPressAddVoter}) => {
           </View>
         )}
 
-        <TouchableOpacity onPress={onPressOnCampaign} style={styles.rightbox}>
+        <TouchableOpacity onPress={onPressOnCampaign} style={[styles.rightbox, stylee.alignR]}>
           <Image
             source={chevrondown}
             style={styles.chevron}
@@ -67,21 +68,10 @@ export default HomeHeader;
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
     backgroundColor: COLORS.background,
     paddingVertical: hp(1.6),
-
-    shadowColor: COLORS.darkGray,
-    shadowOffset: {width: 1, height: 1},
-    shadowOpacity: 0.4,
-    shadowRadius: 3,
-    elevation: 5,
   },
   leftbox: {
-    flexDirection: 'row',
-    alignItems: 'center',
     marginLeft: wp(5),
   },
   icon: {
@@ -96,8 +86,6 @@ const styles = StyleSheet.create({
     marginLeft: wp(2),
   },
   rightbox: {
-    flexDirection: 'row',
-    alignItems: 'center',
     marginRight: wp(5),
   },
   chevron: {

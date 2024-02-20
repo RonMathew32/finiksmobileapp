@@ -8,6 +8,7 @@ import {
 } from '../theme/fonts';
 import {partyCodes} from '../constants/partyCodes';
 import {COLORS} from '../theme/colors';
+import stylee from '../constants/stylee';
 
 const VoterInfo = ({currentVoter, canvass = false}) => {
   const {FIRSTNAME, LASTNAME, ADDRESS, SEX, AGE, PARTY_CODE, CITY, STATE} =
@@ -22,7 +23,7 @@ const VoterInfo = ({currentVoter, canvass = false}) => {
   );
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, stylee.alignJSR]}>
       {address || SEX || AGE || PARTY_CODE ? (
         <View>
           {canvass ? null : renderInfo('Name', name, canvass)}
@@ -35,7 +36,7 @@ const VoterInfo = ({currentVoter, canvass = false}) => {
         </View>
       ) : null}
       {canvass ? null : (
-        <View style={styles.imageBack}>
+        <View style={[styles.imageBack, stylee.alignJC]}>
           <Text style={styles.nameText}>{getInitials(name)}</Text>
         </View>
       )}
@@ -67,16 +68,12 @@ const getInitials = name =>
 const styles = StyleSheet.create({
   container: {
     marginTop: hp(2.5),
-    flexDirection: 'row',
-    justifyContent: 'space-between',
   },
   imageBack: {
     width: wp(18),
     height: wp(18),
     backgroundColor: COLORS.orange,
     borderRadius: wp(18) / 2,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   nameText: {
     fontFamily: MontserratExtraBold,

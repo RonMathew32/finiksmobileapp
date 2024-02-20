@@ -14,6 +14,7 @@ import IssueProfileTags from '../../components/IssueProfileTags';
 import VoterProfileForm from '../../components/VoterProfileForm';
 import CanvassVoterInfo from '../../components/CanvassVoterInfo';
 import AppButton from '../../components/GlobalComponent/AppButton';
+import stylee from '../../constants/stylee';
 
 const VoterDetails = ({ navigation }) => {
   const { currentVoter, votersTag, campaignTags, customTags } = useReduxStore();
@@ -31,7 +32,7 @@ const VoterDetails = ({ navigation }) => {
   ), [campaignTags, customTags, votersTag]);
 
   return (
-    <View style={styles.container}>
+    <View style={stylee.container}>
       <VoterHeader
         title="Test"
         onPressLeft={() => console.log('Left')}
@@ -77,10 +78,6 @@ export default VoterDetails;
 const styles = StyleSheet.create({
   scrollView: {
     flex: 1,
-  },
-  container: {
-    flex: 1,
-    backgroundColor: COLORS.white,
   },
   lastcontact: {
     fontFamily: MontserratBold,

@@ -1,17 +1,22 @@
-import React from 'react';
+import React, { useMemo, useCallback } from 'react';
 import { ActivityIndicator, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { hp, normalize, wp } from '../../theme/dimensions';
 import { COLORS } from '../../theme/colors';
+import stylee from '../../constants/stylee';
 
 const AppButton = ({ loading, onPress, loaderSize = 'small', loaderColor = COLORS.hardCodeWhite, title = '', style, textStyle }) => {
-  const buttonContent = loading ? (
-    <ActivityIndicator size={loaderSize} color={loaderColor} />
-  ) : (
-    <Text style={[styles.buttontxt, textStyle]}>{title}</Text>
-  );
+  const buttonContent = useMemo(() => (
+    loading ? <ActivityIndicator size={loaderSize} color={loaderColor} /> : <Text style={[styles.buttontxt, textStyle]}>{title}</Text>
+  ), [loading, loaderSize, loaderColor, title, textStyle]);
+
+  const handlePress = useCallback(() => {
+    if (!loading) {
+      onPress();
+    }
+  }, [loading, onPress]);
 
   return (
-    <TouchableOpacity disabled={loading} onPress={onPress} style={[styles.button, style]}>
+    <TouchableOpacity disabled={loading} onPress={handlePress} style={[styles.button, stylee.alignJC, style]}>
       {buttonContent}
     </TouchableOpacity>
   );
@@ -24,8 +29,6 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.primary,
     alignSelf: 'center',
     borderRadius: wp(3),
-    alignItems: 'center',
-    justifyContent: 'center',
     marginTop: hp(3),
     borderColor: COLORS.lavendarWhite,
   },

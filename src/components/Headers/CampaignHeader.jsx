@@ -5,6 +5,7 @@ import { MontserratSemiBold } from '../../theme/fonts';
 import { COLORS } from '../../theme/colors';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { useNavigation } from '@react-navigation/native';
+import stylee from '../../constants/stylee';
 
 const CampaignHeader = ({ enableBackButton = false, title = '', textStyle }) => {
   const navigation = useNavigation();
@@ -26,7 +27,7 @@ const CampaignHeader = ({ enableBackButton = false, title = '', textStyle }) => 
   };
 
   return (
-    <View style={styles.container(enableBackButton)}>
+    <View style={[styles.container(enableBackButton), stylee.shadow]}>
       {renderBackButton()}
       <Text style={[styles.nammetxt, { marginLeft: enableBackButton ? -20 : 0 }, textStyle]}>
       {title? title : ''}
@@ -49,11 +50,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: enableBackButton ? wp(5) : 0,
     backgroundColor: COLORS.background,
     height: hp(6),
-    shadowColor: COLORS.darkGray,
-    shadowOffset: { width: 1, height: 1 },
-    shadowOpacity: 0.4,
-    shadowRadius: 3,
-    elevation: 5,
   }),
   nammetxt: {
     fontFamily: MontserratSemiBold,

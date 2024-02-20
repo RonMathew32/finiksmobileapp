@@ -4,6 +4,7 @@ import TotalVotersInfo from '../../components/TotalVotersInfo';
 import SingleVoter from '../../components/SingleVoter';
 import routes from '../../constants/routes';
 import { COLORS } from '../../theme/colors';
+import stylee from '../../constants/stylee';
 
 const TotalVoters = ({navigation}) => {
   const onPressVoter = () => navigation.navigate(routes?.VoterDetails)
@@ -37,7 +38,7 @@ const TotalVoters = ({navigation}) => {
   const [data, setData] = useState([...totalVotersData])
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={stylee.container}>
       <TotalVotersInfo navigation={navigation} data={data} setData={setData}  totalVotersData={totalVotersData} />
       <FlatList
         data={data}
@@ -51,10 +52,3 @@ const TotalVoters = ({navigation}) => {
 };
 
 export default TotalVoters;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: COLORS.white
-  }
-});

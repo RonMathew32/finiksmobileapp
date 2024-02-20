@@ -1,6 +1,7 @@
 import { StyleSheet, View, TextInput } from 'react-native';
 import React, { useMemo } from 'react';
 import { hp, normalize, wp } from '../../theme/dimensions';
+import stylee from '../../constants/stylee';
 
 const InputText = ({
   placeholder,
@@ -20,9 +21,11 @@ const InputText = ({
     [textInputStyle]
   );
 
+  const MemoizedLeftComponent = useMemo(() => LeftComponent && <LeftComponent />, [LeftComponent]);
+
   return (
-    <View style={[styles.container, containerStyle]}>
-      {LeftComponent && <LeftComponent />}
+    <View style={[styles.container, stylee.alignR, containerStyle]}>
+      {MemoizedLeftComponent}
       <TextInput
         placeholder={placeholder}
         placeholderTextColor="rgba(154, 159, 165, 1)"
@@ -39,6 +42,11 @@ const InputText = ({
   );
 };
 
+InputText.defaultProps = {
+  multiline: false,
+  secureTextEntry: false,
+};
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -48,8 +56,6 @@ const styles = StyleSheet.create({
     paddingVertical: hp(1),
     paddingHorizontal: wp(3),
     backgroundColor: 'rgba(255, 255, 255, 0.1)',
-    flexDirection: 'row',
-    alignItems: 'center',
     marginBottom: hp(1.5),
   },
   textInput: {

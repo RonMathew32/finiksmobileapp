@@ -1,17 +1,12 @@
-import React, { useState, useMemo } from 'react';
-import {
-  FlatList,
-  Image,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import React, { useState, useMemo, useCallback } from 'react';
+import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Modal from 'react-native-modal';
 import CountryData from '../../utils/CountryData';
 import { hp, normalize, wp } from '../../theme/dimensions';
 import { Belleza } from '../../theme/fonts';
 import { arrowdown, crossicon } from '../../theme/images';
+import stylee from '../../constants/stylee';
+import { COLORS } from '../../theme/colors';
 
 const CountryPicker = () => {
   const [country, setCountry] = useState({
@@ -22,53 +17,37 @@ const CountryPicker = () => {
   });
   const [visible, setVisible] = useState(false);
 
-  const onItemPress = item => {
+  const onItemPress = useCallback(item => {
     setCountry(item);
     setVisible(false);
-  };
+  }, []);
 
-  const CountryItem = useMemo(
-    () => ({ item }) => (
-      <TouchableOpacity
-        onPress={() => onItemPress(item)}
-        style={styles.itembox}>
-        <Text style={styles.flag}>{item.flag}</Text>
-        <Text style={styles.codetxt}>
-          {item.name} {item.dial_code}
-        </Text>
-      </TouchableOpacity>
-    ),
-    []
-  );
+  const CountryItem = useMemo(() => ({ item }) => (
+    <TouchableOpacity onPress={() => onItemPress(item)} style={stylee.alignR}>
+      <Text style={styles.flag}>{item.flag}</Text>
+      <Text style={styles.codetxt}>{item.name} {item.dial_code}</Text>
+    </TouchableOpacity>
+  ), [onItemPress]);
 
   return (
     <View>
-      <TouchableOpacity
-        onPress={() => setVisible(!visible)}
-        style={styles.pickerbox}>
+      <TouchableOpacity onPress={() => setVisible(!visible)} style={stylee.alignR}>
         <Text style={styles.flag}>{country.flag}</Text>
         <Text style={styles.codetxt}>{country.dial_code}</Text>
-        <Image
-          source={arrowdown}
-          style={styles.arrowdown}
-          resizeMode="contain"
-        />
+        <Image source={arrowdown} style={styles.arrowdown} resizeMode="contain" />
         <View style={styles.line} />
       </TouchableOpacity>
       <Modal
         style={styles.modalbox}
         isVisible={visible}
         onBackdropPress={() => setVisible(false)}
-        onBackButtonPress={() => setVisible(false)}>
+        onBackButtonPress={() => setVisible(false)}
+      >
         <View style={styles.modalcontainer}>
-          <View style={styles.headbox}>
+          <View style={[styles.headbox, stylee.alignJSR]}>
             <Text style={styles.picktxt}>Pick Your Country</Text>
             <TouchableOpacity onPress={() => setVisible(false)}>
-              <Image
-                source={crossicon}
-                style={styles.crossicon}
-                resizeMode="contain"
-              />
+              <Image source={crossicon} style={styles.crossicon} resizeMode="contain" />
             </TouchableOpacity>
           </View>
           <FlatList
@@ -84,11 +63,6 @@ const CountryPicker = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {},
-  pickerbox: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
   flag: {
     fontSize: normalize(31),
     lineHeight: normalize(31),
@@ -107,9 +81,11 @@ const styles = StyleSheet.create({
     height: '100%',
     borderRightWidth: 1,
     marginHorizontal: wp(3),
-    borderColor: COLORS.lightGray,
+    borderColor: 'rgba(24, 24, 24, .4)',
   },
-  modalbox: { marginHorizontal: wp(2) },
+  modalbox: {
+    marginHorizontal: wp(2),
+  },
   modalcontainer: {
     backgroundColor: COLORS.white,
     borderRadius: wp(4),
@@ -117,9 +93,6 @@ const styles = StyleSheet.create({
     padding: wp(4),
   },
   headbox: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
     marginBottom: hp(2),
   },
   picktxt: {
@@ -132,8 +105,6 @@ const styles = StyleSheet.create({
   },
   itembox: {
     flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
     borderBottomWidth: 1,
     borderBottomColor: 'rgba(24, 24, 24, .4)',
     marginBottom: hp(1),
