@@ -5,7 +5,7 @@ import { hp, normalize, wp } from '../../theme/dimensions';
 import stylee from '../../constants/stylee';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-const DropDown = ({ data, selected, setSelected }) => {
+const DropDown = ({ data, selected, setSelected, onSelectFilterOption }) => {
   const [showOptions, setShowOptions] = useState(false);
 
   useEffect(() => {
@@ -14,6 +14,7 @@ const DropDown = ({ data, selected, setSelected }) => {
 
   const handleOptionSelect = option => {
     setSelected(option);
+    onSelectFilterOption(option)
     setShowOptions(false);
   };
 

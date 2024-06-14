@@ -12,7 +12,7 @@ function* handleApiRequest({
 }) {
   try {
     if (data?.setLoading) data.setLoading(true);
-    const headers = data?.token? {Authorization: `${data?.payload?.role} Bearer ` + data?.token} : {};
+    const headers = data?.token? {Authorization: `${data?.role} Bearer ` + data?.token} : {};
 
     const res = yield ApiCall({body: data?.payload, route, verb, headers});
     const {status, response} = res;
@@ -41,15 +41,29 @@ function* handleApiRequest({
   }
 }
 
-function* getCanvassingListByNameRequest({data}) {
+function* getCanvassingSearchByNameRequest({data}) {
   yield handleApiRequest({
     data,
-    route: 'api/canvassing/searchcanvassinglists',
+    route: 'api/canvassing/searchvotersforcanvassing',
     verb: 'POST',
-    successMessage: 'CANVASSING LIST BY NAME ',
+    successMessage: 'CANVASSING SEARCH BY NAME ',
   });
 }
 
-export function* getCanvassingListByNameRequestSaga() {
-  yield takeLatest(ACTION_TYPES.CANASSING_BY_NAME.GET, getCanvassingListByNameRequest);
+export function* getCanvassingSearchByNameRequestSaga() {
+  yield takeLatest(ACTION_TYPES.CANASSING_SEARCH_VOTER_BY_NAME.GET, getCanvassingSearchByNameRequest);
+}
+
+function* getCanvassingFiltersRequest({data}) {
+  yield handleApiRequest({
+    data,
+    route: 'api/clients/getdistricts',
+    verb: 'POST',
+    successMessage: `CANVASSING ${data?.field} FILTERS`,
+    successAction: data?.successAction
+  });
+}
+
+export function* getCanvassingFiltersRequestSaga() {
+  yield takeLatest(ACTION_TYPES.CANVASSING_FILTERS.GET, getCanvassingFiltersRequest);
 }

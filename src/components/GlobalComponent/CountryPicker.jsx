@@ -23,7 +23,7 @@ const CountryPicker = () => {
   }, []);
 
   const CountryItem = useMemo(() => ({ item }) => (
-    <TouchableOpacity onPress={() => onItemPress(item)} style={stylee.alignR}>
+    <TouchableOpacity key={item?._id} onPress={() => onItemPress(item)} style={stylee.alignR}>
       <Text style={styles.flag}>{item.flag}</Text>
       <Text style={styles.codetxt}>{item.name} {item.dial_code}</Text>
     </TouchableOpacity>

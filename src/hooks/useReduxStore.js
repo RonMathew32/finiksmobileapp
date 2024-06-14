@@ -1,11 +1,18 @@
 import {useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
+import { ToastMessageLight } from '../utils/DisplayMessage';
 
 const useReduxStore = () => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const {token, user} = useSelector(state => state.authRed);
+  const commonAPIData = {
+    token,
+    role: user?.role,
+    ToastMessageLight,
+  };
   const {allCampaign, currentCampaign, campaignId} = useSelector(state => state?.campRed);
+  const {canvassingSearchByName, canvassingFilters} = useSelector(state => state?.canvassingRed);
   const {phoneBankRecords, currentRecord} = useSelector(state => state?.phoneBankRed);
   const {
     votersList,
@@ -44,7 +51,10 @@ const useReduxStore = () => {
     listId,
     listDone,
     currentRecord,
-    campaignId
+    campaignId,
+    commonAPIData,
+    canvassingSearchByName, 
+    canvassingFilters
   };
 };
 

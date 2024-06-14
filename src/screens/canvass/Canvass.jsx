@@ -1,5 +1,5 @@
 import {Pressable, SafeAreaView, StyleSheet, Text, View} from 'react-native';
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {COLORS} from '../../theme/colors';
 import HomeHeader from '../../components/Headers/HomeHeader';
 import {hp, normalize, wp} from '../../theme/dimensions';
@@ -9,10 +9,13 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import routes from '../../constants/routes';
 import stylee from '../../constants/stylee';
 import DropDown from '../../components/GlobalComponent/DropDown';
-import { canvasSearchOptions } from '../../constants/dummy';
+import { canvasSearchFilters } from '../../constants/dummy';
+import useReduxStore from '../../hooks/useReduxStore';
+import { getCanvassingFilters, setCanvassingFilters } from '../../redux/actions/canvassing.actions';
 
 const Canvass = ({navigation}) => {
   const [selected, setSelected] = useState('Un Select')
+  const { dispatch, commonAPIData, canvassingSearchByName, canvassingFilters } = useReduxStore()
   const [data, setData] = useState({
     byName: '',
     byLocation: '',
@@ -36,19 +39,32 @@ const Canvass = ({navigation}) => {
     navigation.navigate(routes?.UpdateVoterInfo, {canvass: true});
   },[navigation]);
 
-  const onPressSearch = ()=>{
+  const onPressSearch = ()=> {
     console.log(data.byName, selected?.name)
   }
 
+  const onSelectFilterOption = useCallback((selection) => {
+      if(selection?.name!==canvasSearchFilters[0]?.name && selection?.name!== undefined){
+      dispatch(getCanvassingFilters({
+        ...commonAPIData,
+        field : selection?.field,
+        state : "FL",
+        successAction: setCanvassingFilters
+      }))
+    }
+  },[dispatch, commonAPIData])
+  
+// console.log(canvassingFilters);
 
   return (
     <SafeAreaView style={stylee.container}>
       <HomeHeader canvass={true} onPressAddVoter={onPressAddVoter} />
       <View style={styles.layout}>
         <DropDown
-          data={canvasSearchOptions}
+          data={canvasSearchFilters}
           selected={selected}
           setSelected={setSelected}
+          onSelectFilterOption={(select)=> onSelectFilterOption(select)}
         />
         <Text style={styles.heading(COLORS.primary)}>Search</Text>
         <Text style={styles.searchBy}>By Voter:</Text>

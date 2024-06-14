@@ -54,6 +54,7 @@ const VoterCheck = ({route, navigation}) => {
     listId,
     unDoneVoters,
     script,
+    commonAPIData
   } = useReduxStore();
 
   const {loading, GetUsersData} = useVoterCheck(item);
@@ -73,12 +74,6 @@ const VoterCheck = ({route, navigation}) => {
   const commonPayloadData = {
     listId: listId,
     voterId: currentVoter?._id,
-  };
-
-  const commonAPIData = {
-    token,
-    role: user?.role,
-    ToastMessageLight,
   };
 
   const onPressNextVoter = useCallback(() => {
